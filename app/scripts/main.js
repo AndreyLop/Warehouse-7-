@@ -90,11 +90,14 @@ $(document).ready(function(){
 
   //File upload
   (function(){
-    $('.upload-form__upload-button').on('click', function(){
-      var file = $('.upload-form__input-file')[0];
+    $(document).on('click','.upload-form__upload-button',  function(){
+      var formDOMObj = document.uploadForm.fileUpload.files[0];
+      console.log(formDOMObj.size);
+      console.log(formDOMObj.name);
+      console.log(formDOMObj.type);
       $.ajax({
         url:'http://localhost/project/dist/move_to_folder.php',
-        data: new FormData(file),// the formData function is available in almost all new browsers.
+        data: new FormData(formDOMObj),// the formData function is available in almost all new browsers.
         type:'post',
         contentType:false,
         processData:false,
