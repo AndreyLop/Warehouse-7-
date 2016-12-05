@@ -1,0 +1,12 @@
+{
+  "name": "project",
+  "private": true,
+  "dependencies": {
+    "jquery": "~1.12.4",
+    "modernizr": "~2.8.1"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^3.2.0"
+  }
+}
