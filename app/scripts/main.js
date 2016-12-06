@@ -23,7 +23,7 @@ $(document).ready(function(){
         e.preventDefault();
       }else{
         e.returnValue = false;
-      };
+      }
       var pageRef = $(this).attr('href');
 			callPage(pageRef)
 		});
@@ -90,30 +90,54 @@ $(document).ready(function(){
 
   //File upload
   (function(){
-    $(document).on('click','.upload-form__upload-button',  function(){
-      var formDOMObj = document.uploadForm.fileUpload.files[0];
-      console.log(formDOMObj.size);
-      console.log(formDOMObj.name);
-      console.log(formDOMObj.type);
-      $.ajax({
-        url:'http://localhost/project/dist/move_to_folder.php',
-        data: new FormData(formDOMObj),// the formData function is available in almost all new browsers.
-        type:'post',
-        contentType:false,
-        processData:false,
-        cache:false,
-        error:function(err){
-          console.error(err);
-        },
-        success:function(data){
-          console.log(data);
-        },
-        complete:function(){
-          console.log('Request finished.');
-        }
-      });
+    $('.content').on('click','.upload-form__upload-input',  function(){
+      $('.progress-bar').text('0%');
+      $('.progress-bar').width('0%');
     });
-  })();//end file upload
 
+
+    $('.content').on('click', '.upload-form__upload-button', function(){
+      var  files = $('.upload-form__upload-input').get(0).files;
+
+      if(files.length > 0) {
+        var formData = new FormData();
+
+        for(var i = 0; i < files.length; i++) {
+          var file = files[i];
+          formData.append('uploads[]', file, file.name);
+        }
+
+        $.ajax({
+          url: '/upload',
+          type: 'POST',
+          data: formData,
+          processData: false,
+          contentType: false,
+          success: function(data) {
+            console.log('upload successful\n' + data);
+          },
+          xhr: function() {
+            var xhr = new XMLHttpRequest();
+
+            xhr.upload.addEventListener('progress', function(e){
+              if(e.lengthComputable){
+                var percentComplete = e.loaded/e.total;
+                percentComplete = parseInt(percentComplete * 100);
+
+                $('.progress-bar').text(percentComplete + '%');
+                $('.progress-bar').width(percentComplete + '%');
+
+                if(percentComplete == 100) {
+                  $('.progress-bar').html('Done');
+                }
+              }
+            }, false);
+            return xhr;
+          }
+        });
+      }
+    });
+
+  })();//end file upload
 
 }); //end ready

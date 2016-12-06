@@ -1,6 +1,9 @@
 <div>
   <form class="upload-form" enctype="multipart/form-data" method="post" name="uploadForm">
-    <input type="file" name="fileUpload" class="upload-form__input-file">
+    <input id="upload-input" type="file" name="uploads[]" multiple="multiple" class="upload-form__upload-input upload-input">
+    <div class="upload-form__progress">
+      <div class="progress-bar" role="progressbar"></div>
+    </div>
     <button type="button" class="upload-form__upload-button">Upload file</button>
   </form>
 </div>
