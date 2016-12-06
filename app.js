@@ -3,6 +3,10 @@ var app = express();
 var path = require('path');
 var formidable = require('formidable');
 var fs = require('fs');
+var jsonfile = require('jsonfile');
+var parsedJSON = require('./upload/dataBase.json');
+
+
 
 app.use(express.static(path.join(__dirname, 'dist')));
 
@@ -11,6 +15,21 @@ app.get('/', function(req, res){
 });
 
 app.post('/upload', function(req, res){
+
+
+  function writeToFile(fileName, fileType, fileTitle, fileLocation) {
+
+    function NewFileUpload() {
+      this.name = fileName;
+      this.type = fileType;
+      this.title = fileTitle;
+      this.location = fileLocation;
+      this.rating = 0;
+      this.date = new Date();
+    };
+    parsedJSON.push(new NewFileUpload());
+    jsonfile.writeFileSync(form.uploadDir + '/dataBase.json', parsedJSON, {spaces: 2});
+  };
 
   // create an incoming form object
   var form = new formidable.IncomingForm();
@@ -24,7 +43,28 @@ app.post('/upload', function(req, res){
   // every time a file has been uploaded successfully,
   // rename it to it's orignal name
   form.on('file', function(field, file) {
-    fs.rename(file.path, path.join(form.uploadDir, file.name));
+    console.log(parsedJSON);
+    if(/\bapplication\b/.test(file.type)){
+
+      writeToFile(file.name, 'text', field, '../upload/' + file.name);
+
+      fs.rename(file.path, path.join(form.uploadDir + '/text', file.name));
+
+    } else if(/\bvideo\b/.test(file.type)) {
+
+      writeToFile(file.name, 'video', field, '../upload/' + file.name);
+
+      fs.rename(file.path, path.join(form.uploadDir + '/video', file.name));
+
+    } else if(/\baudio\b/.test(file.type)) {
+
+      writeToFile(file.name, 'audio', field, '../upload/' + file.name);
+
+      fs.rename(file.path, path.join(form.uploadDir + '/audio', file.name));
+      
+    } else {
+      fs.rename(file.path, path.join(form.uploadDir + '/misc', file.name));
+    }
   });
 
   // log any errors that occur
@@ -39,6 +79,7 @@ app.post('/upload', function(req, res){
 
   // parse the incoming request containing the form data
   form.parse(req);
+
 
 });
 

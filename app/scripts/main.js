@@ -97,14 +97,15 @@ $(document).ready(function(){
 
 
     $('.content').on('click', '.upload-form__upload-button', function(){
-      var  files = $('.upload-form__upload-input').get(0).files;
+      var files = $('.upload-form__upload-input').get(0).files;
+      var title = $('.upload-form__file-name').val();
 
       if(files.length > 0) {
         var formData = new FormData();
 
         for(var i = 0; i < files.length; i++) {
           var file = files[i];
-          formData.append('uploads[]', file, file.name);
+          formData.append(title || 'upload', file, file.name);
         }
 
         $.ajax({
@@ -115,6 +116,7 @@ $(document).ready(function(){
           contentType: false,
           success: function(data) {
             console.log('upload successful\n' + data);
+            $('.upload-form__file-name').val('');
           },
           xhr: function() {
             var xhr = new XMLHttpRequest();
