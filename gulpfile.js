@@ -83,6 +83,13 @@ gulp.task('extras', () => {
   }).pipe(gulp.dest('dist'));
 });
 
+gulp.task('move',() => {
+  return gulp.src([
+    './app/upload/*'
+  ],  {base: './app/'})
+    .pipe(gulp.dest('./dist/'));
+});
+
 gulp.task('clean', del.bind(null, ['.tmp', 'dist']));
 
 gulp.task('serve', () => {

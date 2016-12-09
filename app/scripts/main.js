@@ -1,32 +1,32 @@
 $(document).ready(function(){
   //Load page elements logic
-	(function(){
-		function callPage(pageRefInput) {
-			$.ajax({
-				url: pageRefInput,
-				type: 'GET',
-				dataType: 'text',
-				success: function(response) {
-					$('.content').html(response);
-				},
-				error: function(error) {
-					console.log('the page was NOT loaded', error);
-				},
-				complete: function(xhr, status) {
-					console.log('the request is complete!');
-				}
-			})
-		}//end callPage
+  (function(){
+    function callPage(pageRefInput) {
+      $.ajax({
+        url: pageRefInput,
+        type: 'GET',
+        dataType: 'text',
+        success: function(response) {
+          $('.content').html(response);
+        },
+        error: function(error) {
+          console.log('the page was NOT loaded', error);
+        },
+        complete: function(xhr, status) {
+          console.log('the request is complete!');
+        }
+      })
+    }//end callPage
 
-		$('a').on('click', function(e){
+    $('.nav__element').on('click', function(e){
       if(e.preventDefault){
         e.preventDefault();
       }else{
         e.returnValue = false;
       }
       var pageRef = $(this).attr('href');
-			callPage(pageRef)
-		});
+      callPage(pageRef);
+    });
 
   })();
 
@@ -52,7 +52,7 @@ $(document).ready(function(){
     });
 
     $('.content').on('keyup', '.registration-form__input-email' , function() {
-     emailStatus = keyPressInputChecker($('.registration-form__input-email'), regEmailREGexp);
+      emailStatus = keyPressInputChecker($('.registration-form__input-email'), regEmailREGexp);
       userData.email = $('.registration-form__input-email').val();
     });
 
@@ -73,12 +73,13 @@ $(document).ready(function(){
       if(nameStatus && emailStatus && passStatus && passConfirmStatus) {
         var jsonUserData = JSON.stringify(userData);
         $.ajax({
-          type: 'GET',
+          type: 'POST',
           dataType: 'json',
+          contentType: 'application/json',
           data: jsonUserData,
-          url: 'http://localhost/project/dist/save_to_json.php',
-          success: function() {
-            console.log(jsonUserData);
+          url: '/registration',
+          success: function(res) {
+            console.log(res);
           },
           error: function(data) {
             console.log('Error', data);
@@ -90,56 +91,96 @@ $(document).ready(function(){
 
   //File upload
   (function(){
-    $('.content').on('click','.upload-form__upload-input',  function(){
-      $('.progress-bar').text('0%');
-      $('.progress-bar').width('0%');
-    });
+    if(window.FormData !==undefined) {
+      $('.content').on('click','.upload-form__upload-input',  function(){
+        $('.progress-bar').text('0%');
+        $('.progress-bar').width('0%');
+      });
 
 
-    $('.content').on('click', '.upload-form__upload-button', function(){
-      var files = $('.upload-form__upload-input').get(0).files;
-      var title = $('.upload-form__file-name').val();
+      $('.content').on('click', '.upload-form__upload-button', function(e){
+        e.preventDefault();
+        var files = $('.upload-form__upload-input').get(0).files;
+        var title = $('.upload-form__file-name').val();
 
-      if(files.length > 0) {
-        var formData = new FormData();
+        if(files.length > 0 && title.length > 0) {
+          var formData = new FormData();
 
-        for(var i = 0; i < files.length; i++) {
-          var file = files[i];
-          formData.append(title || 'upload', file, file.name);
-        }
-
-        $.ajax({
-          url: '/upload',
-          type: 'POST',
-          data: formData,
-          processData: false,
-          contentType: false,
-          success: function(data) {
-            console.log('upload successful\n' + data);
-            $('.upload-form__file-name').val('');
-          },
-          xhr: function() {
-            var xhr = new XMLHttpRequest();
-
-            xhr.upload.addEventListener('progress', function(e){
-              if(e.lengthComputable){
-                var percentComplete = e.loaded/e.total;
-                percentComplete = parseInt(percentComplete * 100);
-
-                $('.progress-bar').text(percentComplete + '%');
-                $('.progress-bar').width(percentComplete + '%');
-
-                if(percentComplete == 100) {
-                  $('.progress-bar').html('Done');
-                }
-              }
-            }, false);
-            return xhr;
+          for(var i = 0; i < files.length; i++) {
+            var file = files[i];
+            formData.append(title || 'upload', file, file.name);
           }
-        });
-      }
-    });
+
+          $.ajax({
+            url: '/upload',
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function(data) {
+              console.log('upload successful\n' + data);
+              $('.upload-form__file-name').val('');
+              $('.upload-form__upload-input').get(0).files = null;
+            },
+            xhr: function() {
+              var xhr = new XMLHttpRequest();
+
+              xhr.upload.addEventListener('progress', function(e){
+                if(e.lengthComputable){
+                  var percentComplete = e.loaded/e.total;
+                  percentComplete = parseInt(percentComplete * 100);
+
+                  $('.progress-bar').text(percentComplete + '%');
+                  $('.progress-bar').width(percentComplete + '%');
+
+                  if(percentComplete == 100) {
+                    $('.progress-bar').html('Done');
+                  }
+                }
+              }, false);
+              return xhr;
+            }
+          });
+        } else { // Error if user didn't input title of file
+          console.log('Give it title please');
+        }
+      });
+    } else { // IE8 nightmare solution for file upload, sending whole iframe which is created here
+      var iframeUpload = {
+        init: function() {
+          $('body').append('<iframe name="uploadiframe" onload="iframeUpload.complete();" style="display: none"></iframe>');
+          $('.content').on('click', '.upload-form__upload-button', iframeUpload.started);
+        },
+        started: function() {
+          $('#response').html('Loading, please wait.').show();
+          $('form').hide();
+        },
+        complete: function(){
+          $('form').show();
+          var response = $('iframe').contents().text();
+          if(response){
+            response = $.parseJSON(response);
+            console.log(response);
+          }
+        }
+      };
+      iframeUpload.init();
+    } // end IE8 upload support
 
   })();//end file upload
+
+  //Library logic
+  (function(){
+    function loadFiles() {
+      $.getJSON('dataBase.json', function(data){
+        for(var i = 0; i < data.length; i++) {
+          console.log(data[i].name);
+        }
+      });
+    }
+    $('.content').on('click', '.library__all', function(){
+      loadFiles();
+    });
+  })();//End library logic
 
 }); //end ready
