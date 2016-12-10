@@ -5,10 +5,14 @@ var formidable = require('formidable');
 var fs = require('fs');
 var jsonfile = require('jsonfile');
 var bodyParser = require('body-parser');
-var filesDataBase = require('./app/dataBase.json');
+var filesDataBase = require('./dist/dataBase.json');
 var usersDataBase = require('./registration/usersDataBase.json');
 
-
+var fileName = "";
+var fileType = "";
+var fileLocation = "";
+var fileTitle = "";
+var fileDescription = "";
 
 app.use(express.static(path.join(__dirname, 'dist')));
 
@@ -18,63 +22,69 @@ app.get('/', function(req, res){
 
 app.post('/upload', function(req, res){
 
-  function writeToFile(fileName, fileType, fileTitle, fileLocation) {
+  function writeToFile(fileName, fileTitle, fileType, fileDescription, fileLocation) {
 
     function NewFileUpload() {
       this.name = fileName;
+      this.title= fileTitle
       this.type = fileType;
-      this.title = fileTitle || fileName;
+      this.description = fileDescription;
       this.location = fileLocation;
       this.rating = 0;
       this.date = new Date();
     };
     filesDataBase.push(new NewFileUpload());
-    jsonfile.writeFileSync('./app/dataBase.json', filesDataBase, {spaces: 2});
+    jsonfile.writeFileSync('./dist/dataBase.json', filesDataBase, {spaces: 2});
   };
 
   // create an incoming form object
   var form = new formidable.IncomingForm();
-
-  // specify that we want to allow the user to upload multiple files in a single request
-  form.multiples = true;
 
   // store all uploads in the /uploads directory
   form.uploadDir = path.join(__dirname, '/upload');
 
   // every time a file has been uploaded successfully,
   // rename it to it's orignal name
-  form.on('file', function(field, file) {
+
+  form.on('file', function(title, file) { //fires when file has been send
+    fileName = file.name;
+    fileType = file.type;
+
     if(/\bapplication\b/.test(file.type)){
-
-      writeToFile(file.name, 'text', field, '../upload/' + file.name);
-
+      fileLocation = form.uploadDir + '/text';
       fs.rename(file.path, path.join(form.uploadDir + '/text', file.name));
-
     } else if(/\bvideo\b/.test(file.type)) {
-
-      writeToFile(file.name, 'video', field, '../upload/' + file.name);
-
+      fileLocation = form.uploadDir + '/video';
       fs.rename(file.path, path.join(form.uploadDir + '/video', file.name));
-
     } else if(/\baudio\b/.test(file.type)) {
-
-      writeToFile(file.name, 'audio', field, '../upload/' + file.name);
-
+      fileLocation = form.uploadDir + '/audio';
       fs.rename(file.path, path.join(form.uploadDir + '/audio', file.name));
-
     } else {
       fs.rename(file.path, path.join(form.uploadDir + '/misc', file.name));
     }
+
   });
+
+
+  form.on('field', function(name, value) { //fires when filed was send
+    if(name == "title") {
+      fileTitle = value;
+    } else {
+      fileDescription = value;
+    }
+
+  });
+
+  form.on('end', function(){
+    writeToFile(fileName, fileTitle, fileType, fileDescription, fileLocation);
+    res.end('success');
+  });
+
+
 
   // log any errors that occur
   form.on('error', function(err) {
     console.log('An error has occured: \n' + err);
-  });
-
-  // once all the files have been uploaded, send a response to the client
-  form.on('end', function() {
-    res.end('success');
   });
 
   // parse the incoming request containing the form data

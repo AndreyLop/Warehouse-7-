@@ -100,16 +100,16 @@ $(document).ready(function(){
 
       $('.content').on('click', '.upload-form__upload-button', function(e){
         e.preventDefault();
-        var files = $('.upload-form__upload-input').get(0).files;
+        var file = $('.upload-form__upload-input')[0].files[0];
         var title = $('.upload-form__file-name').val();
+        var description = $('.upload-form__description-textarea').val();
 
-        if(files.length > 0 && title.length > 0) {
+        if(file !== undefined && title.length > 0 && description.length > 0) {
           var formData = new FormData();
 
-          for(var i = 0; i < files.length; i++) {
-            var file = files[i];
-            formData.append(title || 'upload', file, file.name);
-          }
+          formData.append('newFile', file, file.name);
+          formData.append('title', title);
+          formData.append('description', description);
 
           $.ajax({
             url: '/upload',
@@ -120,7 +120,7 @@ $(document).ready(function(){
             success: function(data) {
               console.log('upload successful\n' + data);
               $('.upload-form__file-name').val('');
-              $('.upload-form__upload-input').get(0).files = null;
+              $('.upload-form__description-textarea').val('');
             },
             xhr: function() {
               var xhr = new XMLHttpRequest();
@@ -146,10 +146,11 @@ $(document).ready(function(){
         }
       });
     } else { // IE8 nightmare solution for file upload, sending whole iframe which is created here
+
       var iframeUpload = {
         init: function() {
           $('body').append('<iframe name="uploadiframe" onload="iframeUpload.complete();" style="display: none"></iframe>');
-          $('.content').on('click', '.upload-form__upload-button', iframeUpload.started);
+          iframeUpload.started();
         },
         started: function() {
           $('#response').html('Loading, please wait.').show();
@@ -157,6 +158,7 @@ $(document).ready(function(){
         },
         complete: function(){
           $('form').show();
+          $('#response').html('Done').show();
           var response = $('iframe').contents().text();
           if(response){
             response = $.parseJSON(response);
@@ -164,7 +166,21 @@ $(document).ready(function(){
           }
         }
       };
-      iframeUpload.init();
+      $('.content').on('click', '.upload-form__upload-button', function(e){
+
+        var name = $('.upload-form__file-name').val();
+        var file = $('.upload-form__upload-input').val();
+        console.log(file);
+
+        if(name.length > 0 && file != '') {
+          $('.upload-form__upload-input').attr('name', name);
+          iframeUpload.init();
+        } else {
+          e.preventDefault();
+          console.log('enter title please');
+        }
+      });
+
     } // end IE8 upload support
 
   })();//end file upload
@@ -172,10 +188,15 @@ $(document).ready(function(){
   //Library logic
   (function(){
     function loadFiles() {
+      $('.list__item').remove();
+
       $.getJSON('dataBase.json', function(data){
+        var resultsArr = [];
         for(var i = 0; i < data.length; i++) {
-          console.log(data[i].name);
+          var item = '<li class="list__item"><div>'+ data[i].title + '</div></li>'
+          resultsArr.push(item);
         }
+        $('.library__list').append(resultsArr);
       });
     }
     $('.content').on('click', '.library__all', function(){
