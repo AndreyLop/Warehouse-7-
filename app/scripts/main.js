@@ -158,7 +158,7 @@ $(document).ready(function(){
         },
         complete: function(){
           $('form').show();
-          $('#response').html('Done').show();
+          $('#response').html(' ').show();
           var response = $('iframe').contents().text();
           if(response){
             response = $.parseJSON(response);
@@ -170,10 +170,10 @@ $(document).ready(function(){
 
         var name = $('.upload-form__file-name').val();
         var file = $('.upload-form__upload-input').val();
-        console.log(file);
+        var description = $('.upload-form__description-textarea').val();
 
-        if(name.length > 0 && file != '') {
-          $('.upload-form__upload-input').attr('name', name);
+
+        if(name.length > 0 && file != '' && description.length > 0) {
           iframeUpload.init();
         } else {
           e.preventDefault();
@@ -187,20 +187,53 @@ $(document).ready(function(){
 
   //Library logic
   (function(){
-    function loadFiles() {
-      $('.list__item').remove();
+    function loadFiles(filter) {
+      $('.list__item').remove(); //clear all previous items
+      var re = new RegExp(filter);
 
       $.getJSON('dataBase.json', function(data){
         var resultsArr = [];
         for(var i = 0; i < data.length; i++) {
-          var item = '<li class="list__item"><div>'+ data[i].title + '</div></li>'
+          if(!re.test(data[i].type)) continue;
+
+          var item = '<li class="list__item item"><div>' +
+            '<h4>' + data[i].title + '</h4>' +
+            '<span class="item__type"> File type: ' + data[i].type + '</span><br />' +
+            '<span class="item__original-name">Original file name: ' + data[i].name + '</span><br />' +
+            '<span class="item__date"> Uploaded: ' + data[i].date + '</span><br />' +
+            '<p class="item__description">' + data[i].description + '</p>' +
+            '<button type="button" class="item__rating-down">I hated it...</button>' +
+            '<span class="item__rating"> Rating: ' + data[i].rating + '</span>' +
+            '<button type="button" class="item__rating-up">I liked it!</button><br />' +
+            '<a href = "' + data[i].location + '">Download file</a>' +
+            '</div></li>';
           resultsArr.push(item);
         }
         $('.library__list').append(resultsArr);
       });
-    }
-    $('.content').on('click', '.library__all', function(){
-      loadFiles();
+    } //end loadFiles
+
+    $('.content').on('change', 'input[name="library__sort"]', function(){
+      $('.library__search').val(' ');
+      if(this.id == 'sort-all') {
+        loadFiles();
+      } else if(this.id == 'sort-text') {
+        loadFiles('application');
+      } else if(this.id == 'sort-video') {
+        loadFiles('video');
+      } else if(this.id == 'sort-audio') {
+        loadFiles('audio');
+      }
+    });
+    // Text search
+    $('.content').on('keyup', '.library__search', function(){
+      var searchText = $(this).val();
+
+      $('.list__item').each(function(){
+        var currentText = $(this).text(),
+          showCurrent = currentText.indexOf(searchText) !== -1;
+        $(this).toggle(showCurrent);
+      });
     });
   })();//End library logic
 

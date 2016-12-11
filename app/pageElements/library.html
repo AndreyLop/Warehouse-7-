@@ -1,8 +1,13 @@
 <div class="library">
-  <button type="button" class="library__all">Show all files</button>
-  <button type="button" class="library__text">Show text files only</button>
-  <button type="button" class="library__video">Show video files only</button>
-  <button type="button" class="library__audio">Show audio files only</button>
+  <label for="sort-all">Show all files</label>
+  <input type="radio" name="library__sort" id="sort-all" class="sort-all">
+  <label for="sort-text">Show text files only</label>
+  <input type="radio" name="library__sort" id="sort-text" class="sort-text">
+  <label for="sort-video">Show video files only</label>
+  <input type="radio" name="library__sort" id="sort-video" class="sort-video">
+  <label for="sort-audio">Show audio files only</label>
+  <input type="radio" name="library__sort" id="sort-audio" class="sort-audio">
+  <input type="search" name="library-search" id="library__search" class="library__search">
   <div class="library__files">
     <ul class="library__list">
 

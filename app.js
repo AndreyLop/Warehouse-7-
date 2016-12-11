@@ -13,6 +13,7 @@ var fileType = "";
 var fileLocation = "";
 var fileTitle = "";
 var fileDescription = "";
+var fileDate = new Date();
 
 app.use(express.static(path.join(__dirname, 'dist')));
 
@@ -22,7 +23,7 @@ app.get('/', function(req, res){
 
 app.post('/upload', function(req, res){
 
-  function writeToFile(fileName, fileTitle, fileType, fileDescription, fileLocation) {
+  function writeToFile(fileName, fileTitle, fileType, fileDescription, fileLocation, fileDate) {
 
     function NewFileUpload() {
       this.name = fileName;
@@ -31,7 +32,8 @@ app.post('/upload', function(req, res){
       this.description = fileDescription;
       this.location = fileLocation;
       this.rating = 0;
-      this.date = new Date();
+      this.date = fileDate.getDate() + "." + (fileDate.getMonth() + 1 < 10 ? "0" + (fileDate.getMonth() + 1) : (fileDate.getMonth() + 1)) + "." + fileDate.getFullYear() + " on " + fileDate.getHours() + ":" + fileDate.getMinutes();
+      this.sortDate = new Date();
     };
     filesDataBase.push(new NewFileUpload());
     jsonfile.writeFileSync('./dist/dataBase.json', filesDataBase, {spaces: 2});
@@ -72,19 +74,16 @@ app.post('/upload', function(req, res){
     } else {
       fileDescription = value;
     }
-
   });
-
-  form.on('end', function(){
-    writeToFile(fileName, fileTitle, fileType, fileDescription, fileLocation);
-    res.end('success');
-  });
-
-
 
   // log any errors that occur
   form.on('error', function(err) {
     console.log('An error has occured: \n' + err);
+  });
+
+  form.on('end', function(){
+    writeToFile(fileName, fileTitle, fileType, fileDescription, fileLocation, fileDate);
+    res.end('success');
   });
 
   // parse the incoming request containing the form data
@@ -92,6 +91,12 @@ app.post('/upload', function(req, res){
 
 
 });
+
+//Content voting
+
+
+
+// END content voting
 
 //Registration
 
