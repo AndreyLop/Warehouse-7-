@@ -13,7 +13,6 @@ $(document).ready(function(){
           console.log('the page was NOT loaded', error);
         },
         complete: function(xhr, status) {
-          console.log('the request is complete!');
         }
       })
     }//end callPage
@@ -28,7 +27,7 @@ $(document).ready(function(){
       callPage(pageRef);
     });
 
-  })();
+  })(); //end page elements logic
 
   //Registration
   (function(){
@@ -210,8 +209,22 @@ $(document).ready(function(){
           resultsArr.push(item);
         }
         $('.library__list').append(resultsArr);
+        //Rate content
+
+        $('.item__rating-up').on('click', function() {
+          console.log($(this).closest('.item__description'));
+        });
+
+        //End rate content
+
+        createPagination(); //Creating pagination each time load content
+
+
       });
+
     } //end loadFiles
+
+
 
     $('.content').on('change', 'input[name="library__sort"]', function(){
       $('.library__search').val(' ');
@@ -235,6 +248,87 @@ $(document).ready(function(){
         $(this).toggle(showCurrent);
       });
     });
+
+    //Pagination logic
+    function createPagination() {
+      var showPerPage = 10; //max number of items
+      var numberOfItems = $('.library__list').children().size(); //total items
+      var numberOfPages = Math.ceil(numberOfItems/showPerPage);
+
+      $('#current_page').val(0);
+      $('#show_per_page').val(showPerPage);
+
+      var navigationHTML = '<a class="previous_link" href="#">Prev</a>';
+      var currentLink = 0;
+      while(numberOfPages > currentLink){
+        navigationHTML += '<a class="page_link" href="#" data-desc="' + currentLink +'">'+ (currentLink + 1) +'</a>';
+        currentLink++;
+      }
+      navigationHTML += '<a class="next_link" href="#">Next</a>';
+
+      $('#page_navigation').html(navigationHTML);
+
+
+      $('.content').on('click', '.previous_link', function(e){
+        e.preventDefault();
+        previous();
+      });
+      $('.content').on('click', '.page_link', function(e){
+        e.preventDefault();
+        goToPage($(this).text() - 1);
+      })
+      $('.content').on('click', '.next_link', function(e){
+        e.preventDefault();
+        next();
+      });
+
+      //adding active page class to first page link
+      $('.library__page-navigation .page_link:first').addClass('active_page');
+
+      //hide all elements
+      $('.library__list').children().css('display', 'none');
+
+      //show first 10 elements
+      $('.library__list').children().slice(0, showPerPage).css('display', 'block');
+
+      function previous() {
+        var newPage = parseInt($('#current_page').val())-1;
+        //if there is an item before the current active link run the function
+        if($('.active_page').prev('.page_link').length == true) {
+          goToPage(newPage);
+        }
+      }
+
+      function next() {
+       var newPage = parseInt($('#current_page').val())+1;
+        //if there is an item after the current active link run the function
+        if($('.active_page').next('.page_link').length == true) {
+          goToPage(newPage);
+        }
+      }
+
+      function goToPage(pageNumb) {
+        var showPerPage = parseInt($('#show_per_page').val()),     // number of items shown per page
+          startFrom = pageNumb * showPerPage,                      //element number where to start the slice from
+          endOn = startFrom + showPerPage;                         //element number where to end the slice
+        $('.library__list').children().css('display', 'none').slice(startFrom, endOn).css('display', 'block');
+        /*get the page link that has data-desc attribute of the current page and add active_page class to it
+         and remove that class from previously active page link*/
+        $('.page_link[data-desc=' + pageNumb +']').addClass('active_page').siblings('.active_page').removeClass('active_page');
+        //update the current page input field
+        $('#current_page').val(pageNumb);
+      }
+
+    }
+    //End pagination logic
   })();//End library logic
+
+
+
+  //Gallery
+  (function(){
+
+  })();
+  //End gallery
 
 }); //end ready

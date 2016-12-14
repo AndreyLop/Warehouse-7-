@@ -32,7 +32,7 @@ app.post('/upload', function(req, res){
       this.description = fileDescription;
       this.location = fileLocation;
       this.rating = 0;
-      this.date = fileDate.getDate() + "." + (fileDate.getMonth() + 1 < 10 ? "0" + (fileDate.getMonth() + 1) : (fileDate.getMonth() + 1)) + "." + fileDate.getFullYear() + " on " + fileDate.getHours() + ":" + fileDate.getMinutes();
+      this.date = fileDate.getDate() + "." + (fileDate.getMonth() + 1 < 10 ? "0" + (fileDate.getMonth() + 1) : (fileDate.getMonth() + 1)) + "." + fileDate.getFullYear() + " on " + fileDate.getHours() + ":" + (fileDate.getMinutes() + 1 < 10 ? "0" + (fileDate.getMinutes() + 1) : (fileDate.getMinutes() + 1));
       this.sortDate = new Date();
     };
     filesDataBase.push(new NewFileUpload());
