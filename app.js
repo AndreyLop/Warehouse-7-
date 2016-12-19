@@ -7,6 +7,8 @@ var jsonfile = require('jsonfile');
 var bodyParser = require('body-parser');
 var filesDataBase = require('./dist/dataBase.json');
 var usersDataBase = require('./registration/usersDataBase.json');
+var uuidV1 = require('uuid/v1');
+
 
 var fileName = "";
 var fileType = "";
@@ -27,13 +29,14 @@ app.post('/upload', function(req, res){
 
     function NewFileUpload() {
       this.name = fileName;
-      this.title= fileTitle
+      this.title= fileTitle;
       this.type = fileType;
       this.description = fileDescription;
       this.location = fileLocation;
       this.rating = 0;
       this.date = fileDate.getDate() + "." + (fileDate.getMonth() + 1 < 10 ? "0" + (fileDate.getMonth() + 1) : (fileDate.getMonth() + 1)) + "." + fileDate.getFullYear() + " on " + fileDate.getHours() + ":" + (fileDate.getMinutes() + 1 < 10 ? "0" + (fileDate.getMinutes() + 1) : (fileDate.getMinutes() + 1));
       this.sortDate = new Date();
+      this.uniqueId = uuidV1();
     };
     filesDataBase.push(new NewFileUpload());
     jsonfile.writeFileSync('./dist/dataBase.json', filesDataBase, {spaces: 2});
@@ -92,19 +95,55 @@ app.post('/upload', function(req, res){
 
 });
 
-//Content voting
-
-
-
-// END content voting
-
-//Registration
-
 app.use(bodyParser.urlencoded({
   extended: true
 }));
 
 app.use(bodyParser.json());
+
+//Content voting
+app.post('/rateItem', function(req, res){
+//req.body.uniqueId contains id from main.js which i send
+  var test = req.body.rateIncrease;
+
+  if(test == 1) {
+    fs.readFile('./dist/dataBase.json','utf-8', function(err, data){
+      var parsedData = JSON.parse(data); //data from existing file
+      for(var i = 0; i < parsedData.length; i++) {
+        if(req.body.uniqueId == parsedData[i].uniqueId){
+          var item = parsedData[i];
+          var pos = i;
+        }
+      }
+      console.log(req.body.rateIncrease);
+      item.rating++;
+      parsedData.splice(pos, 1, item);
+      jsonfile.writeFileSync('./dist/dataBase.json', parsedData, {spaces: 2});//overwrite whole file with new data
+    })
+  }
+
+  if(test == 2) {
+    fs.readFile('./dist/dataBase.json','utf-8', function(err, data){
+      var parsedData = JSON.parse(data); //data from existing file
+      for(var i = 0; i < parsedData.length; i++) {
+        if(req.body.uniqueId == parsedData[i].uniqueId){
+          var item = parsedData[i];
+          var pos = i;
+        }
+      }
+      console.log(req.body.rateIncrease);
+      item.rating--;
+      parsedData.splice(pos, 1, item);
+      jsonfile.writeFileSync('./dist/dataBase.json', parsedData, {spaces: 2});//overwrite whole file with new data
+    })
+  }
+
+});
+
+
+// END content voting
+
+//Registration
 
 app.post('/registration', function(req, res){
 

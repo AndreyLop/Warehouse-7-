@@ -201,24 +201,64 @@ $(document).ready(function(){
             '<span class="item__original-name">Original file name: ' + data[i].name + '</span><br />' +
             '<span class="item__date"> Uploaded: ' + data[i].date + '</span><br />' +
             '<p class="item__description">' + data[i].description + '</p>' +
-            '<button type="button" class="item__rating-down">I hated it...</button>' +
-            '<span class="item__rating"> Rating: ' + data[i].rating + '</span>' +
-            '<button type="button" class="item__rating-up">I liked it!</button><br />' +
+            '<span class="item__unique-id" style="display:none;">' + data[i].uniqueId +  '</span>' +
+            '<button type="button" class="item__rating-down rating-btn">I hated it...</button>' +
+            '<span>Rating: </span>' +
+            '<span class="item__rating"> ' + data[i].rating + '</span>' +
+            '<button type="button" class="item__rating-up rating-btn">I liked it!</button><br />' +
             '<a href = "' + data[i].location + '">Download file</a>' +
             '</div></li>';
           resultsArr.push(item);
         }
         $('.library__list').append(resultsArr);
+
         //Rate content
 
+        function itemRateCall(id, rate) {
+          $.ajax({
+            url: '/rateItem',
+              data: {
+                uniqueId: id,
+                rateIncrease: rate
+              },
+              dataType: 'json',
+              type: 'POST',
+              success: function(res) {
+                console.log(res);
+              },
+              error: function(err) {
+                console.log(err);
+              }
+          });
+        }
+
         $('.item__rating-up').on('click', function() {
-          console.log($(this).closest('.item__description'));
+          $(this).attr('disabled', true);
+          var that = this;
+          var uniqueId = $(this).prevAll('.item__unique-id').html();
+          $(this).prevAll('.item__rating').html(function(i ,val){
+            return Number(val) + 1;
+          });
+          console.log(uniqueId);
+          itemRateCall(uniqueId, 1);
+          setTimeout(function(){$(that).attr('disabled', false)}, 2000);
+        });
+
+        $('.item__rating-down').on('click', function() {
+          $(this).attr('disabled', true);
+          var that = this;
+          var uniqueId = $(this).prevAll('.item__unique-id').html();
+          $(this).nextAll('.item__rating').html(function(i ,val){
+            return Number(val) - 1;
+          });
+          console.log(uniqueId);
+          itemRateCall(uniqueId, 2);
+          setTimeout(function(){$(that).attr('disabled', false)}, 2000);
         });
 
         //End rate content
 
         createPagination(); //Creating pagination each time load content
-
 
       });
 
@@ -227,7 +267,7 @@ $(document).ready(function(){
 
 
     $('.content').on('change', 'input[name="library__sort"]', function(){
-      $('.library__search').val(' ');
+      $('.library__search').val(' '); //Clear search box
       if(this.id == 'sort-all') {
         loadFiles();
       } else if(this.id == 'sort-text') {
@@ -325,10 +365,10 @@ $(document).ready(function(){
 
 
 
-  //Gallery
+  //Slider
   (function(){
 
   })();
-  //End gallery
+  //End slider
 
 }); //end ready
