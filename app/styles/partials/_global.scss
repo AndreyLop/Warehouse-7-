@@ -1,0 +1,14 @@
+body {
+  background-color: $red;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  max-width:1200px;
+  margin:0 auto;
+}
+
+.page {
+  display: none;
+}
+
+.visible {
+  display: block;
+}

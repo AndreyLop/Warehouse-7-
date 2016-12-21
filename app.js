@@ -104,9 +104,7 @@ app.use(bodyParser.json());
 //Content voting
 app.post('/rateItem', function(req, res){
 //req.body.uniqueId contains id from main.js which i send
-  var test = req.body.rateIncrease;
 
-  if(test == 1) {
     fs.readFile('./dist/dataBase.json','utf-8', function(err, data){
       var parsedData = JSON.parse(data); //data from existing file
       for(var i = 0; i < parsedData.length; i++) {
@@ -115,29 +113,14 @@ app.post('/rateItem', function(req, res){
           var pos = i;
         }
       }
-      console.log(req.body.rateIncrease);
-      item.rating++;
-      parsedData.splice(pos, 1, item);
-      jsonfile.writeFileSync('./dist/dataBase.json', parsedData, {spaces: 2});//overwrite whole file with new data
-    })
-  }
-
-  if(test == 2) {
-    fs.readFile('./dist/dataBase.json','utf-8', function(err, data){
-      var parsedData = JSON.parse(data); //data from existing file
-      for(var i = 0; i < parsedData.length; i++) {
-        if(req.body.uniqueId == parsedData[i].uniqueId){
-          var item = parsedData[i];
-          var pos = i;
-        }
+      if(req.body.rateIncrease == 1) {
+        item.rating++;
+      } else if (req.body.rateIncrease  == 2) {
+        item.rating--;
       }
-      console.log(req.body.rateIncrease);
-      item.rating--;
       parsedData.splice(pos, 1, item);
       jsonfile.writeFileSync('./dist/dataBase.json', parsedData, {spaces: 2});//overwrite whole file with new data
-    })
-  }
-
+    });
 });
 
 

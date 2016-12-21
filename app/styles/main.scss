@@ -3,11 +3,5 @@
 
 @import "partials/_variables.scss";
 @import "partials/_reset.scss";
+@import "partials/_global.scss";
 @import "partials/_registration.scss";
-
-body {
-  background-color: $red;
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  max-width:1200px;
-  margin:0 auto;
-}

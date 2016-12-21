@@ -1,33 +1,43 @@
 $(document).ready(function(){
-  //Load page elements logic
-  (function(){
-    function callPage(pageRefInput) {
-      $.ajax({
-        url: pageRefInput,
-        type: 'GET',
-        dataType: 'text',
-        success: function(response) {
-          $('.content').html(response);
-        },
-        error: function(error) {
-          console.log('the page was NOT loaded', error);
-        },
-        complete: function(xhr, status) {
-        }
-      })
-    }//end callPage
 
-    $('.nav__element').on('click', function(e){
-      if(e.preventDefault){
-        e.preventDefault();
-      }else{
-        e.returnValue = false;
-      }
-      var pageRef = $(this).attr('href');
-      callPage(pageRef);
-    });
+  //Router settings
+  routie({
+    '' : function() {
+      render()
+    },
+    'about' : function(){
+      render('.aboutPage');
+    },
+    'upload' : function() {
+      render('.uploadPage');
+    },
+    'library' : function() {
+      render('.libraryPage');
+      loadFiles('');
+    },
+    'library/:type' : function(type) {
+      render('.libraryPage');
+      loadFiles(type);
+    },
+    'gallery' : function() {
 
-  })(); //end page elements logic
+    },
+    'registration' : function() {
+      render('.registrationPage');
+    },
+    'contacts' : function() {
+      render('.contactsPage');
+    }
+  });
+
+  function render(pageClass) {
+    $('.content .page').removeClass('visible');
+    $(pageClass).addClass('visible');
+  }
+
+
+  //End router settings
+
 
   //Registration
   (function(){
@@ -45,26 +55,26 @@ $(document).ready(function(){
       return regularExpression.test(inputValue);
     }
 
-    $('.content').on('keyup', '.registration-form__input-name', function() {
+    $('.registration-form__input-name').on('keyup', function() {
       nameStatus = keyPressInputChecker($('.registration-form__input-name'), regNameREGexp);
       userData.name = $('.registration-form__input-name').val();
     });
 
-    $('.content').on('keyup', '.registration-form__input-email' , function() {
+    $('.registration-form__input-email').on('keyup', function() {
       emailStatus = keyPressInputChecker($('.registration-form__input-email'), regEmailREGexp);
       userData.email = $('.registration-form__input-email').val();
     });
 
-    $('.content').on('keyup', '.registration-form__input-password', function(){
+    $('.registration-form__input-password').on('keyup', function(){
       passStatus = keyPressInputChecker($('.registration-form__input-password'), regPasswordREGexp);
       userData.password = $('.registration-form__input-password').val();
     });
 
-    $('.content').on('keyup', '.registration-form__input-password-confirm',function(){
+    $('.registration-form__input-password-confirm').on('keyup',function(){
       passConfirmStatus = $('.registration-form__input-password-confirm').val() == $('.registration-form__input-password').val() ? true : false;
     });
 
-    $('.content').on('click', '.registration-form__submit-button', function(){
+    $('.registration-form__submit-button').on('click', function(){
       console.log('Name:',nameStatus);
       console.log('Email:',emailStatus);
       console.log('Pass:',passStatus);
@@ -91,13 +101,13 @@ $(document).ready(function(){
   //File upload
   (function(){
     if(window.FormData !==undefined) {
-      $('.content').on('click','.upload-form__upload-input',  function(){
+      $('.upload-form__upload-input').on('click',  function(){
         $('.progress-bar').text('0%');
         $('.progress-bar').width('0%');
       });
 
 
-      $('.content').on('click', '.upload-form__upload-button', function(e){
+      $('.upload-form__upload-button').on('click', function(e){
         e.preventDefault();
         var file = $('.upload-form__upload-input')[0].files[0];
         var title = $('.upload-form__file-name').val();
@@ -165,7 +175,7 @@ $(document).ready(function(){
           }
         }
       };
-      $('.content').on('click', '.upload-form__upload-button', function(e){
+      $('.upload-form__upload-button').on('click', function(e){
 
         var name = $('.upload-form__file-name').val();
         var file = $('.upload-form__upload-input').val();
@@ -184,102 +194,74 @@ $(document).ready(function(){
 
   })();//end file upload
 
+
+
   //Library logic
-  (function(){
-    function loadFiles(filter) {
-      $('.list__item').remove(); //clear all previous items
-      var re = new RegExp(filter);
+  //loadFiles
+  function loadFiles(filter) {
+    $('.list__item').remove(); //clear all previous items
+    var re = new RegExp(filter);
 
-      $.getJSON('dataBase.json', function(data){
-        var resultsArr = [];
-        for(var i = 0; i < data.length; i++) {
-          if(!re.test(data[i].type)) continue;
+    $.getJSON('dataBase.json', function(data){
+      var resultsArr = [];
+      for(var i = 0; i < data.length; i++) {
+        if(!re.test(data[i].type)) continue;
+        resultsArr.push(data[i]);
+      }
+      var templateScript = $('#item-template').html();
+      //compiling the template
+      var theTemplate = Handlebars.compile(templateScript);
+      $('.library__list').append(theTemplate(resultsArr));
 
-          var item = '<li class="list__item item"><div>' +
-            '<h4>' + data[i].title + '</h4>' +
-            '<span class="item__type"> File type: ' + data[i].type + '</span><br />' +
-            '<span class="item__original-name">Original file name: ' + data[i].name + '</span><br />' +
-            '<span class="item__date"> Uploaded: ' + data[i].date + '</span><br />' +
-            '<p class="item__description">' + data[i].description + '</p>' +
-            '<span class="item__unique-id" style="display:none;">' + data[i].uniqueId +  '</span>' +
-            '<button type="button" class="item__rating-down rating-btn">I hated it...</button>' +
-            '<span>Rating: </span>' +
-            '<span class="item__rating"> ' + data[i].rating + '</span>' +
-            '<button type="button" class="item__rating-up rating-btn">I liked it!</button><br />' +
-            '<a href = "' + data[i].location + '">Download file</a>' +
-            '</div></li>';
-          resultsArr.push(item);
-        }
-        $('.library__list').append(resultsArr);
+      createPagination(); //Creating pagination each time load content
+    });
+  } //end loadFiles
 
-        //Rate content
-
-        function itemRateCall(id, rate) {
-          $.ajax({
-            url: '/rateItem',
-              data: {
-                uniqueId: id,
-                rateIncrease: rate
-              },
-              dataType: 'json',
-              type: 'POST',
-              success: function(res) {
-                console.log(res);
-              },
-              error: function(err) {
-                console.log(err);
-              }
-          });
-        }
-
-        $('.item__rating-up').on('click', function() {
-          $(this).attr('disabled', true);
-          var that = this;
-          var uniqueId = $(this).prevAll('.item__unique-id').html();
-          $(this).prevAll('.item__rating').html(function(i ,val){
-            return Number(val) + 1;
-          });
-          console.log(uniqueId);
-          itemRateCall(uniqueId, 1);
-          setTimeout(function(){$(that).attr('disabled', false)}, 2000);
-        });
-
-        $('.item__rating-down').on('click', function() {
-          $(this).attr('disabled', true);
-          var that = this;
-          var uniqueId = $(this).prevAll('.item__unique-id').html();
-          $(this).nextAll('.item__rating').html(function(i ,val){
-            return Number(val) - 1;
-          });
-          console.log(uniqueId);
-          itemRateCall(uniqueId, 2);
-          setTimeout(function(){$(that).attr('disabled', false)}, 2000);
-        });
-
-        //End rate content
-
-        createPagination(); //Creating pagination each time load content
-
-      });
-
-    } //end loadFiles
-
-
-
-    $('.content').on('change', 'input[name="library__sort"]', function(){
-      $('.library__search').val(' '); //Clear search box
-      if(this.id == 'sort-all') {
-        loadFiles();
-      } else if(this.id == 'sort-text') {
-        loadFiles('application');
-      } else if(this.id == 'sort-video') {
-        loadFiles('video');
-      } else if(this.id == 'sort-audio') {
-        loadFiles('audio');
+  //Rate content
+  function itemRateCall(id, rate) {
+    $.ajax({
+      url: '/rateItem',
+      data: {
+        uniqueId: id,
+        rateIncrease: rate
+      },
+      dataType: 'json',
+      type: 'POST',
+      success: function(res) {
+        console.log(res);
+      },
+      error: function(err) {
+        console.log(err);
       }
     });
+  }
+
+  $('.library__list').on('click', '.item__rating-up', function() {
+    $(this).attr('disabled', true);
+    var that = this;
+    var uniqueId = $(this).parent('.list__item').data('index');
+    $(this).siblings().children('.item__rating').html(function(i ,val){
+      return Number(val) + 1;
+    });
+    itemRateCall(uniqueId, 1);
+    setTimeout(function(){$(that).attr('disabled', false)}, 2000);
+  });
+
+  $('.library__list').on('click','.item__rating-down', function() {
+    $(this).attr('disabled', true);
+    var that = this;
+    var uniqueId = $(this).parent('.list__item').data('index');
+    $(this).siblings().children('.item__rating').html(function(i ,val){
+    return Number(val) - 1;
+    });
+    itemRateCall(uniqueId, 2);
+    setTimeout(function(){$(that).attr('disabled', false)}, 2000);
+  });
+
+    //End rate content
+
     // Text search
-    $('.content').on('keyup', '.library__search', function(){
+    $('.library__search').on('keyup', function(){
       var searchText = $(this).val();
 
       $('.list__item').each(function(){
@@ -361,13 +343,15 @@ $(document).ready(function(){
 
     }
     //End pagination logic
-  })();//End library logic
 
+  // End library logic
 
 
   //Slider
   (function(){
-
+    $('.bxslider').bxSlider({
+      auto:true
+    });
   })();
   //End slider
 
