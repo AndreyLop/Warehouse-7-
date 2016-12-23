@@ -16,6 +16,10 @@ var fileLocation = "";
 var fileTitle = "";
 var fileDescription = "";
 var fileDate = new Date();
+var fileSize;
+var fileVideo = false;
+var fileAudio = false;
+var fileText = false;
 
 app.use(express.static(path.join(__dirname, 'dist')));
 
@@ -25,7 +29,7 @@ app.get('/', function(req, res){
 
 app.post('/upload', function(req, res){
 
-  function writeToFile(fileName, fileTitle, fileType, fileDescription, fileLocation, fileDate) {
+  function writeToFile(fileName, fileTitle, fileType, fileDescription, fileLocation, fileDate, fileSize, fileVideo, fileAudio, fileText) {
 
     function NewFileUpload() {
       this.name = fileName;
@@ -37,6 +41,10 @@ app.post('/upload', function(req, res){
       this.date = fileDate.getDate() + "." + (fileDate.getMonth() + 1 < 10 ? "0" + (fileDate.getMonth() + 1) : (fileDate.getMonth() + 1)) + "." + fileDate.getFullYear() + " on " + fileDate.getHours() + ":" + (fileDate.getMinutes() + 1 < 10 ? "0" + (fileDate.getMinutes() + 1) : (fileDate.getMinutes() + 1));
       this.sortDate = new Date();
       this.uniqueId = uuidV1();
+      this.size = fileSize;
+      this.video = fileVideo;
+      this.audio = fileAudio;
+      this.text = fileText;
     };
     filesDataBase.push(new NewFileUpload());
     jsonfile.writeFileSync('./dist/dataBase.json', filesDataBase, {spaces: 2});
@@ -46,7 +54,7 @@ app.post('/upload', function(req, res){
   var form = new formidable.IncomingForm();
 
   // store all uploads in the /uploads directory
-  form.uploadDir = path.join(__dirname, '/upload');
+  form.uploadDir = path.join(__dirname, '/dist/upload');
 
   // every time a file has been uploaded successfully,
   // rename it to it's orignal name
@@ -54,16 +62,20 @@ app.post('/upload', function(req, res){
   form.on('file', function(title, file) { //fires when file has been send
     fileName = file.name;
     fileType = file.type;
+    fileSize = file.size;
 
     if(/\bapplication\b/.test(file.type)){
-      fileLocation = form.uploadDir + '/text';
+      fileLocation = 'upload/text/' + file.name;
       fs.rename(file.path, path.join(form.uploadDir + '/text', file.name));
+      fileText = true;
     } else if(/\bvideo\b/.test(file.type)) {
-      fileLocation = form.uploadDir + '/video';
+      fileLocation = 'upload/video/' + file.name;
       fs.rename(file.path, path.join(form.uploadDir + '/video', file.name));
+      fileVideo = true;
     } else if(/\baudio\b/.test(file.type)) {
-      fileLocation = form.uploadDir + '/audio';
+      fileLocation = 'upload/audio/' + file.name;
       fs.rename(file.path, path.join(form.uploadDir + '/audio', file.name));
+      fileAudio = true;
     } else {
       fs.rename(file.path, path.join(form.uploadDir + '/misc', file.name));
     }
@@ -85,7 +97,7 @@ app.post('/upload', function(req, res){
   });
 
   form.on('end', function(){
-    writeToFile(fileName, fileTitle, fileType, fileDescription, fileLocation, fileDate);
+    writeToFile(fileName, fileTitle, fileType, fileDescription, fileLocation, fileDate, fileSize, fileVideo, fileAudio, fileText);
     res.end('success');
   });
 

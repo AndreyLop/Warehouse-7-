@@ -19,6 +19,10 @@ $(document).ready(function(){
       render('.libraryPage');
       loadFiles(type);
     },
+    'single/:id' : function(id) {
+      render('.singItemPage');
+      getSingleItem(id);
+    },
     'gallery' : function() {
 
     },
@@ -31,6 +35,7 @@ $(document).ready(function(){
   });
 
   function render(pageClass) {
+    $('.singe-item').remove();
     $('.content .page').removeClass('visible');
     $(pageClass).addClass('visible');
   }
@@ -216,6 +221,25 @@ $(document).ready(function(){
       createPagination(); //Creating pagination each time load content
     });
   } //end loadFiles
+
+  //Single item load and templating
+  function getSingleItem(item) {
+    $('.singe-item').remove();
+    $.getJSON('dataBase.json', function(data){
+      var singleItem;
+      for(var i = 0; i < data.length; i++) {
+        if(data[i].uniqueId == item) {
+          singleItem = data[i];
+          break;
+        }
+      }
+
+      var templateScript = $('#single-item-template').html();
+      var theTemaplte = Handlebars.compile(templateScript);
+      $('.singe-item-container').append(theTemaplte(singleItem));
+    })
+  }
+  //End Single item load and templating
 
   //Rate content
   function itemRateCall(id, rate) {

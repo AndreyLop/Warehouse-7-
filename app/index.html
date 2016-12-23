@@ -45,12 +45,12 @@
 
         <div class="slider">
           <ul class="bxslider">
-            <li><img src="images/slider/pic1.jpg" /></li>
-            <li><img src="images/slider/pic2.jpg" /></li>
-            <li><img src="images/slider/pic3.jpg" /></li>
-            <li><img src="images/slider/pic4.jpg" /></li>
-            <li><img src="images/slider/pic5.jpg" /></li>
-            <li><img src="images/slider/pic6.jpg" /></li>
+            <li><img src="images/slider/pic1sm.jpg" /></li>
+            <li><img src="images/slider/pic2sm.jpg" /></li>
+            <li><img src="images/slider/pic3sm.jpg" /></li>
+            <li><img src="images/slider/pic4sm.jpg" /></li>
+            <li><img src="images/slider/pic5sm.jpg" /></li>
+            <li><img src="images/slider/pic6sm.jpg" /></li>
           </ul>
         </div>
 
@@ -69,6 +69,7 @@
               <li><a href="#library/video">Video</a></li>
               <li><a href="#library/application">Text</a></li>
             </ul>
+            <input type="text" class="library__search">
             <div class="library__files">
               <input type='hidden' id='current_page' />
               <input type='hidden' id='show_per_page' />
@@ -83,16 +84,44 @@
                   <div class="item__original-name">Original file name: {{name}}</div>
                   <div class="item__date"> Uploaded: {{date}} </div>
                   <p class="item__description">{{description}}</p>
-                  <button type="button" class="item__rating-down rating-btn">I hated it...</button>
+                  <button type="button" class="item__rating-down rating-btn btn">I hated it...</button>
                   <span>Rating: <span class="item__rating">{{rating}}</span></span>
-                  <button type="button" class="item__rating-up rating-btn">I liked it!</button><br />
-                  <a href = "{{location}}">Download file</a>
+                  <button type="button" class="item__rating-up rating-btn btn">I liked it!</button><br />
+                  <a href = "#single/{{uniqueId}}" class="item__more-btn btn">More...</a>
                 </li>
                 {{/each}}
               </script>
 
               <div id='page_navigation' class="library__page-navigation"></div>
             </div>
+          </div>
+
+          <div class="singItemPage page">
+
+            <div class="singe-item-container"></div>
+
+            <script id="single-item-template" type="text/x-handlebars-template">
+            <div class="singe-item">
+              <h3>{{title}}</h3>
+              {{#if video}}
+                <video class="single-item__video" width="80%" controls>
+                  <source src="{{location}}">
+
+                </video>
+              {{else audio}}
+              <audio controls>
+                <source src="{{location}}">
+
+              </audio>
+              {{else text}}
+              <iframe src="{{location}}" frameborder="0" width="80%" height="500px"></iframe>
+              {{/if}}
+              <p class="single-item__description">{{description}}</p>
+              <div class="single-item__size">File size: {{size}}</div>
+              <a href = "{{location}}" class="single-item__download-btn btn">Download file</a>
+            </div>
+            </script>
+
           </div>
 
           <div class="uploadPage page">
@@ -126,12 +155,15 @@
           <div class="contactsPage page">
             <h3>Contact us</h3>
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias aliquid aut autem commodi consequuntur culpa dicta ex hic illum ipsum nam non possimus quis quo ratione sequi voluptas, voluptatibus voluptatum.</p>
-            <label for="contactName">Name: </label>
-            <input type="text" name="contactName" id="contactName">
-            <label for="contactEmail">Email: </label>
-            <input type="text" name="contactEmail" id="contactEmail">
-            <label for="contactMessage">Message: </label>
-            <textarea name="contactMessage" id="contactMessage" cols="30" rows="10"></textarea>
+            <form action="">
+              <label for="contactName">Name: </label>
+              <input type="text" name="contactName" id="contactName">
+              <label for="contactEmail">Email: </label>
+              <input type="text" name="contactEmail" id="contactEmail">
+              <label for="contactMessage">Message: </label>
+              <textarea name="contactMessage" id="contactMessage" cols="30" rows="10"></textarea>
+              <button type="button">Send</button>
+            </form>
 
             <div class="map">
               <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d10146.014214480805!2d30.5057052439163!3d50.524803361190656!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sru!2sua!4v1482355343134" width="1200" height="600" frameborder="0" style="border:0" allowfullscreen></iframe>

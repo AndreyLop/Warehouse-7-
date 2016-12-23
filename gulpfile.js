@@ -85,7 +85,7 @@ gulp.task('extras', () => {
 
 gulp.task('move',() => {
   return gulp.src([
-    './app/upload/*'
+    './app/upload/**/*'
   ],  {base: './app/'})
     .pipe(gulp.dest('./dist/'));
 });
