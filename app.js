@@ -8,7 +8,7 @@ var bodyParser = require('body-parser');
 var filesDataBase = require('./dist/dataBase.json');
 var usersDataBase = require('./registration/usersDataBase.json');
 var uuidV1 = require('uuid/v1');
-
+var id3 = require('id3js');
 
 var fileName = "";
 var fileType = "";
@@ -17,9 +17,6 @@ var fileTitle = "";
 var fileDescription = "";
 var fileDate = new Date();
 var fileSize;
-var fileVideo = false;
-var fileAudio = false;
-var fileText = false;
 
 app.use(express.static(path.join(__dirname, 'dist')));
 
@@ -29,25 +26,54 @@ app.get('/', function(req, res){
 
 app.post('/upload', function(req, res){
 
-  function writeToFile(fileName, fileTitle, fileType, fileDescription, fileLocation, fileDate, fileSize, fileVideo, fileAudio, fileText) {
+  function writeToFile(fileName, fileTitle, fileType, fileDescription, fileLocation, fileDate, fileSize) {
 
     function NewFileUpload() {
       this.name = fileName;
       this.title= fileTitle;
-      this.type = fileType;
+      this.type = fileType.split('/')[1];
       this.description = fileDescription;
       this.location = fileLocation;
       this.rating = 0;
       this.date = fileDate.getDate() + "." + (fileDate.getMonth() + 1 < 10 ? "0" + (fileDate.getMonth() + 1) : (fileDate.getMonth() + 1)) + "." + fileDate.getFullYear() + " on " + fileDate.getHours() + ":" + (fileDate.getMinutes() + 1 < 10 ? "0" + (fileDate.getMinutes() + 1) : (fileDate.getMinutes() + 1));
-      this.sortDate = new Date();
+      this.sortDate = new Date().getTime();
       this.uniqueId = uuidV1();
       this.size = fileSize;
-      this.video = fileVideo;
-      this.audio = fileAudio;
-      this.text = fileText;
     };
-    filesDataBase.push(new NewFileUpload());
+
+    function NewVideoFile(fileName, fileTitle, fileType, fileDescription, fileLocation, fileDate, fileSize) {
+      NewFileUpload.call(this, fileName, fileTitle, fileType, fileDescription, fileLocation, fileDate, fileSize);
+      this.video = true;
+    }
+
+    function NewAudioFile(fileName, fileTitle, fileType, fileDescription, fileLocation, fileDate, fileSize) {
+      NewFileUpload.call(this, fileName, fileTitle, fileType, fileDescription, fileLocation, fileDate, fileSize);
+      this.audio = true;
+    }
+
+    function NewTextFile(fileName, fileTitle, fileType, fileDescription, fileLocation, fileDate, fileSize) {
+      NewFileUpload.call(this, fileName, fileTitle, fileType, fileDescription, fileLocation, fileDate, fileSize);
+      this.text = true;
+    }
+
+    if(/\bvideo\b/.test(fileType)){
+      filesDataBase.push(new NewVideoFile());
+    } else if(/\baudio\b/.test(fileType)) {
+      filesDataBase.push(new NewAudioFile());
+    } else if(/\baudio\b/.test(fileType)) {
+      filesDataBase.push(new NewTextFile());
+    }
     jsonfile.writeFileSync('./dist/dataBase.json', filesDataBase, {spaces: 2});
+  };
+
+  function getReadableFileSizeString(fileSizeInBytes) {
+    var i = -1;
+    var byteUnits = [' kB', ' MB', ' GB', ' TB', 'PB', 'EB', 'ZB', 'YB'];
+    do {
+      fileSizeInBytes = fileSizeInBytes / 1024;
+      i++;
+    } while (fileSizeInBytes > 1024);
+    return Math.max(fileSizeInBytes, 0.1).toFixed(1) + byteUnits[i];
   };
 
   // create an incoming form object
@@ -62,20 +88,17 @@ app.post('/upload', function(req, res){
   form.on('file', function(title, file) { //fires when file has been send
     fileName = file.name;
     fileType = file.type;
-    fileSize = file.size;
+    fileSize = getReadableFileSizeString(file.size);
 
     if(/\bapplication\b/.test(file.type)){
       fileLocation = 'upload/text/' + file.name;
       fs.rename(file.path, path.join(form.uploadDir + '/text', file.name));
-      fileText = true;
     } else if(/\bvideo\b/.test(file.type)) {
       fileLocation = 'upload/video/' + file.name;
       fs.rename(file.path, path.join(form.uploadDir + '/video', file.name));
-      fileVideo = true;
     } else if(/\baudio\b/.test(file.type)) {
       fileLocation = 'upload/audio/' + file.name;
       fs.rename(file.path, path.join(form.uploadDir + '/audio', file.name));
-      fileAudio = true;
     } else {
       fs.rename(file.path, path.join(form.uploadDir + '/misc', file.name));
     }
@@ -97,7 +120,7 @@ app.post('/upload', function(req, res){
   });
 
   form.on('end', function(){
-    writeToFile(fileName, fileTitle, fileType, fileDescription, fileLocation, fileDate, fileSize, fileVideo, fileAudio, fileText);
+    writeToFile(fileName, fileTitle, fileType, fileDescription, fileLocation, fileDate, fileSize);
     res.end('success');
   });
 
@@ -156,8 +179,7 @@ app.post('/registration', function(req, res){
         return;
       }
     }
-
-  })
+  });
 
   // usersDataBase.push(req.body);
   // jsonfile.writeFileSync('./registration/usersDataBase.json', usersDataBase, {spaces: 2});

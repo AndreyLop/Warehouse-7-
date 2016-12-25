@@ -25,8 +25,6 @@
   </head>
   <body>
 
-    <div class="main">
-
       <header>
       	<nav class="nav">
       		<ul>
@@ -62,14 +60,35 @@
             <p>I dont know what to doy with my life</p>
           </div>
 
+          <div class="galleryPage page">
+            <ul class="gallery">
+              <li class="gallery__item"><a href="#" class="gallery__link"><img src="images/gallery/img1-thumb.jpg" alt="Image 1"></a></li>
+              <li class="gallery__item"><a href="#" class="gallery__link"><img src="images/gallery/img2-thumb.jpg" alt="Image 1"></a></li>
+              <li class="gallery__item"><a href="#" class="gallery__link"><img src="images/gallery/img3-thumb.jpg" alt="Image 1"></a></li>
+              <li class="gallery__item"><a href="#" class="gallery__link"><img src="images/gallery/img4-thumb.jpg" alt="Image 1"></a></li>
+              <li class="gallery__item"><a href="#" class="gallery__link"><img src="images/gallery/img5-thumb.png" alt="Image 1"></a></li>
+              <li class="gallery__item"><a href="#" class="gallery__link"><img src="images/gallery/img6-thumb.png" alt="Image 1"></a></li>
+              <li class="gallery__item"><a href="#" class="gallery__link"><img src="images/gallery/img7-thumb.jpg" alt="Image 1"></a></li>
+              <li class="gallery__item"><a href="#" class="gallery__link"><img src="images/gallery/img8-thumb.jpg" alt="Image 1"></a></li>
+              <li class="gallery__item"><a href="#" class="gallery__link"><img src="images/gallery/img9-thumb.jpg" alt="Image 1"></a></li>
+
+            </ul>
+          </div>
+
           <div class="libraryPage page">
             <ul>
               <li><a href="#library">Show All</a></li>
               <li><a href="#library/audio">Audio</a></li>
               <li><a href="#library/video">Video</a></li>
-              <li><a href="#library/application">Text</a></li>
+              <li><a href="#library/text">Text</a></li>
             </ul>
             <input type="text" class="library__search">
+              <div class="library__time-sort">
+                <label for="sortNewFirst">Show new first</label>
+                <input type="radio" name="time-sort" id="sortNewFirst" class="time-sort" checked>
+                <label for="sortOldFirst">Show old first</label>
+                <input type="radio" name="time-sort" id="sortOldFirst" class="time-sort">
+              </div>
             <div class="library__files">
               <input type='hidden' id='current_page' />
               <input type='hidden' id='show_per_page' />
@@ -92,7 +111,7 @@
                 {{/each}}
               </script>
 
-              <div id='page_navigation' class="library__page-navigation"></div>
+              <div class="library__page-navigation"></div>
             </div>
           </div>
 
@@ -117,6 +136,7 @@
               <iframe src="{{location}}" frameborder="0" width="80%" height="500px"></iframe>
               {{/if}}
               <p class="single-item__description">{{description}}</p>
+              <div class="single-item__extension">File extension: {{type}}</div>
               <div class="single-item__size">File size: {{size}}</div>
               <a href = "{{location}}" class="single-item__download-btn btn">Download file</a>
             </div>
@@ -141,15 +161,28 @@
           <div class="registrationPage page">
             <form class="registration-form">
               <label for="registration-form__input-name">Enter your name:</label>
-              <input type="text" name="registration-form__input-name" id="registration-form__input-name" value="" class="registration-form__input-name">
+              <input type="text" name="registration-form__input-name" id="registration-form__input-name" value="" class="registration-form__input-name ">
+              <label for="registration-form__input-email">Enter your email:</label>
+              <input type="text" name="registration-form__input-email" id="registration-form__input-email" class="registration-form__input-email">
               <label for="registration-form__input-password">Enter your password:</label>
               <input type="text" name="registration-form__input-password" id="registration-form__input-password" class="registration-form__input-password">
               <label for="registration-form__input-password-confirm">Confirm your password:</label>
               <input type="text" name="registration-form__input-password-confirm" id="registration-form__input-password-confirm" class="registration-form__input-password-confirm">
-              <label for="registration-form__input-email">Enter your email:</label>
-              <input type="text" name="registration-form__input-email" id="registration-form__input-email" class="registration-form__input-email">
               <button type="button" class="registration-form__submit-button">Submit form</button>
             </form>
+            <span>Already have account ? <a href="#login">Login</a></span>
+          </div>
+
+          <div class="loginPage page">
+            <form class="login-form">
+              <label for="login-form__email-input">Email: </label>
+              <input type="text" id="login-form__email-input">
+              <label for="login-form__password-input">Password: </label>
+              <input type="text" id="login-form__password-input">
+              <button class="login-form__submit" type="button">Submit</button>
+            </form>
+            <a href="#forgot">Forgot your password ?</a>
+            <a href="#registration">Registration</a>
           </div>
 
           <div class="contactsPage page">
@@ -170,14 +203,18 @@
             </div>
           </div>
 
+          <div>
+            <script id="input-error-template" type="text/x-handlebars-template">
+              <span class="input-error">{{error}}</span>
+            </script>
+          </div>
+
         </div><!--Content div end here-->
 
       </main>
 			<footer>
 
 			</footer>
-
-    </div>
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
     <script>
