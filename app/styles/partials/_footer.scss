@@ -1,0 +1,43 @@
+footer {
+  background-color: $grey;
+  color: #fff;
+}
+
+.footer-items {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.social-media ul {
+  display: inline-block;
+}
+
+.social-icons {
+  height: 30px;
+  width: 30px;
+  background-image: url('../../images/social2.png');
+  background-repeat: no-repeat;
+}
+.twitter {
+  background-position: -60px -30px;
+}
+.dribble {}
+.facebook {
+  background-position: -30px 0px;
+}
+.google-plus {
+  background-position: -60px 0px;
+}
+.instagram {
+  background-position: -90px 0px;
+}
+.linkedin {
+  background-position: 0px -30px;
+}
+.pinterest {
+  background-position: -30px -30px;
+}
+.vkontakte {
+  background-position: -90px -30px;
+}
+

@@ -5,6 +5,20 @@ body {
   margin:0 auto;
 }
 
+html {
+  position: relative;
+  min-height: 100%;
+}
+footer {
+  display:none;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: auto;
+  width: 100%;
+}
+
+
 label {
   display: block;
 }

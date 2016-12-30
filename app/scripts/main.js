@@ -238,7 +238,10 @@ $(document).ready(function(){
   (function(){
     $('.nav__mobile-drop').on('click', function(){
       $('.hamburger').toggleClass('change');//Hamburger close animation
-      $('.nav__menu').slideToggle();//SHow menu to button toggle
+      $('.nav__menu').slideToggle(function(){
+        $(this).toggleClass('shown');
+        $(this).removeAttr('style');
+      });//SHow menu to button toggle
     });
 
   })();
@@ -474,8 +477,6 @@ $(document).ready(function(){
     } // end IE8 upload support
   })();//end file upload
 
-
-
   //Gallery logic
   (function(){
 
@@ -494,8 +495,6 @@ $(document).ready(function(){
     var templateScript = $('#gallery-template').html();
     var theTemplate = Handlebars.compile(templateScript);
     $('.gallery').append(theTemplate(images));
-
-    $('.gallery')
   })();
   //End gallery
 
@@ -505,5 +504,22 @@ $(document).ready(function(){
     });
   })();
   //End slider
+
+  //Dynamic sticky footer
+  (function(){
+    function footerAlign() {
+      $('footer').css('display', 'block');
+      $('footer').css('height', 'auto');
+      var footerHeight = $('footer').outerHeight();
+      $('body').css('padding-bottom', footerHeight);
+      $('footer').css('height', footerHeight);
+    }
+    $(document).ready(function(){
+      footerAlign();
+    });
+    $( window ).resize(function() {
+      footerAlign();
+    });
+  })();
 
 }); //end ready

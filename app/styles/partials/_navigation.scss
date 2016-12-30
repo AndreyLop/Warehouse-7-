@@ -3,6 +3,10 @@
   font-weight: 600;
 }
 
+.nav__menu.shown {
+  display: block;
+}
+
 .nav__menu li {
   display: inline-block;
   position: relative;
@@ -87,12 +91,19 @@
 }
 
 @media screen and (max-width: $break-sm) {
+  .nav {
+    position: relative;
+  }
   .nav__mobile-drop {
     display: table;
   }
   .nav__menu {
+    position: absolute;
+    width:100%;
+    background-color: $red;
     display: none;
     text-align: center;
+    z-index: 100000;
   }
   .nav__menu li {
     display: block;
