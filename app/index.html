@@ -17,6 +17,7 @@
     <!-- build:css styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
     <link rel="stylesheet" href="styles/jquery.bxslider.css">
+    <link rel="stylesheet" href="styles/featherlight.min.css">
     <!-- endbuild -->
 
     <!-- build:js scripts/vendor/modernizr.js -->
@@ -27,10 +28,25 @@
 
       <header>
       	<nav class="nav">
-      		<ul>
+          <div class="nav__mobile-drop">
+            <div class="hamburger">
+              <div class="bar1"></div>
+              <div class="bar2"></div>
+              <div class="bar3"></div>
+            </div>
+            <span class="hamburger__text">Menu</span>
+          </div>
+      		<ul class="nav__menu">
 						<li><a href="#" class="nav__element">Home</a></li>
             <li><a href="#gallery" class="nav__element">Gallery</a></li>
-            <li><a href="#library" class="nav__element">Library</a></li>
+            <li><span href="#library" class="nav__element">Library</span>
+              <ul class="nav__sub-menu">
+                <li><a href="#library" class="nav__element sub-nav-item">Show All Files</a></li>
+                <li><a href="#library/video" class="nav__element sub-nav-item">Video</a></li>
+                <li><a href="#library/audio"class="nav__element sub-nav-item">Audio</a></li>
+                <li><a href="#library/text"class="nav__element sub-nav-item">Text</a></li>
+              </ul>
+            </li>
             <li><a href="#upload" class="nav__element">Upload File</a></li>
       			<li><a href="#about" class="nav__element">About</a></li>
 						<li><a href="#contacts" class="nav__element">Contacts</a></li>
@@ -61,18 +77,18 @@
           </div>
 
           <div class="galleryPage page">
-            <ul class="gallery">
-              <li class="gallery__item"><a href="#" class="gallery__link"><img src="images/gallery/img1-thumb.jpg" alt="Image 1"></a></li>
-              <li class="gallery__item"><a href="#" class="gallery__link"><img src="images/gallery/img2-thumb.jpg" alt="Image 1"></a></li>
-              <li class="gallery__item"><a href="#" class="gallery__link"><img src="images/gallery/img3-thumb.jpg" alt="Image 1"></a></li>
-              <li class="gallery__item"><a href="#" class="gallery__link"><img src="images/gallery/img4-thumb.jpg" alt="Image 1"></a></li>
-              <li class="gallery__item"><a href="#" class="gallery__link"><img src="images/gallery/img5-thumb.png" alt="Image 1"></a></li>
-              <li class="gallery__item"><a href="#" class="gallery__link"><img src="images/gallery/img6-thumb.png" alt="Image 1"></a></li>
-              <li class="gallery__item"><a href="#" class="gallery__link"><img src="images/gallery/img7-thumb.jpg" alt="Image 1"></a></li>
-              <li class="gallery__item"><a href="#" class="gallery__link"><img src="images/gallery/img8-thumb.jpg" alt="Image 1"></a></li>
-              <li class="gallery__item"><a href="#" class="gallery__link"><img src="images/gallery/img9-thumb.jpg" alt="Image 1"></a></li>
+            <ul class="gallery"></ul>
 
-            </ul>
+            <script id="gallery-template" type="text/x-handlebars-template">
+            {{#each this}}
+              <li class="gallery__item">
+                <a href="#" data-featherlight="images/gallery/{{imgLg}}" class="gallery__link">
+                  <img src="images/gallery/{{imgThumb}}" alt="Image {{imgLg}}">
+                </a>
+              </li>
+            {{/each}}
+            </script>
+
           </div>
 
           <div class="libraryPage page">
@@ -130,7 +146,6 @@
               {{else audio}}
               <audio controls>
                 <source src="{{location}}">
-
               </audio>
               {{else text}}
               <iframe src="{{location}}" frameborder="0" width="80%" height="500px"></iframe>
@@ -149,7 +164,8 @@
             <form action="/upload" class="upload-form" enctype="multipart/form-data" method="post" name="uploadForm" target="uploadiframe">
               <label for="upload-form__file-name">Enter title:</label>
               <input type="text" class="upload-form__file-name" id="upload-form__file-name" name="title">
-              <textarea name="description" id="" cols="30" rows="10" class="upload-form__description-textarea"></textarea>
+              <label for="upload-form__description">Description:</label>
+              <textarea name="description" id="" cols="30" rows="10" class="upload-form__description-textarea" id="upload-form__description"></textarea>
               <input id="upload-input" type="file" name="" class="upload-form__upload-input upload-input">
               <div class="upload-form__progress">
                 <div class="progress-bar" role="progressbar"></div>
@@ -176,9 +192,9 @@
           <div class="loginPage page">
             <form class="login-form">
               <label for="login-form__email-input">Email: </label>
-              <input type="text" id="login-form__email-input">
+              <input type="text" id="login-form__email-input" class="login-form__email-input">
               <label for="login-form__password-input">Password: </label>
-              <input type="text" id="login-form__password-input">
+              <input type="text" id="login-form__password-input" class="login-form__password-input">
               <button class="login-form__submit" type="button">Submit</button>
             </form>
             <a href="#forgot">Forgot your password ?</a>
@@ -213,7 +229,7 @@
 
       </main>
 			<footer>
-
+        <div>Awesome Footer Goes Here...</div>
 			</footer>
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
@@ -238,6 +254,7 @@
     <!-- build:js scripts/main.js -->
     <script type="text/javascript" src="scripts/routie.min.js"></script>
     <script type="text/javascript" src="scripts/jquery.bxslider.min.js"></script>
+    <script type="text/javascript" src="scripts/featherlight.min.js"></script>
     <script type="text/javascript" src="scripts/main.js"></script>
     <!-- endbuild -->
   </body>

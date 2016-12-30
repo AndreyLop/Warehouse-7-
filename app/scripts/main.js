@@ -234,12 +234,24 @@ $(document).ready(function(){
     //End pagination logic
   })(); // End library logic
 
+  //Navigation
+  (function(){
+    $('.nav__mobile-drop').on('click', function(){
+      $('.hamburger').toggleClass('change');//Hamburger close animation
+      $('.nav__menu').slideToggle();//SHow menu to button toggle
+    });
+
+  })();
+
   //Generate error message for invalid input fields
   function inputFieldError(placement, error) {
     $('.input-error').remove();
     var templateScript = $('#input-error-template').html();
     var theTemaplte = Handlebars.compile(templateScript);
     $(placement).after(theTemaplte({error: error}));
+    if($(window).width() <= 780) {
+      $('.input-error').css('display', 'block');//for smaller screens error will appear under the inputs
+    }
   }
 
 
@@ -311,24 +323,44 @@ $(document).ready(function(){
     });
 
     //Login
+    var loginUserData = {},
+      loginEmail = $('.login-form__email-input'),
+      loginPassword = $('.login-form__password-input'),
+      loginEmailStatus,
+      loginPassStatus;
+
+    loginEmail.on('keyup', function(){
+      loginEmailStatus = keyPressInputChecker(loginEmail, regEmailREGexp);
+      loginUserData.email = loginEmail.val();
+    });
+
+    loginPassword.on('keyup', function(){
+      loginPassStatus = keyPressInputChecker(loginPassword, regPasswordREGexp);
+      loginUserData.password = loginPassword.val();
+    });
 
     $('.login-form__submit').on('click', function(){
-      var jsonLoginData = {};
-      $.ajax({
-        type: 'POST',
-        dataType: 'json',
-        contentType: 'application/json',
-        data: jsonLoginData,
-        url: '/registration/login',
-        success: function(res) {
-          console.log(res);
-        },
-        error: function(data) {
-          console.log(data)
-        }
-      })
-    })
-
+      if(loginEmailStatus && loginPassStatus) {
+        var jsonLoginUserData = JSON.stringify(loginUserData);
+        $.ajax({
+          type: 'POST',
+          dataType: 'json',
+          contentType: 'application/json',
+          data: jsonLoginUserData,
+          url: '/registration/login',
+          success: function(res) {
+            console.log(res);
+          },
+          error: function(data) {
+            console.log(data)
+          }
+        })
+      } else if(!loginEmailStatus){
+        inputFieldError('.login-form__email-input', 'Invalid email, please check your email and try again');
+      } else if(!loginPassStatus) {
+        inputFieldError('.login-form__password-input', 'Invalid password');
+      }
+    });
     //End Login
 
   })();//end Registration
@@ -438,23 +470,38 @@ $(document).ready(function(){
           name = '';
           description = '';
         }
-
       });
-
     } // end IE8 upload support
-
   })();//end file upload
+
+
 
   //Gallery logic
   (function(){
 
+    var images = [
+      {imgThumb: 'img1-thumb.jpg', imgLg: 'img1.jpg'},
+      {imgThumb: 'img2-thumb.jpg', imgLg: 'img2.jpg'},
+      {imgThumb: 'img3-thumb.jpg', imgLg: 'img3.jpg'},
+      {imgThumb: 'img4-thumb.jpg', imgLg: 'img4.jpg'},
+      {imgThumb: 'img5-thumb.png', imgLg: 'img5.png'},
+      {imgThumb: 'img6-thumb.png', imgLg: 'img6.png'},
+      {imgThumb: 'img7-thumb.jpg', imgLg: 'img7.jpg'},
+      {imgThumb: 'img8-thumb.jpg', imgLg: 'img8.jpg'},
+      {imgThumb: 'img9-thumb.jpg', imgLg: 'img9.jpg'}
+    ];
+
+    var templateScript = $('#gallery-template').html();
+    var theTemplate = Handlebars.compile(templateScript);
+    $('.gallery').append(theTemplate(images));
+
+    $('.gallery')
   })();
   //End gallery
 
   //Slider
   (function(){
     $('.bxslider').bxSlider({
-      auto:true
     });
   })();
   //End slider

@@ -8,7 +8,6 @@ var bodyParser = require('body-parser');
 var filesDataBase = require('./dist/dataBase.json');
 var usersDataBase = require('./registration/usersDataBase.json');
 var uuidV1 = require('uuid/v1');
-var id3 = require('id3js');
 
 var fileName = "";
 var fileType = "";
@@ -60,12 +59,13 @@ app.post('/upload', function(req, res){
       filesDataBase.push(new NewVideoFile());
     } else if(/\baudio\b/.test(fileType)) {
       filesDataBase.push(new NewAudioFile());
-    } else if(/\baudio\b/.test(fileType)) {
+    } else if(/\bapplication\b/.test(fileType)) {
       filesDataBase.push(new NewTextFile());
     }
     jsonfile.writeFileSync('./dist/dataBase.json', filesDataBase, {spaces: 2});
   };
 
+  //Converting size for human eyes
   function getReadableFileSizeString(fileSizeInBytes) {
     var i = -1;
     var byteUnits = [' kB', ' MB', ' GB', ' TB', 'PB', 'EB', 'ZB', 'YB'];
@@ -86,6 +86,7 @@ app.post('/upload', function(req, res){
   // rename it to it's orignal name
 
   form.on('file', function(title, file) { //fires when file has been send
+    console.log(file);
     fileName = file.name;
     fileType = file.type;
     fileSize = getReadableFileSizeString(file.size);
@@ -104,7 +105,6 @@ app.post('/upload', function(req, res){
     }
 
   });
-
 
   form.on('field', function(name, value) { //fires when filed was send
     if(name == "title") {
@@ -126,7 +126,6 @@ app.post('/upload', function(req, res){
 
   // parse the incoming request containing the form data
   form.parse(req);
-
 
 });
 
@@ -162,28 +161,28 @@ app.post('/rateItem', function(req, res){
 // END content voting
 
 //Registration
-
-app.post('/registration', function(req, res){
-
-  fs.readFile('./registration/usersDataBase.json', 'utf-8', function(err, data){
-    if(err) {
-      return console.log(err);
-    }
-    var parsedData = JSON.parse(data);
-    for(var i = 0; i < parsedData.length; i++) {
-      if(parsedData[i].name === req.body.name) {
-        res = 'User with such name already exists';
-        return;
-      } else if(parsedData[i].email === req.body.email) {
-        res = 'User with such email already exists';
-        return;
-      }
-    }
-  });
+//
+// app.post('/registration', function(req, res){
+//
+//   fs.readFile('./registration/usersDataBase.json', 'utf-8', function(err, data){
+//     if(err) {
+//       return console.log(err);
+//     }
+//     var parsedData = JSON.parse(data);
+//     for(var i = 0; i < parsedData.length; i++) {
+//       if(parsedData[i].name === req.body.name) {
+//         res = 'User with such name already exists';
+//         return;
+//       } else if(parsedData[i].email === req.body.email) {
+//         res = 'User with such email already exists';
+//         return;
+//       }
+//     }
+//   });
 
   // usersDataBase.push(req.body);
   // jsonfile.writeFileSync('./registration/usersDataBase.json', usersDataBase, {spaces: 2});
-});
+// });
 
 //End registration
 

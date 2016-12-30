@@ -2,7 +2,7 @@
   {
     "name": "[AniDub]_Kung_Fu_Cooking_Girls_[h264_638x360_AAC]_[NikaLenina_MCShaman_Trina_D].mp4",
     "title": "Video1",
-    "type": "video/mp4",
+    "type": "mp4",
     "description": "Video1 desc",
     "location": "/upload/video/[AniDub]_Kung_Fu_Cooking_Girls_[h264_638x360_AAC]_[NikaLenina_MCShaman_Trina_D].mp4",
     "rating": 2,
@@ -14,7 +14,7 @@
   {
     "name": "[Dungeons & Dragons] Neverwinter_ E3 2012 CG Trailer.mp4",
     "title": "vide2",
-    "type": "video/mp4",
+    "type": "mp4",
     "description": "video2 desc",
     "location": "upload/video/[Dungeons & Dragons] Neverwinter_ E3 2012 CG Trailer.mp4",
     "rating": -4,
@@ -26,7 +26,7 @@
   {
     "name": "_Game of Thrones_ Ultimate Birthday Rap Battle (Featuring Taryn Southern).mp4",
     "title": "video3",
-    "type": "video/mp4",
+    "type": "mp4",
     "description": "video3desc",
     "location": "upload/video/_Game of Thrones_ Ultimate Birthday Rap Battle (Featuring Taryn Southern).mp4",
     "rating": 7,
@@ -38,7 +38,7 @@
   {
     "name": "1-22-10am_est_t_teso_alliancecinematic_tr_1280x720_3500_h32.mp4",
     "title": "video4",
-    "type": "video/mp4",
+    "type": "mp4",
     "description": "video4desc",
     "location": "upload/video/1-22-10am_est_t_teso_alliancecinematic_tr_1280x720_3500_h32.mp4",
     "rating": 1,
@@ -50,7 +50,7 @@
   {
     "name": "18.Pixar.Short.Dug's.Special.Mission.2009.mkv",
     "title": "video5",
-    "type": "video/x-matroska",
+    "type": "x-matroska",
     "description": "video5desc",
     "location": "upload/video/18.Pixar.Short.Dug's.Special.Mission.2009.mkv",
     "rating": 11,
@@ -62,7 +62,7 @@
   {
     "name": "169_armored_core_v_ot_060711_2800.mov",
     "title": "video6",
-    "type": "video/quicktime",
+    "type": "quicktime",
     "description": "video6desc",
     "location": "upload/video/169_armored_core_v_ot_060711_2800.mov",
     "rating": -9,
@@ -74,7 +74,7 @@
   {
     "name": "0241-strashniy-i-korotkiy-rolik-www.nevsedoma.com.ua.mov",
     "title": "vifro7",
-    "type": "video/quicktime",
+    "type": "quicktime",
     "description": "video7desc",
     "location": "upload/video/0241-strashniy-i-korotkiy-rolik-www.nevsedoma.com.ua.mov",
     "rating": 10,
@@ -86,7 +86,7 @@
   {
     "name": "0325-operasiya-beloe-okno-www.nevsedoma.com.ua.mp4",
     "title": "video8",
-    "type": "video/mp4",
+    "type": "mp4",
     "description": "video8desc",
     "location": "upload/video/0325-operasiya-beloe-okno-www.nevsedoma.com.ua.mp4",
     "rating": 3,
@@ -98,7 +98,7 @@
   {
     "name": "0423_mytho-logique_www.nevsedoma.com.ua.mp4",
     "title": "video9",
-    "type": "video/mp4",
+    "type": "mp4",
     "description": "video9desc",
     "location": "upload/video/0423_mytho-logique_www.nevsedoma.com.ua.mp4",
     "rating": -17,
@@ -110,7 +110,7 @@
   {
     "name": "0836-the-motion-pictures-of-2011-www.nevsedoma.com.ua.flv",
     "title": "video10",
-    "type": "video/x-flv",
+    "type": "x-flv",
     "description": "video10desc",
     "location": "upload/video/0836-the-motion-pictures-of-2011-www.nevsedoma.com.ua.flv",
     "rating": 8,
@@ -122,7 +122,7 @@
   {
     "name": "01. Funeral Pyre.mp3",
     "title": "audio1",
-    "type": "audio/mp3",
+    "type": "mp3",
     "description": "audio1desc",
     "location": "upload/audio/01. Funeral Pyre.mp3",
     "rating": 3,
@@ -134,7 +134,7 @@
   {
     "name": "02. Same Old Blues.mp3",
     "title": "audio2",
-    "type": "audio/mp3",
+    "type": "mp3",
     "description": "audio2desc",
     "location": "upload/audio/02. Same Old Blues.mp3",
     "rating": 1,
@@ -146,7 +146,7 @@
   {
     "name": "03. You Don’t Get Me High Anymore.mp3",
     "title": "audio3",
-    "type": "audio/mp3",
+    "type": "mp3",
     "description": "audio3dsc",
     "location": "upload/audio/03. You Don’t Get Me High Anymore.mp3",
     "rating": 7,
@@ -158,7 +158,7 @@
   {
     "name": "04. Cruel World.mp3",
     "title": "audio4",
-    "type": "audio/mp3",
+    "type": "mp3",
     "description": "auido4desc",
     "location": "upload/audio/04. Cruel World.mp3",
     "rating": 0,
@@ -170,7 +170,7 @@
   {
     "name": "05. Barking Dog.mp3",
     "title": "audio5",
-    "type": "audio/mp3",
+    "type": "mp3",
     "description": "audio5desc",
     "location": "upload/audio/05. Barking Dog.mp3",
     "rating": -2,
@@ -182,7 +182,7 @@
   {
     "name": "06. You're Mine.mp3",
     "title": "audio6",
-    "type": "audio/mp3",
+    "type": "mp3",
     "description": "audio6desc",
     "location": "upload/audio/06. You're Mine.mp3",
     "rating": 3,
@@ -194,7 +194,7 @@
   {
     "name": "07. Answer.mp3",
     "title": "audio7",
-    "type": "audio/mp3",
+    "type": "mp3",
     "description": "audio7desc",
     "location": "upload/audio/07. Answer.mp3",
     "rating": -9,
@@ -206,7 +206,7 @@
   {
     "name": "08. Run Run Blood.mp3",
     "title": "audio8",
-    "type": "audio/mp3",
+    "type": "mp3",
     "description": "audio8desc",
     "location": "upload/audio/08. Run Run Blood.mp3",
     "rating": 0,
@@ -218,7 +218,7 @@
   {
     "name": "09. Destroyer.mp3",
     "title": "audio9",
-    "type": "audio/mp3",
+    "type": "mp3",
     "description": "audio9desc",
     "location": "upload/audio/09. Destroyer.mp3",
     "rating": -10,
@@ -230,7 +230,7 @@
   {
     "name": "10. Calling All.mp3",
     "title": "audio10",
-    "type": "audio/mp3",
+    "type": "mp3",
     "description": "audio10desc",
     "location": "upload/audio/10. Calling All.mp3",
     "rating": -2,
@@ -242,7 +242,7 @@
   {
     "name": "Douglas Crockford - Javascript. The Good Parts - 2008.pdf",
     "title": "text1",
-    "type": "application/pdf",
+    "type": "pdf",
     "description": "text1desc",
     "location": "upload/text/Douglas Crockford - Javascript. The Good Parts - 2008.pdf",
     "rating": 6,
@@ -254,7 +254,7 @@
   {
     "name": "1979.Proxy-Everything.In.Its.Right.Place.creaspace.ru.mp4",
     "title": "6767",
-    "type": "video/mp4",
+    "type": "mp4",
     "description": "777777",
     "location": "upload/video/1979.Proxy-Everything.In.Its.Right.Place.creaspace.ru.mp4",
     "rating": 0,
@@ -262,5 +262,24 @@
     "sortDate": 1482513709180,
     "uniqueId": "499bd2d0-c934-11e6-abf7-45dfb583375e",
     "video": true
+  },
+  {
+    "name": "01-boom_boom_satellites-kick_it_out-jrp.mp3",
+    "title": "567",
+    "type": "mp3",
+    "description": "567567",
+    "location": "upload/audio/01-boom_boom_satellites-kick_it_out-jrp.mp3",
+    "rating": 0,
+    "date": "27.12.2016 on 1:17",
+    "sortDate": 1482794181706,
+    "uniqueId": "5042caa0-cbc1-11e6-89e2-43abb465dca1",
+    "size": "5.6 MB",
+    "songData": {
+      "songName": "kick it out",
+      "albumName": "On",
+      "albumYear": "2006",
+      "artistName": "Boom Boom Satellites"
+    },
+    "audio": true
   }
 ]
