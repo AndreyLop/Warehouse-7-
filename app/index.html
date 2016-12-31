@@ -36,20 +36,20 @@
             <span class="hamburger__text">Menu</span>
           </div>
       		<ul class="nav__menu">
-						<li><a href="#" class="nav__element">Home</a></li>
-            <li><a href="#gallery" class="nav__element">Gallery</a></li>
-            <li><span href="#library" class="nav__element">Library</span>
+						<li class="nav__list-item"><a href="#" class="nav__element">Home</a></li>
+            <li class="nav__list-item"><a href="#gallery" class="nav__element">Gallery</a></li>
+            <li class="nav__list-item"><span href="#library" class="nav__element">Library</span>
               <ul class="nav__sub-menu">
-                <li><a href="#library" class="nav__element sub-nav-item">Show All Files</a></li>
-                <li><a href="#library/video" class="nav__element sub-nav-item">Video</a></li>
-                <li><a href="#library/audio"class="nav__element sub-nav-item">Audio</a></li>
-                <li><a href="#library/text"class="nav__element sub-nav-item">Text</a></li>
+                <li><a href="#library" class="nav__sub-element">Show All Files</a></li>
+                <li><a href="#library/video" class="nav__sub-element">Video</a></li>
+                <li><a href="#library/audio"class="nav__sub-element">Audio</a></li>
+                <li><a href="#library/text"class="nav__sub-element">Text</a></li>
               </ul>
             </li>
-            <li><a href="#upload" class="nav__element">Upload File</a></li>
-      			<li><a href="#about" class="nav__element">About</a></li>
-						<li><a href="#contacts" class="nav__element">Contacts</a></li>
-						<li><a href="#registration" class="nav__element">Register</a></li>
+            <li class="nav__list-item"><a href="#upload" class="nav__element">Upload File</a></li>
+      			<li class="nav__list-item"><a href="#about" class="nav__element">About</a></li>
+						<li class="nav__list-item"><a href="#contacts" class="nav__element">Contacts</a></li>
+						<li class="nav__list-item"><a href="#registration" class="nav__element">Register</a></li>
       		</ul>
       	</nav>
       </header>
@@ -91,18 +91,22 @@
           </div>
 
           <div class="libraryPage page">
-            <ul>
-              <li><a href="#library">Show All</a></li>
-              <li><a href="#library/audio">Audio</a></li>
-              <li><a href="#library/video">Video</a></li>
-              <li><a href="#library/text">Text</a></li>
+            <ul class="library__main-btns">
+              <li><a href="#library" class="btn blue sort-btn">Show All</a></li>
+              <li><a href="#library/audio" class="btn blue sort-btn">Audio</a></li>
+              <li><a href="#library/video" class="btn blue sort-btn">Video</a></li>
+              <li><a href="#library/text" class="btn blue sort-btn">Text</a></li>
             </ul>
             <input type="text" class="library__search">
-              <div class="library__time-sort">
+              <div class="library__sort">
+                <input type="radio" name="sort" id="sortNewFirst" class="sort time-sort" checked>
                 <label for="sortNewFirst">Show new first</label>
-                <input type="radio" name="time-sort" id="sortNewFirst" class="time-sort" checked>
+                <input type="radio" name="sort" id="sortOldFirst" class="sort time-sort">
                 <label for="sortOldFirst">Show old first</label>
-                <input type="radio" name="time-sort" id="sortOldFirst" class="time-sort">
+                <input type="radio" name="sort" id="sortGoodFirst" class="sort rating-sort">
+                <label for="sortGoodFirst">Show highest rated</label>
+                <input type="radio" name="sort" id="sortBadFirst" class="sort rating-sort">
+                <label for="sortBadFirst">Show worst rated</label>
               </div>
             <div class="library__files">
               <input type='hidden' id='current_page' />
@@ -228,30 +232,42 @@
 
       </main>
 			<footer>
-        <div class="footer-items">
-          <h4>Main Navigation</h4>
-          <ul>
-            <li><a href="">Home</a></li>
-            <li><a href="#gallery">Gallery</a></li>
-            <li><a href="#about">About Us</a></li>
-            <li><a href="#contacs">Contacts</a></li>
-            <li><a href="#">Our Blog</a></li>
-          </ul>
-        </div>
-        <div class="footer-items social-media">
-          <h4>Follow Us</h4>
-          <ul>
-            <li><a href="https://twitter.com/?lang=ru" target="_blank" title="Twitter"><div class="twitter social-icons"></div></a></li>
-            <li><a href="https://www.facebook.com/" target="_blank" title="Facebook"><div class="facebook social-icons"></div></a></li>
-            <li><a href="https://plus.google.com/?hl=ru" target="_blank" title="Google+"><div class="google-plus social-icons"></div></a></li>
-            <li><a href="https://www.instagram.com/" target="_blank" title="Instagram"><div class="instagram social-icons"></div></a></li>
-          </ul>
-          <ul>
-            <li><a href="https://dribbble.com/" target="_blank" title="Dribble"><div class="dribble social-icons"></div></a></li>
-            <li><a href="https://www.linkedin.com/" target="_blank" title="Linkedin"><div class="linkedin social-icons"></div></a></li>
-            <li><a href="https://www.pinterest.com/" target="_blank" title="Pinterest"><div class="pinterest social-icons"></div></a></li>
-            <li><a href="https://vk.com/" target="_blank" title="Vkontakte"><div class="vkontakte social-icons"></div></a></li>
-          </ul>
+        <div class="footer-container">
+          <div class="footer-items">
+            <h4>Main Navigation:</h4>
+            <ul>
+              <li><a href="#">Home</a></li>
+              <li><a href="#gallery">Gallery</a></li>
+              <li><a href="#about">About Us</a></li>
+              <li><a href="#contacts">Contact Us</a></li>
+              <li><a href="#">Our Blog</a></li>
+            </ul>
+          </div>
+          <div class="footer-items address">
+            <h4>Address:</h4>
+            <span>Kiev</span>
+            <span>Obolonskyi Awe 2</span>
+            <span>2nd Floor</span>
+            <span><a href="https://www.google.com.ua/maps/@50.5176654,30.499954,16z?hl=ru" target="_blank">Google Map</a></span>
+          </div>
+          <div class="footer-items">
+            <h4>Legal:</h4>
+            <span>Copyright &#169; 2016</span>
+            <span>All Rights Reserved</span>
+          </div>
+          <div class="footer-items social-media">
+            <h4>Follow Us:</h4>
+            <ul>
+              <li><a href="https://twitter.com/?lang=ru" target="_blank" title="Twitter"><div class="twitter social-icons"></div></a></li>
+              <li><a href="https://www.facebook.com/" target="_blank" title="Facebook"><div class="facebook social-icons"></div></a></li>
+              <li><a href="https://plus.google.com/?hl=ru" target="_blank" title="Google+"><div class="google-plus social-icons"></div></a></li>
+              <li><a href="https://www.instagram.com/" target="_blank" title="Instagram"><div class="instagram social-icons"></div></a></li>
+              <li><a href="https://dribbble.com/" target="_blank" title="Dribble"><div class="dribble social-icons"></div></a></li>
+              <li><a href="https://www.linkedin.com/" target="_blank" title="Linkedin"><div class="linkedin social-icons"></div></a></li>
+              <li><a href="https://www.pinterest.com/" target="_blank" title="Pinterest"><div class="pinterest social-icons"></div></a></li>
+              <li><a href="https://vk.com/" target="_blank" title="Vkontakte"><div class="vkontakte social-icons"></div></a></li>
+            </ul>
+          </div>
         </div>
 			</footer>
 

@@ -70,7 +70,16 @@ $(document).ready(function(){
           resultsArr.sort(function(a, b) {
             return a.sortDate - b.sortDate;
           });
+        } else if($('#sortGoodFirst').prop('checked') == true) {
+          resultsArr.sort(function(a, b) {
+            return b.rating - a.rating;
+          });
+        } else if($('#sortBadFirst').prop('checked') == true) {
+          resultsArr.sort(function(a, b){
+            return a.rating - b.rating;
+          });
         }
+
 
         var templateScript = $('#item-template').html();
         //compiling the template
@@ -82,10 +91,9 @@ $(document).ready(function(){
     } //end loadFiles
 
     //Sort already chosen items
-    $('input[name=time-sort]').change(function(){
+    $('input.sort').change(function(){
       loadFiles(window.location.hash.slice(9));
     });
-
 
     //Single item load
     function getSingleItem(item) {
@@ -151,11 +159,11 @@ $(document).ready(function(){
 
     // Text search
     $('.library__search').on('keyup', function(){
-      var searchText = $(this).val();
+      var searchText = $(this).val().toLowerCase();
 
       $('.list__item').each(function(){
-        var currentText = $(this).text(),
-          showCurrent = currentText.indexOf(searchText) !== -1;
+        var currentText = $(this).text().toLowerCase();
+        var showCurrent = currentText.indexOf(searchText) !== -1;
         $(this).toggle(showCurrent);
       });
     });

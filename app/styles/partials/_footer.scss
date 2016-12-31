@@ -1,14 +1,38 @@
 footer {
   background-color: $grey;
-  color: #fff;
+  color: $white;
+}
+h4 {
+  font-weight: 700;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+footer a {
+  color: $white;
+  border-bottom:1px dashed $red;
+}
+
+.footer-items li,
+.footer-items span{
+  margin-bottom:5px;
+}
+
+.footer-container {
+  max-width:1200px;
+  min-height:150px;
+  margin: 0 auto;
+  font-size: 0px;
 }
 
 .footer-items {
   display: inline-block;
   vertical-align: top;
+  width:25%;
+  font-size:14px;
 }
 
-.social-media ul {
+.social-media ul li{
   display: inline-block;
 }
 
@@ -40,4 +64,6 @@ footer {
 .vkontakte {
   background-position: -90px -30px;
 }
-
+.footer-items span {
+  display: block;
+}

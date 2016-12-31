@@ -1,5 +1,9 @@
+* {
+  box-sizing: border-box;
+}
+
 body {
-  background-color: $red;
+  background-color: $dirty-brown;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   max-width:1200px;
   margin:0 auto;
@@ -18,15 +22,19 @@ footer {
   width: 100%;
 }
 
-
 label {
   display: block;
 }
-
+a {
+  text-decoration: none;
+}
 .page {
   display: none;
 }
 
 .visible {
   display: block;
+}
+.bx-viewport {
+  margin-left:5px;
 }

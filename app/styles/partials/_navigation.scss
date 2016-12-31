@@ -1,6 +1,9 @@
 .nav {
   color: $white;
   font-weight: 600;
+  background-color: $red;
+  padding:10px;
+
 }
 
 .nav__menu.shown {
@@ -11,14 +14,24 @@
   display: inline-block;
   position: relative;
 }
-.nav__element {
+
+.nav__element,
+.nav__sub-element{
   display: block;
   padding:10px 10px;
+  color: $white;
+  text-decoration: none;
 }
+
+.nav__list-item + .nav__list-item {
+  border-left: 1px solid $white;
+}
+
 .nav__menu li:hover {
   background-color: darken($red, 20%);
   cursor: pointer;
 }
+
 .nav__sub-menu {
   background-color: darken($red, 20%);
   overflow: hidden;
@@ -46,10 +59,6 @@
   -ms-transition: max-height 0.25s ease-in;
   -o-transition: max-height 0.25s ease-in;
   transition: max-height 0.25s ease-in;
-}
-.nav__element {
-  color: $white;
-  text-decoration: none;
 }
 //Hamburger creation
 .hamburger {
@@ -93,9 +102,13 @@
 @media screen and (max-width: $break-sm) {
   .nav {
     position: relative;
+    padding:0px;
   }
   .nav__mobile-drop {
     display: table;
+  }
+  .nav__list-item + .nav__list-item {
+    border: none;
   }
   .nav__menu {
     position: absolute;
@@ -114,7 +127,6 @@
   }
   .sub-nav-item {
     display: block;
-
   }
 }
 
