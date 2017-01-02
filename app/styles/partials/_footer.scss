@@ -67,3 +67,10 @@ footer a {
 .footer-items span {
   display: block;
 }
+
+@media screen and (max-width: $break-sm) {
+  .footer-items {
+    width:50%;
+    text-align: center;
+  }
+}

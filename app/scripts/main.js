@@ -20,9 +20,9 @@ $(document).ready(function(){
         render('.libraryPage');
         loadFiles(type);
       },
-      'single/:id' : function(id) {
+      'library/:type/:id' : function(type, id) {
         render('.singItemPage');
-        getSingleItem(id);
+        getSingleItem(type, id);
       },
       'gallery' : function() {
         render('.galleryPage');
@@ -95,13 +95,19 @@ $(document).ready(function(){
       loadFiles(window.location.hash.slice(9));
     });
 
+    // "Remember" hash value when click more then supplying it to back as href value, see below
+    var previousHash;
+    $('.libraryPage').on('click','.item__more-btn', function() {
+      previousHash = window.location.hash;
+    });
+
     //Single item load
-    function getSingleItem(item) {
+    function getSingleItem(type, id) {
       $('.singe-item').remove();
       $.getJSON('dataBase.json', function(data){
         var singleItem;
         for(var i = 0; i < data.length; i++) {
-          if(data[i].uniqueId == item) {
+          if(data[i].uniqueId == id) {
             singleItem = data[i];
             break;
           }
@@ -110,6 +116,7 @@ $(document).ready(function(){
         var templateScript = $('#single-item-template').html();
         var theTemaplte = Handlebars.compile(templateScript);
         $('.singe-item-container').append(theTemaplte(singleItem));
+        $('.single-item__back-btn').attr('href', previousHash);
       })
     }
     //End Single item load
@@ -170,39 +177,40 @@ $(document).ready(function(){
 
     //Pagination logic
     function createPagination() {
-      var showPerPage = 10; //max number of items
+      $('.pagination').off('click');
+      var showPerPage = 10;
       var numberOfItems = $('.library__list').children().size(); //total items
       var numberOfPages = Math.ceil(numberOfItems/showPerPage);
 
-      $('#current_page').val(0);
-      $('#show_per_page').val(showPerPage);
+      $('.current-page').val(0);
+      $('.show-per-page').val(showPerPage);
 
-      var navigationHTML = '<a class="previous_link" href="#">Prev</a>';
+      var navigationHTML = '<a class="previous-link pagination__item" href="#">Prev</a>';
       var currentLink = 0;
       while(numberOfPages > currentLink){
-        navigationHTML += '<a class="page_link" href="#" data-desc="' + currentLink +'">'+ (currentLink + 1) +'</a>';
+        navigationHTML += '<a class="page-link pagination__item" href="#" data-desc="' + currentLink +'">'+ (currentLink + 1) +'</a>';
         currentLink++;
       }
-      navigationHTML += '<a class="next_link" href="#">Next</a>';
+      navigationHTML += '<a class="next-link pagination__item" href="#">Next</a>';
 
       $('.library__page-navigation').html(navigationHTML);
 
 
-      $('.content').on('click', '.previous_link', function(e){
+      $('.pagination').on('click', '.previous-link', function(e){
         e.preventDefault();
         previous();
       });
-      $('.content').on('click', '.page_link', function(e){
+      $('.pagination').on('click', '.page-link', function(e){
         e.preventDefault();
         goToPage($(this).text() - 1);
       });
-      $('.content').on('click', '.next_link', function(e){
+      $('.pagination').on('click', '.next-link', function(e){
         e.preventDefault();
         next();
       });
 
       //adding active page class to first page link
-      $('.library__page-navigation .page_link:first').addClass('active_page');
+      $('.library__page-navigation .page-link:first').addClass('active-page');
 
       //hide all elements
       $('.library__list').children().css('display', 'none');
@@ -211,35 +219,33 @@ $(document).ready(function(){
       $('.library__list').children().slice(0, showPerPage).css('display', 'block');
 
       function previous() {
-        var newPage = parseInt($('#current_page').val())-1;
-        //if there is an item before the current active link run the function
-        if($('.active_page').prev('.page_link').length == true) {
+        var newPage = parseInt($('.current-page').val())-1;
+        if($('.active-page').prev('.page-link').length == true) {
           goToPage(newPage);
         }
       }
 
       function next() {
-        var newPage = parseInt($('#current_page').val())+1;
-        //if there is an item after the current active link run the function
-        if($('.active_page').next('.page_link').length == true) {
+        var newPage = parseInt($('.current-page').val())+1;
+        if($('.active-page').next('.page-link').length == true) {
           goToPage(newPage);
         }
       }
 
       function goToPage(pageNumb) {
-        var showPerPage = parseInt($('#show_per_page').val()),     // number of items shown per page
+        var showPerPage = parseInt($('.show-per-page').val()),     // number of items shown per page
           startFrom = pageNumb * showPerPage,                      //element number where to start the slice from
           endOn = startFrom + showPerPage;                         //element number where to end the slice
         $('.library__list').children().css('display', 'none').slice(startFrom, endOn).css('display', 'block');
         /*get the page link that has data-desc attribute of the current page and add active_page class to it
          and remove that class from previously active page link*/
-        $('.page_link[data-desc=' + pageNumb +']').addClass('active_page').siblings('.active_page').removeClass('active_page');
+        $('.page-link[data-desc=' + pageNumb +']').addClass('active-page').siblings('.active-page').removeClass('active-page');
         //update the current page input field
-        $('#current_page').val(pageNumb);
+        $('.current-page').val(pageNumb);
       }
 
-    }
-    //End pagination logic
+    } //End create pagination
+
   })(); // End library logic
 
   //Navigation
@@ -406,8 +412,7 @@ $(document).ready(function(){
             success: function(data) {
               console.log('upload successful\n' + data);
               //on success clear fields and remove all error messages
-              $('.upload-form__file-name').val('');
-              $('.upload-form__description-textarea').val('');
+              $('.upload-form')[0].reset();
               $('.input-error').remove();
             },
             xhr: function() {

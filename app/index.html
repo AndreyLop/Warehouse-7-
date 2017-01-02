@@ -23,6 +23,7 @@
     <!-- build:js scripts/vendor/modernizr.js -->
     <script src="/bower_components/modernizr/modernizr.js"></script>
     <!-- endbuild -->
+
   </head>
   <body>
       <header>
@@ -69,12 +70,6 @@
 
 				<div class="content">
 
-
-          <div class="aboutPage page">
-            <h2>About this site</h2>
-            <p>I dont know what to doy with my life</p>
-          </div>
-
           <div class="galleryPage page">
             <ul class="gallery"></ul>
 
@@ -92,10 +87,10 @@
 
           <div class="libraryPage page">
             <ul class="library__main-btns">
-              <li><a href="#library" class="btn blue sort-btn">Show All</a></li>
-              <li><a href="#library/audio" class="btn blue sort-btn">Audio</a></li>
-              <li><a href="#library/video" class="btn blue sort-btn">Video</a></li>
-              <li><a href="#library/text" class="btn blue sort-btn">Text</a></li>
+              <li><a href="#library" class="btn blue-btn sort-btn">Show All</a></li>
+              <li><a href="#library/audio" class="btn blue-btn sort-btn">Audio</a></li>
+              <li><a href="#library/video" class="btn blue-btn sort-btn">Video</a></li>
+              <li><a href="#library/text" class="btn blue-btn sort-btn">Text</a></li>
             </ul>
             <input type="text" class="library__search">
               <div class="library__sort">
@@ -109,8 +104,7 @@
                 <label for="sortBadFirst">Show worst rated</label>
               </div>
             <div class="library__files">
-              <input type='hidden' id='current_page' />
-              <input type='hidden' id='show_per_page' />
+
 
               <ul class="library__list"></ul>
 
@@ -118,24 +112,33 @@
                 {{#each this}}
                 <li class="list__item item" data-index="{{uniqueId}}">
                   <h4>{{title}}</h4>
-                  <div class="item__type">{{type}}</div>
-                  <div class="item__original-name">Original file name: {{name}}</div>
-                  <div class="item__date"> Uploaded: {{date}} </div>
+                  <div class="item__original-name">File name: {{name}}</div>
+                  <div class="item__date"> Uploaded:{{date}}</div>
+                  <h5>Description:</h5>
                   <p class="item__description">{{description}}</p>
-                  <button type="button" class="item__rating-down rating-btn btn">I hated it...</button>
+                  <button type="button" class="item__rating-down rating-btn btn red-btn">I hated it...</button>
                   <span>Rating: <span class="item__rating">{{rating}}</span></span>
-                  <button type="button" class="item__rating-up rating-btn btn">I liked it!</button><br />
-                  <a href = "#single/{{uniqueId}}" class="item__more-btn btn">More...</a>
+                  <button type="button" class="item__rating-up rating-btn btn green-btn">I liked it!</button>
+                  {{#if video}}
+                  <a href = "#library/video/{{uniqueId}}" class="item__more-btn btn blue-btn">More. &#9654;</a>
+                  {{else audio}}
+                  <a href = "#library/audio/{{uniqueId}}" class="item__more-btn btn blue-btn">More. &#9654;</a>
+                  {{else text}}
+                  <a href = "#library/text/{{uniqueId}}" class="item__more-btn btn blue-btn">More. &#9654;</a>
+                  {{/if}}
                 </li>
                 {{/each}}
               </script>
+            </div>
 
+            <div class="pagination">
+              <input type='hidden' class='current-page' />
+              <input type='hidden' class='show-per-page' />
               <div class="library__page-navigation"></div>
             </div>
           </div>
 
           <div class="singItemPage page">
-
             <div class="singe-item-container"></div>
 
             <script id="single-item-template" type="text/x-handlebars-template">
@@ -143,20 +146,39 @@
               <h3>{{title}}</h3>
               {{#if video}}
                 <video class="single-item__video" width="80%" controls>
-                  <source src="{{location}}">
+                  <source src="{{location}}" type="video/mp4">
+                  <source src="{{location}}" type="video/webm">
+                  <source src="{{location}}" type="video/quicktime">
+                  <source src="{{location}}" type="video/x-flv">
+                  <source src="{{location}}" type="video/x-matroska">
+
+                  <object id="flowplayer" data="flowplayer/flowplayer-3.2.18.swf" type="application/x-shockwave-flash" width="80%" height="480" >
+                    <param name="movie" value="flowplayer/flowplayer-3.2.18.swf">
+                    <param name="allowfullscreen" value="true">
+                    <param name="flashvars" value="config={'clip':{'url':'{{location}}','autoPlay':false}}">
+                  </object>
 
                 </video>
               {{else audio}}
-              <audio controls>
-                <source src="{{location}}">
+              <audio style="width: 80%" controls>
+                <source src="{{location}}" type="audio/ogg">
+                <source src="{{location}}" type="audio/mpeg">
+
+                <object id="flowplayer-audio" data="flowplayer/flowplayer-3.2.18.swf" type="application/x-shockwave-flash" width="80%" height="26">
+                  <param name="movie" value="flowplayer/flowplayer-3.2.18.swf">
+                  <param name="allowfullscreen" value="true">
+                  <param name="flashvars" value="config={'clip':{'url':'{{location}}','autoPlay':false}}">
+                </object>
+
               </audio>
               {{else text}}
-              <iframe src="{{location}}" frameborder="0" width="80%" height="500px"></iframe>
+              <iframe src="{{location}}" frameborder="0" width="80%" height="auto"></iframe>
               {{/if}}
               <p class="single-item__description">{{description}}</p>
-              <div class="single-item__extension">File extension: {{type}}</div>
-              <div class="single-item__size">File size: {{size}}</div>
-              <a href = "{{location}}" class="single-item__download-btn btn">Download file</a>
+              <div class="single-item__extension">Extension: {{type}}</div>
+              <div class="single-item__size">Size: {{size}}</div>
+              <a href="{{location}}" class="single-item__download-btn btn">Download file</a>
+              <a href="" class="single-item__back-btn blue-btn btn">Back &#9664;</a>
             </div>
             </script>
 
@@ -202,6 +224,11 @@
             </form>
             <a href="#forgot">Forgot your password ?</a>
             <a href="#registration">Registration</a>
+          </div>
+
+          <div class="aboutPage page">
+            <h2>About this site</h2>
+            <p>I dont know what to doy with my life</p>
           </div>
 
           <div class="contactsPage page">
@@ -289,12 +316,12 @@
     <!-- endbower -->
     <!-- endbuild -->
 
-
     <!-- build:js scripts/main.js -->
     <script type="text/javascript" src="scripts/routie.min.js"></script>
     <script type="text/javascript" src="scripts/jquery.bxslider.min.js"></script>
     <script type="text/javascript" src="scripts/featherlight.min.js"></script>
     <script type="text/javascript" src="scripts/main.js"></script>
     <!-- endbuild -->
+
   </body>
 </html>

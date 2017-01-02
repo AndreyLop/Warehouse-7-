@@ -2,12 +2,19 @@
   color: $white;
 }
 
+.item {
+  border: 1px solid $white;
+  margin:10px 0 10px 0;
+  padding:10px;
+}
+
 .library__main-btns {
   display: inline-block;
 }
 
 .library__main-btns li {
   display: inline-block;
+  margin: 0 5px 0 5px;
 }
 
 .btn {
@@ -21,35 +28,46 @@
 
 .sort-btn {
   padding: 10px;
-  width:100px;
-}
-
-.blue {
-  background-color: $blue;
+  width: 100px;
   webkit-box-shadow: 0px 5px 0px 0px darken($blue, 20%);
   -moz-box-shadow: 0px 5px 0px 0px darken($blue, 20%);
   box-shadow: 0px 5px 0px 0px darken($blue, 20%);
 }
 
-.blue:hover {
+.blue-btn {
+  background-color: $blue;
+}
+
+.blue-btn:hover {
   background-color: lighten($blue, 20%);
 }
 
-.blue:active {
+.blue-btn:active {
   background-color: $blue;
   transform: translate(0px, 5px);
   -webkit-transform: translate(0px, 5px);
   box-shadow: 0px 0px 0px 0px;
 }
 
+.green-btn {
+  background-color: $green;
+}
+
+.red-btn {
+  background-color: $badRed;
+}
+
 .library__search {
   display: inline-block;
+  float: right;
   height:30px;
 }
 
-//input[type='radio'] {
-//  display: none;
-//}
+input[type='radio'] {
+  position: absolute; //To hide radio elements IE8 dont supports display none here....
+  top: -50px;
+  left: -50px;
+}
 
 .library__sort {
   margin:10px 0 10px 0;
@@ -61,12 +79,82 @@
   background-color: $red;
   padding:5px;
   border-radius: 5px;
+  margin:1px 5px;
 }
 input[type='radio']:checked + label {
   background-color: darken($red, 20%);
 }
 
-.item {
-  border: 1px solid $white;
-  margin:10px 0 10px 0;
+.item__original-name,
+.item__date,
+.item__description {
+  margin-bottom:10px;
+}
+
+.item__date {
+  color: grey;
+}
+
+.rating-btn {
+  cursor: pointer;
+  border: none;
+  padding:5px;
+}
+
+.rating-btn:disabled {
+  background-color: grey;
+}
+
+.item__more-btn {
+  margin-top: 10px;
+  padding: 10px;
+  display: block;
+  width:100px;
+}
+
+.pagination {
+  margin:10px auto;
+  text-align: center;
+}
+
+.pagination__item {
+  color: $white;
+  border: 1px solid black;
+  margin: 5px;
+  padding: 5px;
+  background-color: $grey;
+}
+
+.active-page {
+  background-color: lighten($grey, 30%);
+}
+
+@media screen and (max-width: $break-sm) {
+  .library__main-btns {
+    display: block;
+    text-align: center;
+  }
+
+  .library__search {
+    display: block;
+    float: none;
+    margin: 10px auto;
+  }
+
+  .item {
+    text-align: center;
+  }
+  .library__sort {
+    text-align: center;
+  }
+}
+
+@media screen and (max-width: $break-xsm) {
+  .library__main-btns li {
+    margin: 5px;
+    padding:5px;
+  }
+  .library__sort label {
+    margin: 5px;
+  }
 }

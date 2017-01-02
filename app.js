@@ -8,6 +8,8 @@ var bodyParser = require('body-parser');
 var filesDataBase = require('./dist/dataBase.json');
 var usersDataBase = require('./registration/usersDataBase.json');
 var uuidV1 = require('uuid/v1');
+var id3 = require('id3js');
+
 
 var fileName = "";
 var fileType = "";
@@ -25,19 +27,20 @@ app.get('/', function(req, res){
 
 app.post('/upload', function(req, res){
 
-  function writeToFile(fileName, fileTitle, fileType, fileDescription, fileLocation, fileDate, fileSize) {
+  function writeToFile(fileName, fileTitle, fileType, fileDescription, fileLocation, fileDate, fileSize, songInfo) {
 
     function NewFileUpload() {
-      this.name = fileName;
+      this.name = fileName.split("_").join(" ");
       this.title= fileTitle;
-      this.type = fileType.split('/')[1];
+      this.type = fileType.split("/")[1];
       this.description = fileDescription;
       this.location = fileLocation;
       this.rating = 0;
-      this.date = fileDate.getDate() + "." + (fileDate.getMonth() + 1 < 10 ? "0" + (fileDate.getMonth() + 1) : (fileDate.getMonth() + 1)) + "." + fileDate.getFullYear() + " on " + fileDate.getHours() + ":" + (fileDate.getMinutes() + 1 < 10 ? "0" + (fileDate.getMinutes() + 1) : (fileDate.getMinutes() + 1));
+      this.date = (fileDate.getDate() + 1 < 10 ? "0" + fileDate.getDate() : fileDate.getDate()) + "." + (fileDate.getMonth() + 1 < 10 ? "0" + (fileDate.getMonth() + 1) : (fileDate.getMonth() + 1)) + "." + fileDate.getFullYear() + " on " + fileDate.getHours() + ":" + (fileDate.getMinutes() + 1 < 10 ? "0" + (fileDate.getMinutes() + 1) : (fileDate.getMinutes() + 1));
       this.sortDate = new Date().getTime();
       this.uniqueId = uuidV1();
       this.size = fileSize;
+      this.songInfo = songInfo;
     };
 
     function NewVideoFile(fileName, fileTitle, fileType, fileDescription, fileLocation, fileDate, fileSize) {
@@ -45,8 +48,8 @@ app.post('/upload', function(req, res){
       this.video = true;
     }
 
-    function NewAudioFile(fileName, fileTitle, fileType, fileDescription, fileLocation, fileDate, fileSize) {
-      NewFileUpload.call(this, fileName, fileTitle, fileType, fileDescription, fileLocation, fileDate, fileSize);
+    function NewAudioFile(fileName, fileTitle, fileType, fileDescription, fileLocation, fileDate, fileSize, songInfo) {
+      NewFileUpload.call(this, fileName, fileTitle, fileType, fileDescription, fileLocation, fileDate, fileSize, songInfo);
       this.audio = true;
     }
 
@@ -76,6 +79,14 @@ app.post('/upload', function(req, res){
     return Math.max(fileSizeInBytes, 0.1).toFixed(1) + byteUnits[i];
   };
 
+  // function getSongInfo(callback) {
+  //   id3({ file:'dist/' + fileLocation, type: id3.OPEN_LOCAL }, function(err, tags) {
+  //     console.log(tags.title, "From getSongInfo");
+  //     console.log(err);
+  //     callback(tags);
+  //   });
+  // }
+
   // create an incoming form object
   var form = new formidable.IncomingForm();
 
@@ -86,7 +97,6 @@ app.post('/upload', function(req, res){
   // rename it to it's orignal name
 
   form.on('file', function(title, file) { //fires when file has been send
-    console.log(file);
     fileName = file.name;
     fileType = file.type;
     fileSize = getReadableFileSizeString(file.size);
@@ -100,6 +110,7 @@ app.post('/upload', function(req, res){
     } else if(/\baudio\b/.test(file.type)) {
       fileLocation = 'upload/audio/' + file.name;
       fs.rename(file.path, path.join(form.uploadDir + '/audio', file.name));
+      // getSongInfo(songInfo);
     } else {
       fs.rename(file.path, path.join(form.uploadDir + '/misc', file.name));
     }
@@ -113,16 +124,39 @@ app.post('/upload', function(req, res){
       fileDescription = value;
     }
   });
-
   // log any errors that occur
   form.on('error', function(err) {
     console.log('An error has occured: \n' + err);
   });
 
   form.on('end', function(){
-    writeToFile(fileName, fileTitle, fileType, fileDescription, fileLocation, fileDate, fileSize);
+    createData();
     res.end('success');
   });
+
+  function createData() {
+    // if(/\bapplication\b/.test(fileType)){
+    //   console.log('text');
+    //   writeToFile(fileName, fileTitle, fileType, fileDescription, fileLocation, fileDate, fileSize);
+    // } else if(/\bvideo\b/.test(fileType)) {
+    //   console.log('video');
+    //   writeToFile(fileName, fileTitle, fileType, fileDescription, fileLocation, fileDate, fileSize);
+    // }
+    writeToFile(fileName, fileTitle, fileType, fileDescription, fileLocation, fileDate, fileSize);
+  }
+
+  function songInfo(tags) {
+    if(tags) {
+      var songInfo = {
+        artist: tags.artist,
+        album: tags.album,
+        name: tags.title,
+        year: tags.year
+      };
+    }
+    console.log(tags.title, 'FRom singInfo');
+    writeToFile(fileName, fileTitle, fileType, fileDescription, fileLocation, fileDate, fileSize, songInfo);
+  }
 
   // parse the incoming request containing the form data
   form.parse(req);
