@@ -1,6 +1,6 @@
 $(document).ready(function(){
 
-  (function(){
+  ;(function(){
     //Router settings
     routie({
       '' : function() {
@@ -117,6 +117,7 @@ $(document).ready(function(){
         var theTemaplte = Handlebars.compile(templateScript);
         $('.singe-item-container').append(theTemaplte(singleItem));
         $('.single-item__back-btn').attr('href', previousHash);
+        $('#audio').prop('volume', 0.3);
       })
     }
     //End Single item load
@@ -249,7 +250,7 @@ $(document).ready(function(){
   })(); // End library logic
 
   //Navigation
-  (function(){
+  ;(function(){
     $('.nav__mobile-drop').on('click', function(){
       $('.hamburger').toggleClass('change');//Hamburger close animation
       $('.nav__menu').slideToggle(function(){
@@ -272,9 +273,8 @@ $(document).ready(function(){
   }
 
 
-
   //Registration
-  (function(){
+  ;(function(){
     var userData = {},
       nameStatus,
       emailStatus,
@@ -380,10 +380,46 @@ $(document).ready(function(){
     });
     //End Login
 
+    //Contacts
+    var contactsMessageObj = {},
+      contactsEmail = $('.contacts__email'),
+      contactsMessage = $('.contacts__message'),
+      contactsEmailStatus;
+
+    contactsEmail.on('keyup', function(){
+      contactsEmailStatus = keyPressInputChecker(contactsEmail, regEmailREGexp);
+      contactsMessageObj.email = contactsEmail.val();
+    });
+    contactsMessageObj.message = contactsMessage.val();
+
+    $('.contact-submit-button').on('click', function(){
+      if(contactsEmailStatus && contactsMessage.val() > 0) {
+        var jsonContacts = JSON.stringify(contactsMessageObj);
+        $.ajax({
+          type: 'POST',
+          dataType: 'json',
+          contentType: 'application/json',
+          data: jsonContacts,
+          url: '/contacts',
+          success: function(res) {
+            console.log(res);
+          },
+          error: function(data) {
+            console.log(data)
+          }
+        })
+      } else if(!contactsEmailStatus) {
+        inputFieldError('.contacts__email', 'Invalid Email check your email and try again');
+      } else if(contactsMessage.val() <= 0) {
+        inputFieldError('.contacts__message', 'Message field is empty');
+      }
+    });
+    //End contacts
+
   })();//end Registration
 
   //File upload
-  (function(){
+  ;(function(){
     if(window.FormData !==undefined) { //FormData support
       $('.upload-form__upload-input').on('click',  function(){
         $('.progress-bar').text('0%');
@@ -435,7 +471,7 @@ $(document).ready(function(){
             }
           });
         } else if(file == undefined){ // Error if user didn't input title of file
-          inputFieldError('.upload-form__upload-input', 'Choose file to upload please');
+          inputFieldError('.upload-form__upload-input-container', 'Choose file to upload please');
         } else if(title.length == 0) {
           inputFieldError('.upload-form__file-name', 'Please give title to file upload');
         } else if(description.length == 0) {
@@ -491,7 +527,7 @@ $(document).ready(function(){
   })();//end file upload
 
   //Gallery logic
-  (function(){
+  ;(function(){
 
     var images = [
       {imgThumb: 'img1-thumb.jpg', imgLg: 'img1.jpg'},
@@ -519,7 +555,7 @@ $(document).ready(function(){
   //End slider
 
   //Dynamic sticky footer
-  (function(){
+  ;(function(){
     function footerAlign() {
       $('footer').css('display', 'block');
       $('footer').css('height', 'auto');

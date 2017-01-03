@@ -28,6 +28,18 @@ label {
 a {
   text-decoration: none;
 }
+
+input, textarea {
+  border: none;
+  border-radius: 10px;
+  text-indent: 10px;
+}
+
+input:focus,
+textarea:focus{
+  outline: none;
+}
+
 .page {
   display: none;
 }
@@ -38,3 +50,51 @@ a {
 .bx-viewport {
   margin-left:5px;
 }
+
+//Buttons
+.btn {
+  color: $white;
+  padding: 10px;
+  border: none;
+  text-align: center;
+  display: inline-block;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px
+}
+
+.blue-btn {
+  background-color: $blue;
+  webkit-box-shadow: 0px 5px 0px 0px darken($blue, 20%);
+  -moz-box-shadow: 0px 5px 0px 0px darken($blue, 20%);
+  box-shadow: 0px 5px 0px 0px darken($blue, 20%);
+}
+
+.blue-btn:hover {
+  background-color: lighten($blue, 20%);
+}
+
+.blue-btn:active {
+  background-color: $blue;
+  transform: translate(0px, 5px);
+  -webkit-transform: translate(0px, 5px);
+  box-shadow: 0px 0px 0px 0px;
+}
+
+.green-btn {
+  background-color: $green;
+}
+
+.red-btn {
+  background-color: $badRed;
+}
+
+.input-error {
+  background-color: $badRed;
+  padding: 5px;
+  display: inline-block;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+}
+

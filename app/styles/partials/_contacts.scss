@@ -1,0 +1,41 @@
+.contacts-container {
+  max-width:600px;
+  margin:0 auto 10px;
+  color: $white;
+
+
+  input {
+    width:100%;
+  }
+  textarea {
+    width: 100%;
+  }
+
+}
+.contacts__email {
+  height: 30px;
+}
+
+.contacts-email-label {
+  margin: 10px 0px;
+}
+
+.contacts-message-label {
+  margin: 10px 0px;
+}
+
+.contact-submit-button {
+  width:150px;
+  display: block;
+  margin: 10px auto 10px;
+  font-size: 18px;
+}
+
+
+.google-map {
+  width:100%;
+  iframe {
+    border: 0px;
+    width: 100%;
+  }
+}

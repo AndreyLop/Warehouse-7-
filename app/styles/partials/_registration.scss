@@ -1,1 +1,60 @@
+.registration-container {
+  color: $white;
+  max-width:400px;
+  margin: 0 auto;
 
+  input {
+    width:100%;
+    height:30px;
+  }
+
+  label {
+    margin:10px 0px;
+  }
+
+
+}
+
+.registration-form__submit-button {
+  width:150px;
+  display: block;
+  margin:10px auto;
+  font-size: 18px;
+}
+
+.registration__login {
+  color: $white;
+  border-bottom: 1px dashed $red;
+}
+
+
+.login-container {
+  color: $white;
+  max-width:400px;
+  margin:0 auto;
+
+  input {
+    width:100%;
+    height:30px;
+  }
+
+  label {
+    margin:10px 0px;
+  }
+
+}
+
+.login-form__submit {
+  width:150px;
+  display: block;
+  margin:10px auto;
+  font-size: 18px;
+}
+
+.login__to-registration,
+.login__pass-remind {
+  color: $white;
+  border-bottom: 1px dashed $red;
+  display: inline-block;
+  margin:5px 0px;
+}

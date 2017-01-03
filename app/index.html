@@ -39,12 +39,12 @@
       		<ul class="nav__menu">
 						<li class="nav__list-item"><a href="#" class="nav__element">Home</a></li>
             <li class="nav__list-item"><a href="#gallery" class="nav__element">Gallery</a></li>
-            <li class="nav__list-item"><span href="#library" class="nav__element">Library</span>
+            <li class="nav__list-item"><span class="nav__element">Library &#9660;</span>
               <ul class="nav__sub-menu">
                 <li><a href="#library" class="nav__sub-element">Show All Files</a></li>
                 <li><a href="#library/video" class="nav__sub-element">Video</a></li>
-                <li><a href="#library/audio"class="nav__sub-element">Audio</a></li>
-                <li><a href="#library/text"class="nav__sub-element">Text</a></li>
+                <li><a href="#library/audio" class="nav__sub-element">Audio</a></li>
+                <li><a href="#library/text" class="nav__sub-element">Text</a></li>
               </ul>
             </li>
             <li class="nav__list-item"><a href="#upload" class="nav__element">Upload File</a></li>
@@ -59,16 +59,17 @@
 
         <div class="slider">
           <ul class="bxslider">
-            <li><img src="images/slider/pic1sm.jpg" /></li>
-            <li><img src="images/slider/pic2sm.jpg" /></li>
-            <li><img src="images/slider/pic3sm.jpg" /></li>
-            <li><img src="images/slider/pic4sm.jpg" /></li>
-            <li><img src="images/slider/pic5sm.jpg" /></li>
-            <li><img src="images/slider/pic6sm.jpg" /></li>
+            <li><img src="images/slider/pic1sm.jpg" alt="Slider img 1"/></li>
+            <li><img src="images/slider/pic2sm.jpg" alt="Slider img 2"/></li>
+            <li><img src="images/slider/pic3sm.jpg" alt="Slider img 3"/></li>
+            <li><img src="images/slider/pic4sm.jpg" alt="Slider img 4"/></li>
+            <li><img src="images/slider/pic5sm.jpg" alt="Slider img 5"/></li>
+            <li><img src="images/slider/pic6sm.jpg" alt="Slider img 6"/></li>
           </ul>
         </div>
 
 				<div class="content">
+
 
           <div class="galleryPage page">
             <ul class="gallery"></ul>
@@ -92,7 +93,7 @@
               <li><a href="#library/video" class="btn blue-btn sort-btn">Video</a></li>
               <li><a href="#library/text" class="btn blue-btn sort-btn">Text</a></li>
             </ul>
-            <input type="text" class="library__search">
+            <input type="text" class="library__search" value="Search">
               <div class="library__sort">
                 <input type="radio" name="sort" id="sortNewFirst" class="sort time-sort" checked>
                 <label for="sortNewFirst">Show new first</label>
@@ -145,7 +146,8 @@
             <div class="singe-item">
               <h3>{{title}}</h3>
               {{#if video}}
-                <video class="single-item__video" width="80%" controls>
+              <div class="single-item__video">
+                <video class="single-item__video" width="80%" controls >
                   <source src="{{location}}" type="video/mp4">
                   <source src="{{location}}" type="video/webm">
                   <source src="{{location}}" type="video/quicktime">
@@ -159,25 +161,30 @@
                   </object>
 
                 </video>
+              </div>
               {{else audio}}
-              <audio style="width: 80%" controls>
-                <source src="{{location}}" type="audio/ogg">
-                <source src="{{location}}" type="audio/mpeg">
+              <div class="single-item__audio">
+                <audio style="width: 80%" id="audio" controls>
+                  <source src="{{location}}" type="audio/ogg">
+                  <source src="{{location}}" type="audio/mpeg">
 
-                <object id="flowplayer-audio" data="flowplayer/flowplayer-3.2.18.swf" type="application/x-shockwave-flash" width="80%" height="26">
-                  <param name="movie" value="flowplayer/flowplayer-3.2.18.swf">
-                  <param name="allowfullscreen" value="true">
-                  <param name="flashvars" value="config={'clip':{'url':'{{location}}','autoPlay':false}}">
-                </object>
+                  <object id="flowplayer-audio" data="flowplayer/flowplayer-3.2.18.swf" type="application/x-shockwave-flash" width="80%" height="26">
+                    <param name="movie" value="flowplayer/flowplayer-3.2.18.swf">
+                    <param name="allowfullscreen" value="true">
+                    <param name="flashvars" value="config={'clip':{'url':'{{location}}','autoPlay':false}}">
+                  </object>
 
-              </audio>
+                </audio>
+              </div>
               {{else text}}
-              <iframe src="{{location}}" frameborder="0" width="80%" height="auto"></iframe>
+              <div class="single-item__text">
+                <embed src="{{location}}#view=FitH" frameborder="0" width="80%" height="600"></embed>
+              </div>
               {{/if}}
-              <p class="single-item__description">{{description}}</p>
+              <p class="single-item__description">Description:<br/>{{description}}</p>
               <div class="single-item__extension">Extension: {{type}}</div>
               <div class="single-item__size">Size: {{size}}</div>
-              <a href="{{location}}" class="single-item__download-btn btn">Download file</a>
+              <a href="{{location}}" class="single-item__download-btn btn" download>Download file &#9660;</a>
               <a href="" class="single-item__back-btn blue-btn btn">Back &#9664;</a>
             </div>
             </script>
@@ -185,67 +192,74 @@
           </div>
 
           <div class="uploadPage page">
-            <div id="response" style="display:none;"></div>
-            <form action="/upload" class="upload-form" enctype="multipart/form-data" method="post" name="uploadForm" target="uploadiframe">
-              <label for="upload-form__file-name">Enter title:</label>
-              <input type="text" class="upload-form__file-name" id="upload-form__file-name" name="title">
-              <label for="upload-form__description">Description:</label>
-              <textarea name="description" id="" cols="30" rows="10" class="upload-form__description-textarea" id="upload-form__description"></textarea>
-              <input id="upload-input" type="file" name="" class="upload-form__upload-input upload-input">
-              <div class="upload-form__progress">
-                <div class="progress-bar" role="progressbar"></div>
-              </div>
-              <button type="submit" class="upload-form__upload-button">Upload file</button>
-            </form>
+            <div class="upload-container">
+              <div id="response" style="display:none;"></div>
+              <form action="/upload" class="upload-form" enctype="multipart/form-data" method="post" name="uploadForm" target="uploadiframe">
+                <label for="upload-form__file-name">Enter title:</label>
+                <input type="text" class="upload-form__file-name" id="upload-form__file-name" name="title">
+                <label for="upload-form__description">Description:</label>
+                <textarea name="description" cols="30" rows="10" class="upload-form__description-textarea" id="upload-form__description"></textarea>
+                <div class="upload-form__upload-input-container">
+                  <span>Choose file</span>
+                  <input id="upload-input" type="file" class="upload-form__upload-input upload-input-btn">
+                </div>
+                <div class="upload-form__progress">
+                  <div class="progress-bar" role="progressbar"></div>
+                </div>
+                <button type="submit" class="upload-form__upload-button btn blue-btn">Upload file</button>
+              </form>
+            </div>
           </div>
 
-          <div class="registrationPage page">
-            <form class="registration-form">
-              <label for="registration-form__input-name">Enter your name:</label>
-              <input type="text" name="registration-form__input-name" id="registration-form__input-name" value="" class="registration-form__input-name ">
-              <label for="registration-form__input-email">Enter your email:</label>
-              <input type="text" name="registration-form__input-email" id="registration-form__input-email" class="registration-form__input-email">
-              <label for="registration-form__input-password">Enter your password:</label>
-              <input type="text" name="registration-form__input-password" id="registration-form__input-password" class="registration-form__input-password">
-              <label for="registration-form__input-password-confirm">Confirm your password:</label>
-              <input type="text" name="registration-form__input-password-confirm" id="registration-form__input-password-confirm" class="registration-form__input-password-confirm">
-              <button type="button" class="registration-form__submit-button">Submit form</button>
-            </form>
-            <span>Already have account ? <a href="#login">Login</a></span>
+          <div class="registrationPage registration page">
+            <div class="registration-container">
+              <form class="registration-form">
+                <label for="registration-form__input-name">Enter your name:</label>
+                <input type="text" name="registration-form__input-name" id="registration-form__input-name" value="" class="registration-form__input-name ">
+                <label for="registration-form__input-email">Enter your email:</label>
+                <input type="text" name="registration-form__input-email" id="registration-form__input-email" class="registration-form__input-email">
+                <label for="registration-form__input-password">Enter your password:</label>
+                <input type="text" name="registration-form__input-password" id="registration-form__input-password" class="registration-form__input-password">
+                <label for="registration-form__input-password-confirm">Confirm your password:</label>
+                <input type="text" name="registration-form__input-password-confirm" id="registration-form__input-password-confirm" class="registration-form__input-password-confirm">
+                <button type="button" class="registration-form__submit-button blue-btn btn">Submit</button>
+              </form>
+              <span>Already have account ? <a href="#login" class="registration__login">Login</a></span>
+            </div>
           </div>
 
           <div class="loginPage page">
-            <form class="login-form">
-              <label for="login-form__email-input">Email: </label>
-              <input type="text" id="login-form__email-input" class="login-form__email-input">
-              <label for="login-form__password-input">Password: </label>
-              <input type="text" id="login-form__password-input" class="login-form__password-input">
-              <button class="login-form__submit" type="button">Submit</button>
-            </form>
-            <a href="#forgot">Forgot your password ?</a>
-            <a href="#registration">Registration</a>
+            <div class="login-container">
+              <form class="login-form">
+                <label for="login-form__email-input">Email: </label>
+                <input type="text" id="login-form__email-input" class="login-form__email-input">
+                <label for="login-form__password-input">Password: </label>
+                <input type="text" id="login-form__password-input" class="login-form__password-input">
+                <button class="login-form__submit blue-btn btn" type="button">Submit</button>
+              </form>
+              <a href="#forgot" class="login__pass-remind">Forgot your password ?</a><br/>
+              <a href="#registration" class="login__to-registration">Register</a>
+            </div>
           </div>
 
           <div class="aboutPage page">
             <h2>About this site</h2>
-            <p>I dont know what to doy with my life</p>
+            <p>This service is for non-commercial use only.</p>
           </div>
 
           <div class="contactsPage page">
-            <h3>Contact us</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias aliquid aut autem commodi consequuntur culpa dicta ex hic illum ipsum nam non possimus quis quo ratione sequi voluptas, voluptatibus voluptatum.</p>
-            <form action="">
-              <label for="contactName">Name: </label>
-              <input type="text" name="contactName" id="contactName">
-              <label for="contactEmail">Email: </label>
-              <input type="text" name="contactEmail" id="contactEmail">
-              <label for="contactMessage">Message: </label>
-              <textarea name="contactMessage" id="contactMessage" cols="30" rows="10"></textarea>
-              <button type="button">Send</button>
-            </form>
-
-            <div class="map">
-              <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d10146.014214480805!2d30.5057052439163!3d50.524803361190656!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sru!2sua!4v1482355343134" width="1200" height="600" frameborder="0" style="border:0" allowfullscreen></iframe>
+            <div class="contacts-container">
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias aliquid aut autem commodi consequuntur culpa dicta ex hic illum ipsum nam non possimus quis quo ratione sequi voluptas, voluptatibus voluptatum.</p>
+              <form>
+                <label for="contactEmail" class="contacts-email-label">Email: </label>
+                <input type="text" name="contactEmail" id="contactEmail" class="contacts__email">
+                <label for="contactMessage" class="contacts-message-label">Message: </label>
+                <textarea name="contactMessage" id="contactMessage" cols="30" rows="10" class="contacts__message"></textarea>
+                <button type="button" class="contact-submit-button blue-btn btn">Send</button>
+              </form>
+            </div>
+            <div class="google-map">
+              <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d10146.014214480805!2d30.5057052439163!3d50.524803361190656!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sru!2sua!4v1482355343134" height="300"  style="border:0" allowfullscreen></iframe>
             </div>
           </div>
 

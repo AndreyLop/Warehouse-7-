@@ -1,0 +1,78 @@
+.upload-container {
+  display: block;
+  margin: 0 auto;
+  color: $white;
+  max-width:600px;
+}
+
+.upload-form__file-name {
+  width: 100%;
+  border-radius: 10px;
+  text-indent: 10px;
+  height: 30px;
+  margin: 10px 0px;
+}
+
+.upload-form__description-textarea {
+  width:100%;
+  border-radius: 10px;
+  text-indent: 10px;
+  margin: 10px 0px;
+}
+
+.progress-bar {
+  background-color: $red;
+}
+
+.upload-input-btn {
+  text-indent: 0px;
+  margin:0 auto;
+  display: block;
+}
+
+.upload-form__upload-input-container {
+  position: relative;
+  display: block;
+  padding: 10px;
+  background-color: $grey;
+  text-align: center;
+  font-size: 18px;
+  width: 120px;
+  height: 35px;
+  margin: 0 auto;
+  overflow: hidden;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  webkit-box-shadow: 0px 5px 0px 0px darken($grey, 20%);
+  -moz-box-shadow: 0px 5px 0px 0px darken($grey, 20%);
+  box-shadow: 0px 5px 0px 0px darken($grey, 20%);
+}
+
+.upload-form__upload-input-container:active {
+  transform: translate(0px, 5px);
+  -webkit-transform: translate(0px, 5px);
+  box-shadow: 0px 0px 0px 0px;
+
+}
+
+.upload-form__upload-input-container > input[type="file"] {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  right: 0;
+  font-size: 200px;
+  opacity: 0;
+  filter: alpha(opacity=0);
+}
+
+.upload-form__upload-button {
+  margin: 10px auto;
+  display: block;
+  width: 120px;
+  border: none;
+  font-size: 18px;
+  webkit-box-shadow: 0px 5px 0px 0px darken($blue, 20%);
+  -moz-box-shadow: 0px 5px 0px 0px darken($blue, 20%);
+  box-shadow: 0px 5px 0px 0px darken($blue, 20%);
+}

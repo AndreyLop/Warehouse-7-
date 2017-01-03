@@ -17,44 +17,8 @@
   margin: 0 5px 0 5px;
 }
 
-.btn {
-  color: $white;
-  text-align: center;
-  display: inline-block;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  border-radius: 5px
-}
-
 .sort-btn {
-  padding: 10px;
   width: 100px;
-  webkit-box-shadow: 0px 5px 0px 0px darken($blue, 20%);
-  -moz-box-shadow: 0px 5px 0px 0px darken($blue, 20%);
-  box-shadow: 0px 5px 0px 0px darken($blue, 20%);
-}
-
-.blue-btn {
-  background-color: $blue;
-}
-
-.blue-btn:hover {
-  background-color: lighten($blue, 20%);
-}
-
-.blue-btn:active {
-  background-color: $blue;
-  transform: translate(0px, 5px);
-  -webkit-transform: translate(0px, 5px);
-  box-shadow: 0px 0px 0px 0px;
-}
-
-.green-btn {
-  background-color: $green;
-}
-
-.red-btn {
-  background-color: $badRed;
 }
 
 .library__search {
@@ -98,7 +62,7 @@ input[type='radio']:checked + label {
 .rating-btn {
   cursor: pointer;
   border: none;
-  padding:5px;
+  padding: 5px;
 }
 
 .rating-btn:disabled {
@@ -107,7 +71,6 @@ input[type='radio']:checked + label {
 
 .item__more-btn {
   margin-top: 10px;
-  padding: 10px;
   display: block;
   width:100px;
 }

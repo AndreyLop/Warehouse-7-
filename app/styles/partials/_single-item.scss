@@ -1,10 +1,55 @@
 
 .singItemPage {
+  color: $white;
+}
+
+.single-item__video {
+  text-align: center;
+}
+
+.single-item__audio {
+  text-align: center;
+}
+
+.single-item__text {
+  text-align: center;
+}
+
+.single-item__download-btn {
+  background-color: $grey;
+  margin: 10px;
+}
+
+.single-item__description {
+  margin: 10px;
+}
+
+.single-item__extension {
+  margin: 10px;
+}
+
+.single-item__size {
+  margin: 10px;
+}
+
+.single-item__download-btn:hover {
+  background-color: lighten($grey, 20%);
 }
 
 .single-item__back-btn {
-  margin: 10px 10px 10px 0px;
+  margin: 10px 10px 10px 10px;
   padding: 10px;
   display: block;
   width:100px;
 }
+
+@media screen and (max-width: $break-sm) {
+  .singItemPage {
+    text-align: center;
+  }
+
+  .single-item__back-btn {
+    margin: 10px auto;
+  }
+}
+
