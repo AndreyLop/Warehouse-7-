@@ -1,0 +1,51 @@
+.home-container {
+  color: $white;
+  max-width: 600px;
+  margin: 0 auto;
+  font-size: 80px;
+  text-transform: uppercase;
+  vertical-align: middle;
+  line-height: normal;
+
+  span {
+    display: inline-block;
+    text-align: center;
+    width: 100px;
+    height: 100px;
+    border: 5px solid $grey;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+  }
+  a {
+    color: $blue;
+  }
+
+  li {
+    margin: 10px 0px;
+  }
+
+  .home__first-step {
+    color: $blue;
+  }
+  .home__second-step {
+    color: $red;
+  }
+  .home__third-step {
+    color: $green;
+  }
+}
+
+@media screen and (max-width: $break-sm) {
+  .home-container {
+    max-width:300px;
+    font-size:40px;
+
+    span {
+      width: 50px;
+      height: 50px;
+
+    }
+  }
+
+}

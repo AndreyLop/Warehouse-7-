@@ -281,5 +281,26 @@
       "artistName": "Boom Boom Satellites"
     },
     "audio": true
+  },
+  {
+    "name": "01 - The Addict.mp3",
+    "title": "567576",
+    "type": "mp3",
+    "description": "tyutyutyu",
+    "location": "upload/audio/01 - The Addict.mp3",
+    "rating": 0,
+    "date": "04.01.2017 on 18:14",
+    "sortDate": 1483546406426,
+    "uniqueId": "b92217a0-d298-11e6-83d8-a7ea2e9f0628",
+    "size": "7.8 MB",
+    "songInfo": {
+      "name": "The Addict",
+      "artist": "Amarante",
+      "album": "Udana Prana",
+      "year": "2013",
+      "genre": "Alternative Rock",
+      "cover_path": "upload/audio/covers/Amarante Udana Prana.jpeg"
+    },
+    "audio": true
   }
 ]

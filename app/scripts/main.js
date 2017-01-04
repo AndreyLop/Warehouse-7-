@@ -4,7 +4,7 @@ $(document).ready(function(){
     //Router settings
     routie({
       '' : function() {
-        render()
+        render('.homePage');
       },
       'about' : function(){
         render('.aboutPage');
@@ -267,9 +267,6 @@ $(document).ready(function(){
     var templateScript = $('#input-error-template').html();
     var theTemaplte = Handlebars.compile(templateScript);
     $(placement).after(theTemaplte({error: error}));
-    if($(window).width() <= 780) {
-      $('.input-error').css('display', 'block');//for smaller screens error will appear under the inputs
-    }
   }
 
 
@@ -538,7 +535,10 @@ $(document).ready(function(){
       {imgThumb: 'img6-thumb.png', imgLg: 'img6.png'},
       {imgThumb: 'img7-thumb.jpg', imgLg: 'img7.jpg'},
       {imgThumb: 'img8-thumb.jpg', imgLg: 'img8.jpg'},
-      {imgThumb: 'img9-thumb.jpg', imgLg: 'img9.jpg'}
+      {imgThumb: 'img9-thumb.jpg', imgLg: 'img9.jpg'},
+      {imgThumb: 'img10-thumb.jpg', imgLg: 'img10.jpg'},
+      {imgThumb: 'img11-thumb.jpg', imgLg: 'img11.jpg'},
+      {imgThumb: 'img12-thumb.jpg', imgLg: 'img12.jpg'}
     ];
 
     var templateScript = $('#gallery-template').html();
@@ -548,7 +548,7 @@ $(document).ready(function(){
   //End gallery
 
   //Slider
-  (function(){
+  ;(function(){
     $('.bxslider').bxSlider({
     });
   })();

@@ -31,6 +31,8 @@ a {
 
 input, textarea {
   border: none;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
   border-radius: 10px;
   text-indent: 10px;
 }
@@ -47,6 +49,8 @@ textarea:focus{
 .visible {
   display: block;
 }
+
+//bx-slider
 .bx-viewport {
   margin-left:5px;
 }
@@ -60,7 +64,7 @@ textarea:focus{
   display: inline-block;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
-  border-radius: 5px
+  border-radius: 5px;
 }
 
 .blue-btn {
@@ -91,7 +95,10 @@ textarea:focus{
 
 .input-error {
   background-color: $badRed;
+  text-align: center;
   padding: 5px;
+  margin: 5px 0px;
+  width: 100%;
   display: inline-block;
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;

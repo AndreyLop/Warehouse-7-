@@ -9,6 +9,7 @@ var filesDataBase = require('./dist/dataBase.json');
 var usersDataBase = require('./registration/usersDataBase.json');
 var uuidV1 = require('uuid/v1');
 var id3 = require('id3js');
+var jsmediatags = require("jsmediatags");
 
 
 var fileName = "";
@@ -87,6 +88,7 @@ app.post('/upload', function(req, res){
   //   });
   // }
 
+
   // create an incoming form object
   var form = new formidable.IncomingForm();
 
@@ -130,33 +132,68 @@ app.post('/upload', function(req, res){
   });
 
   form.on('end', function(){
-    createData();
+    if(/\bapplication\b/.test(fileType)){
+      createData();
+    } else if(/\bvideo\b/.test(fileType)) {
+      createData();
+    }
     res.end('success');
+    if(/\baudio\b/.test(fileType)) {
+      getSongInfo();
+    }
   });
 
   function createData() {
-    // if(/\bapplication\b/.test(fileType)){
-    //   console.log('text');
-    //   writeToFile(fileName, fileTitle, fileType, fileDescription, fileLocation, fileDate, fileSize);
-    // } else if(/\bvideo\b/.test(fileType)) {
-    //   console.log('video');
-    //   writeToFile(fileName, fileTitle, fileType, fileDescription, fileLocation, fileDate, fileSize);
-    // }
     writeToFile(fileName, fileTitle, fileType, fileDescription, fileLocation, fileDate, fileSize);
   }
 
-  function songInfo(tags) {
-    if(tags) {
-      var songInfo = {
-        artist: tags.artist,
-        album: tags.album,
-        name: tags.title,
-        year: tags.year
-      };
-    }
-    console.log(tags.title, 'FRom singInfo');
-    writeToFile(fileName, fileTitle, fileType, fileDescription, fileLocation, fileDate, fileSize, songInfo);
+
+  function getSongInfo() {
+    jsmediatags.read("./dist/upload/audio/" + fileName, {
+      onSuccess: function(tag) {
+        console.log(tag.tags);
+        var songInfo = {
+          name: tag.tags.title,
+          artist: tag.tags.artist,
+          album: tag.tags.album,
+          year: tag.tags.year,
+          genre: tag.tags.genre
+        };
+
+        if('picture' in tag.tags) {
+          console.log(tag.tags);
+          var data = tag.tags.picture.data;//Array of bytes 0...255
+          var imageBuffer = new Buffer(data.length);
+          for(var i = 0; i < data.length; i++) {
+            imageBuffer[i] = data[i];
+          }
+          var coverPath = 'upload/audio/covers/' + songInfo.artist + " " + songInfo.album + '.jpeg';
+          fs.writeFile('dist/' + coverPath, imageBuffer, function(err) {
+            console.log(err);
+          });
+        }
+        songInfo.cover_path = coverPath;
+        writeToFile(fileName, fileTitle, fileType, fileDescription, fileLocation, fileDate, fileSize, songInfo);
+      },
+      onError: function(error) {
+        console.log(':(', error.type, error.info);
+      }
+    });
   }
+
+  //
+  // function songInfo(tags) {
+  //   if(tags) {
+  //     var songInfo = {
+  //       artist: tags.artist,
+  //       album: tags.album,
+  //       name: tags.title,
+  //       year: tags.year
+  //     };
+  //   }
+  //   console.log(tags.title, 'FRom singInfo');
+  //   writeToFile(fileName, fileTitle, fileType, fileDescription, fileLocation, fileDate, fileSize, songInfo);
+  // }
 
   // parse the incoming request containing the form data
   form.parse(req);

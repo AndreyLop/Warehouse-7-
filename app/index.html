@@ -20,6 +20,8 @@
     <link rel="stylesheet" href="styles/featherlight.min.css">
     <!-- endbuild -->
 
+    <!--[if IE 8]><link rel="stylesheet" href="styles/ie8.css"><![endif]-->
+
     <!-- build:js scripts/vendor/modernizr.js -->
     <script src="/bower_components/modernizr/modernizr.js"></script>
     <!-- endbuild -->
@@ -69,6 +71,16 @@
         </div>
 
 				<div class="content">
+
+          <div class="homePage page">
+            <div class="home-container">
+              <ul>
+                <li class="home__first-step"><span>1</span> <a href="#upload">Upload</a></li>
+                <li class="home__second-step"><span>2</span> Share</li>
+                <li class="home__third-step"><span>3</span> See item 1</li>
+              </ul>
+            </div>
+          </div>
 
 
           <div class="galleryPage page">
@@ -163,7 +175,12 @@
                 </video>
               </div>
               {{else audio}}
-              <div class="single-item__audio">
+              <div class="single-item__audio audio song">
+                {{#if songInfo.cover_path}}
+                  <img src="{{songInfo.cover_path}}" alt="{{title}} cover" class="song__album-cover">
+                {{else}}
+                  <img src="upload/audio/covers/default__cover.png" alt="Default Art" class="song__album-cover">
+                {{/if}}
                 <audio style="width: 80%" id="audio" controls>
                   <source src="{{location}}" type="audio/ogg">
                   <source src="{{location}}" type="audio/mpeg">
@@ -175,6 +192,23 @@
                   </object>
 
                 </audio>
+              </div>
+              <div class="audio__song-info">
+                {{#if songInfo.name}}
+                  <div class="song song__name">Name: {{songInfo.name}}</div>
+                {{/if}}
+                {{#if songInfo.artist}}
+                  <div class="song song__artist">Artist: {{songInfo.artist}}</div>
+                {{/if}}
+                {{#if songInfo.album}}
+                  <div class="song song__album">Album: {{songInfo.album}}</div>
+                {{/if}}
+                {{#if songInfo.year}}
+                  <div class="song song__year">Year: {{songInfo.year}}</div>
+                {{/if}}
+                {{#if songInfo.genre}}
+                  <div class="song song__genre">Genre: {{songInfo.genre}}</div>
+                {{/if}}
               </div>
               {{else text}}
               <div class="single-item__text">
@@ -243,7 +277,7 @@
           </div>
 
           <div class="aboutPage page">
-            <h2>About this site</h2>
+            <h2>About this project</h2>
             <p>This service is for non-commercial use only.</p>
           </div>
 
