@@ -37,6 +37,13 @@ input, textarea {
   text-indent: 10px;
 }
 
+input {
+  height:30px;
+  line-height: 30px;
+}
+
+
+
 input:focus,
 textarea:focus{
   outline: none;
@@ -44,10 +51,15 @@ textarea:focus{
 
 .page {
   display: none;
+  margin: 20px 5px;
 }
 
 .visible {
   display: block;
+}
+
+.active-page-link {
+  background-color: darken($red, 20%);
 }
 
 //bx-slider

@@ -6,6 +6,9 @@ const del = require('del');
 const wiredep = require('wiredep').stream;
 const runSequence = require('run-sequence');
 
+var nodemon = require('gulp-nodemon');
+
+
 const $ = gulpLoadPlugins();
 const reload = browserSync.reload;
 
@@ -117,6 +120,44 @@ gulp.task('serve', () => {
     gulp.watch('bower.json', ['wiredep', 'fonts']);
   });
 });
+
+
+//Mine
+//
+// gulp.task('test', ()=> {
+//   runSequence(['clean', 'wiredep','nodemon'], ['styles', 'scripts', 'fonts'], () => {
+//   browserSync.init(null, {
+//     proxy: "http://localhost:3000",
+//     files: ['.tmp', 'app'],
+//     browser: "google chrome",
+//     port: 7000
+//   });
+//
+//   gulp.watch([
+//     'app/*.html',
+//     'app/images/**/*',
+//     '.tmp/fonts/**/*'
+//   ]).on('change', reload);
+//
+//   gulp.watch('app/styles/**/*.scss', ['styles']);
+//   gulp.watch('app/scripts/**/*.js', ['scripts']);
+//   gulp.watch('app/fonts/**/*', ['fonts']);
+//   gulp.watch('bower.json', ['wiredep', 'fonts']);
+// });
+// });
+//
+// gulp.task('nodemon', function (cb) {
+//   var started = false;
+//   return nodemon({
+//     script: 'app.js'
+//   }).on('start', function () {
+//     if (!started) {
+//       cb();
+//       started = true;
+//     }
+//   });
+// });
+//ENd mine
 
 gulp.task('serve:dist', ['default'], () => {
   browserSync.init({

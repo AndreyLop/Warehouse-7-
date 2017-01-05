@@ -1,0 +1,17 @@
+.error404__container {
+  color: $white;
+  text-align: center;
+
+  h2 {
+    font-size: 60px;
+    font-weight: 700;
+  }
+
+  a {
+    color: $white;
+    border-bottom:1px dashed $red;
+  }
+  p {
+    margin: 10px 0px;
+  }
+}

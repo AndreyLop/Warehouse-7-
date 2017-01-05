@@ -1,0 +1,22 @@
+.about__container {
+  color: $white;
+  max-width: 100%;
+  margin:0 auto;
+
+  h2 {
+    text-align: center;
+    font-weight: 700;
+    margin-bottom:10px;
+  }
+
+  li {
+    margin: 10px 0px
+  }
+
+  a {
+    color: $white;
+    border-bottom:1px dashed $red;
+    font-weight: 700;
+  }
+
+}

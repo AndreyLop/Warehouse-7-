@@ -1,4 +1,4 @@
-.upload-container {
+.upload__container {
   display: block;
   margin: 0 auto;
   color: $white;
@@ -9,8 +9,6 @@
   width: 100%;
   border-radius: 10px;
   text-indent: 10px;
-  height: 30px;
-  line-height: 30px;
   margin: 10px 0px;
 }
 
@@ -27,6 +25,10 @@
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
+}
+
+.upload-form__progress {
+  margin-top: 15px;
 }
 
 .upload-input-btn {

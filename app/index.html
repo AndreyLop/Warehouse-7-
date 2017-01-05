@@ -39,9 +39,9 @@
             <span class="hamburger__text">Menu</span>
           </div>
       		<ul class="nav__menu">
-						<li class="nav__list-item"><a href="#" class="nav__element">Home</a></li>
-            <li class="nav__list-item"><a href="#gallery" class="nav__element">Gallery</a></li>
-            <li class="nav__list-item"><span class="nav__element">Library &#9660;</span>
+						<li class="nav__list-item"><a href="#home" class="nav__element home__link active-page-link">Home</a></li>
+            <li class="nav__list-item"><a href="#gallery" class="nav__element gallery__link">Gallery</a></li>
+            <li class="nav__list-item"><span class="nav__element library__link">Library &#9660;</span>
               <ul class="nav__sub-menu">
                 <li><a href="#library" class="nav__sub-element">Show All Files</a></li>
                 <li><a href="#library/video" class="nav__sub-element">Video</a></li>
@@ -49,10 +49,10 @@
                 <li><a href="#library/text" class="nav__sub-element">Text</a></li>
               </ul>
             </li>
-            <li class="nav__list-item"><a href="#upload" class="nav__element">Upload File</a></li>
-      			<li class="nav__list-item"><a href="#about" class="nav__element">About</a></li>
-						<li class="nav__list-item"><a href="#contacts" class="nav__element">Contacts</a></li>
-						<li class="nav__list-item"><a href="#registration" class="nav__element">Register</a></li>
+            <li class="nav__list-item"><a href="#upload" class="nav__element upload__link">Upload File</a></li>
+      			<li class="nav__list-item"><a href="#about" class="nav__element about__link">About</a></li>
+						<li class="nav__list-item"><a href="#contacts" class="nav__element contacts__link">Contacts</a></li>
+						<li class="nav__list-item"><a href="#registration" class="nav__element registration__link">Register</a></li>
       		</ul>
       	</nav>
       </header>
@@ -72,8 +72,8 @@
 
 				<div class="content">
 
-          <div class="homePage page">
-            <div class="home-container">
+          <div class="homePage page home">
+            <div class="home__container">
               <ul>
                 <li class="home__first-step"><span>1</span> <a href="#upload">Upload</a></li>
                 <li class="home__second-step"><span>2</span> Share</li>
@@ -83,8 +83,8 @@
           </div>
 
 
-          <div class="galleryPage page">
-            <ul class="gallery"></ul>
+          <div class="galleryPage page gallery">
+            <ul class="gallery__container"></ul>
 
             <script id="gallery-template" type="text/x-handlebars-template">
             {{#each this}}
@@ -98,7 +98,7 @@
 
           </div>
 
-          <div class="libraryPage page">
+          <div class="libraryPage page library">
             <ul class="library__main-btns">
               <li><a href="#library" class="btn blue-btn sort-btn">Show All</a></li>
               <li><a href="#library/audio" class="btn blue-btn sort-btn">Audio</a></li>
@@ -152,14 +152,14 @@
           </div>
 
           <div class="singItemPage page">
-            <div class="singe-item-container"></div>
+            <div class="singe-item__container"></div>
 
             <script id="single-item-template" type="text/x-handlebars-template">
             <div class="singe-item">
               <h3>{{title}}</h3>
               {{#if video}}
               <div class="single-item__video">
-                <video class="single-item__video" width="80%" controls >
+                <video width="80%" controls >
                   <source src="{{location}}" type="video/mp4">
                   <source src="{{location}}" type="video/webm">
                   <source src="{{location}}" type="video/quicktime">
@@ -212,7 +212,9 @@
               </div>
               {{else text}}
               <div class="single-item__text">
-                <embed src="{{location}}#view=FitH" frameborder="0" width="80%" height="600"></embed>
+                <object>
+                  <embed src="{{location}}#view=FitH" frameborder="0" width="80%" height="600" type="application/pdf"></embed>
+                </object>
               </div>
               {{/if}}
               <p class="single-item__description">Description:<br/>{{description}}</p>
@@ -225,8 +227,8 @@
 
           </div>
 
-          <div class="uploadPage page">
-            <div class="upload-container">
+          <div class="uploadPage page upload">
+            <div class="upload__container">
               <div id="response" style="display:none;"></div>
               <form action="/upload" class="upload-form" enctype="multipart/form-data" method="post" name="uploadForm" target="uploadiframe">
                 <label for="upload-form__file-name">Enter title:</label>
@@ -246,7 +248,7 @@
           </div>
 
           <div class="registrationPage registration page">
-            <div class="registration-container">
+            <div class="registration__container">
               <form class="registration-form">
                 <label for="registration-form__input-name">Enter your name:</label>
                 <input type="text" name="registration-form__input-name" id="registration-form__input-name" value="" class="registration-form__input-name ">
@@ -262,8 +264,8 @@
             </div>
           </div>
 
-          <div class="loginPage page">
-            <div class="login-container">
+          <div class="loginPage page login">
+            <div class="login__container">
               <form class="login-form">
                 <label for="login-form__email-input">Email: </label>
                 <input type="text" id="login-form__email-input" class="login-form__email-input">
@@ -276,13 +278,25 @@
             </div>
           </div>
 
-          <div class="aboutPage page">
-            <h2>About this project</h2>
-            <p>This service is for non-commercial use only.</p>
+          <div class="aboutPage page about">
+            <div class="about__container">
+              <h2>About this project</h2>
+              <p>Following technologies and libraries where used in this project:</p>
+              <ul>
+                <li><a href="http://projects.jga.me/routie" target="_blank">Routie</a> - a lightweight router library which allows users to copy and share links to uploaded files, and save users history.</li>
+                <li><a href="http://handlebarsjs.com/" target="_blank">Handlebars</a> - a templating engine which allowed me to generate main content, single item pages, gallery and create error messages.</li>
+                <li><a href="http://bxslider.com/" target="_blank">bxSlider</a> - a jQuery slider which works great on all browsers and supports touch slide change on mobile devices.</li>
+                <li><a href="http://noelboss.github.io/featherlight/" target="_blank">Featherlight</a> - a lightweight light box for gallery of images.</li>
+                <li><a href="https://jquery.com/" target="_blank">jQuery</a> - a JS library which provides easier, cross-browser support development.</li>
+                <li><a href="https://nodejs.org/en/" target="_blank">Node.js</a> - server side JavaScript, its used to generate all info about uploaded file and handles file movement.</li>
+                <li><a href="http://expressjs.com/ru/" target="_blank">Express</a> - Node.js framework.</li>
+                <li>......AAAAAAnd node.js modules which made development a LOT easier....</li>
+              </ul>
+            </div>
           </div>
 
-          <div class="contactsPage page">
-            <div class="contacts-container">
+          <div class="contactsPage page contacts">
+            <div class="contacts__container">
               <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias aliquid aut autem commodi consequuntur culpa dicta ex hic illum ipsum nam non possimus quis quo ratione sequi voluptas, voluptatibus voluptatum.</p>
               <form>
                 <label for="contactEmail" class="contacts-email-label">Email: </label>
@@ -294,6 +308,15 @@
             </div>
             <div class="google-map">
               <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d10146.014214480805!2d30.5057052439163!3d50.524803361190656!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sru!2sua!4v1482355343134" height="300"  style="border:0" allowfullscreen></iframe>
+            </div>
+          </div>
+
+          <div class="noSuchPage page">
+            <div class="error404__container">
+              <h2>404</h2>
+              <p>Seems like you found dead link friend, but stay clam!!!! Also here's picture of a cat:</p>
+              <p>Or if you don't like cats try visiting <a href="#home">home page</a></p>
+              <img src="images/cat1.gif" alt="Cat picture">
             </div>
           </div>
 

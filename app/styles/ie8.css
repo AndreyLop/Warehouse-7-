@@ -3,30 +3,15 @@
   position: relative;
 }
 
-input, textarea {
-  behavior: url(styles/PIE.htc);
-}
-
-.upload-form__upload-input-container {
-  behavior: url(styles/PIE.htc);
-}
-
-.bx-wrapper .bx-pager.bx-default-pager a {
-  behavior: url(styles/PIE.htc);
-}
-
-.home-container span {
-  behavior: url(styles/PIE.htc);
-}
-
-.btn {
-  behavior: url(styles/PIE.htc);
-}
-
+input, textarea,
+.upload-form__upload-input-container,
+.bx-wrapper .bx-pager.bx-default-pager a,
+.home-container span,
+.btn,
 .library__sort label {
   behavior: url(styles/PIE.htc);
-
 }
+
 input[type='radio'] {
   top: -3000px;
   left: -3000px;

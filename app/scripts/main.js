@@ -3,7 +3,7 @@ $(document).ready(function(){
   ;(function(){
     //Router settings
     routie({
-      '' : function() {
+      'home' : function() {
         render('.homePage');
       },
       'about' : function(){
@@ -35,19 +35,24 @@ $(document).ready(function(){
       },
       'contacts' : function() {
         render('.contactsPage');
+      },
+      '*' : function() {
+        render('.noSuchPage');
       }
     });
 
     function render(pageClass) {
       $('.singe-item').remove();
       $('.content .page').removeClass('visible');
+      $('.nav__element').removeClass('active-page-link');
+      var address = '.' + window.location.hash.split('/')[0].slice(1) + '__link';
+      $(address).addClass('active-page-link');
       $(pageClass).addClass('visible');
     }
     //End router settings
 
 
     //Library logic
-
     function loadFiles(filter) {
       $('.list__item').remove(); //clear all previous items
 
@@ -115,7 +120,7 @@ $(document).ready(function(){
 
         var templateScript = $('#single-item-template').html();
         var theTemaplte = Handlebars.compile(templateScript);
-        $('.singe-item-container').append(theTemaplte(singleItem));
+        $('.singe-item__container').append(theTemaplte(singleItem));
         $('.single-item__back-btn').attr('href', previousHash);
         $('#audio').prop('volume', 0.3);
       })
@@ -543,7 +548,8 @@ $(document).ready(function(){
 
     var templateScript = $('#gallery-template').html();
     var theTemplate = Handlebars.compile(templateScript);
-    $('.gallery').append(theTemplate(images));
+    $('.gallery__container').append(theTemplate(images));
+
   })();
   //End gallery
 

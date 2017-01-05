@@ -8,7 +8,6 @@ var bodyParser = require('body-parser');
 var filesDataBase = require('./dist/dataBase.json');
 var usersDataBase = require('./registration/usersDataBase.json');
 var uuidV1 = require('uuid/v1');
-var id3 = require('id3js');
 var jsmediatags = require("jsmediatags");
 
 
@@ -19,6 +18,8 @@ var fileTitle = "";
 var fileDescription = "";
 var fileDate = new Date();
 var fileSize;
+
+var textRegExp = /\.(?:pdf)$/i;
 
 app.use(express.static(path.join(__dirname, 'dist')));
 
@@ -80,15 +81,6 @@ app.post('/upload', function(req, res){
     return Math.max(fileSizeInBytes, 0.1).toFixed(1) + byteUnits[i];
   };
 
-  // function getSongInfo(callback) {
-  //   id3({ file:'dist/' + fileLocation, type: id3.OPEN_LOCAL }, function(err, tags) {
-  //     console.log(tags.title, "From getSongInfo");
-  //     console.log(err);
-  //     callback(tags);
-  //   });
-  // }
-
-
   // create an incoming form object
   var form = new formidable.IncomingForm();
 
@@ -112,7 +104,6 @@ app.post('/upload', function(req, res){
     } else if(/\baudio\b/.test(file.type)) {
       fileLocation = 'upload/audio/' + file.name;
       fs.rename(file.path, path.join(form.uploadDir + '/audio', file.name));
-      // getSongInfo(songInfo);
     } else {
       fs.rename(file.path, path.join(form.uploadDir + '/misc', file.name));
     }
@@ -180,20 +171,7 @@ app.post('/upload', function(req, res){
       }
     });
   }
-
-  //
-  // function songInfo(tags) {
-  //   if(tags) {
-  //     var songInfo = {
-  //       artist: tags.artist,
-  //       album: tags.album,
-  //       name: tags.title,
-  //       year: tags.year
-  //     };
-  //   }
-  //   console.log(tags.title, 'FRom singInfo');
-  //   writeToFile(fileName, fileTitle, fileType, fileDescription, fileLocation, fileDate, fileSize, songInfo);
-  // }
+  
 
   // parse the incoming request containing the form data
   form.parse(req);

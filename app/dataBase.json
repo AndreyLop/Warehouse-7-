@@ -302,5 +302,44 @@
       "cover_path": "upload/audio/covers/Amarante Udana Prana.jpeg"
     },
     "audio": true
+  },
+  {
+    "name": "Brandon Sanderson - Mistborn #03 - The Hero of Ages.epub",
+    "title": "uyioyuiy",
+    "type": "octet-stream",
+    "description": "9i09i90i90i09i",
+    "location": "upload/text/Brandon Sanderson - Mistborn #03 - The Hero of Ages.epub",
+    "rating": 0,
+    "date": "05.01.2017 on 16:39",
+    "sortDate": 1483627125676,
+    "uniqueId": "a98e55d0-d354-11e6-b0d7-b535baf0fc66",
+    "size": "1.2 MB",
+    "text": true
+  },
+  {
+    "name": "Brandon Sanderson - Mistborn #01 - The Final Empire.fb2",
+    "title": "fghfgh",
+    "type": "octet-stream",
+    "description": "fghfghfgh",
+    "location": "upload/text/Brandon Sanderson - Mistborn #01 - The Final Empire.fb2",
+    "rating": 0,
+    "date": "05.01.2017 on 16:39",
+    "sortDate": 1483627144136,
+    "uniqueId": "b48ef480-d354-11e6-b0d7-b535baf0fc66",
+    "size": "1.9 MB",
+    "text": true
+  },
+  {
+    "name": "Lopatin Andrey - CV.docx",
+    "title": "sdfsdfsdfsdf",
+    "type": "vnd.openxmlformats-officedocument.wordprocessingml.document",
+    "description": "sdfsdf",
+    "location": "upload/text/Lopatin Andrey - CV.docx",
+    "rating": 0,
+    "date": "05.01.2017 on 16:39",
+    "sortDate": 1483627171838,
+    "uniqueId": "c511f1e0-d354-11e6-b0d7-b535baf0fc66",
+    "size": "15.2 kB",
+    "text": true
   }
 ]
