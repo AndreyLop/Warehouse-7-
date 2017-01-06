@@ -3,11 +3,30 @@
   position: relative;
 }
 
-input, textarea,
-.upload-form__upload-input-container,
-.bx-wrapper .bx-pager.bx-default-pager a,
-.home-container span,
-.btn,
+input {
+  behavior: url(styles/PIE.htc);
+}
+
+textarea {
+  behavior: url(styles/PIE.htc);
+}
+
+.btn {
+  behavior: url(styles/PIE.htc);
+}
+
+.home__container span {
+  behavior: url(styles/PIE.htc);
+}
+
+.bx-wrapper .bx-pager.bx-default-pager a {
+  behavior: url(styles/PIE.htc);
+}
+
+.upload-form__upload-input-container {
+  behavior: url(styles/PIE.htc);
+}
+
 .library__sort label {
   behavior: url(styles/PIE.htc);
 }

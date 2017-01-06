@@ -1,5 +1,4 @@
 .home__container {
-  color: $white;
   max-width: 600px;
   margin: 0 auto;
   font-size: 80px;
@@ -37,7 +36,7 @@
 }
 
 @media screen and (max-width: $break-sm) {
-  .home-container {
+  .home__container {
     max-width:300px;
     font-size:40px;
 

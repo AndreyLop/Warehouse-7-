@@ -9,6 +9,7 @@
     "date": "19.12.2016 on 14:01",
     "sortDate": 1482148848411,
     "uniqueId": "c7a48eb0-c5e2-11e6-be8a-9f9e6e038b27",
+    "displayable": true,
     "video": true
   },
   {
@@ -21,6 +22,7 @@
     "date": "19.12.2016 on 14:01",
     "sortDate": 1482148860539,
     "uniqueId": "cedf24b0-c5e2-11e6-be8a-9f9e6e038b27",
+    "displayable": true,
     "video": true
   },
   {
@@ -33,6 +35,7 @@
     "date": "19.12.2016 on 14:01",
     "sortDate": 1482148876195,
     "uniqueId": "d8340f30-c5e2-11e6-be8a-9f9e6e038b27",
+    "displayable": true,
     "video": true
   },
   {
@@ -45,6 +48,7 @@
     "date": "19.12.2016 on 14:01",
     "sortDate": 1482148897925,
     "uniqueId": "e527cb50-c5e2-11e6-be8a-9f9e6e038b27",
+    "displayable": true,
     "video": true
   },
   {
@@ -57,6 +61,7 @@
     "date": "19.12.2016 on 14:01",
     "sortDate": 1482148910309,
     "uniqueId": "ec897150-c5e2-11e6-be8a-9f9e6e038b27",
+    "displayable": false,
     "video": true
   },
   {
@@ -69,6 +74,7 @@
     "date": "19.12.2016 on 14:01",
     "sortDate": 1482148921586,
     "uniqueId": "f3422d20-c5e2-11e6-be8a-9f9e6e038b27",
+    "displayable": false,
     "video": true
   },
   {
@@ -81,6 +87,7 @@
     "date": "19.12.2016 on 14:01",
     "sortDate": 1482148941719,
     "uniqueId": "ff423a70-c5e2-11e6-be8a-9f9e6e038b27",
+    "displayable": false,
     "video": true
   },
   {
@@ -93,6 +100,7 @@
     "date": "19.12.2016 on 14:01",
     "sortDate": 1482148953532,
     "uniqueId": "064cbfc0-c5e3-11e6-be8a-9f9e6e038b27",
+    "displayable": true,
     "video": true
   },
   {
@@ -105,6 +113,7 @@
     "date": "19.12.2016 on 14:01",
     "sortDate": 1482148965801,
     "uniqueId": "0d9cd990-c5e3-11e6-be8a-9f9e6e038b27",
+    "displayable": true,
     "video": true
   },
   {
@@ -117,6 +126,7 @@
     "date": "19.12.2016 on 14:01",
     "sortDate": 1482148978928,
     "uniqueId": "156fdf00-c5e3-11e6-be8a-9f9e6e038b27",
+    "displayable": true,
     "video": true
   },
   {
@@ -129,6 +139,7 @@
     "date": "19.12.2016 on 14:01",
     "sortDate": 1482148998944,
     "uniqueId": "215e1200-c5e3-11e6-be8a-9f9e6e038b27",
+    "displayable": true,
     "audio": true
   },
   {
@@ -141,6 +152,7 @@
     "date": "19.12.2016 on 14:01",
     "sortDate": 1482149012261,
     "uniqueId": "294e1550-c5e3-11e6-be8a-9f9e6e038b27",
+    "displayable": true,
     "audio": true
   },
   {
@@ -153,6 +165,7 @@
     "date": "19.12.2016 on 14:01",
     "sortDate": 1482149030837,
     "uniqueId": "34608e50-c5e3-11e6-be8a-9f9e6e038b27",
+    "displayable": true,
     "audio": true
   },
   {
@@ -165,6 +178,7 @@
     "date": "19.12.2016 on 14:01",
     "sortDate": 1482149042048,
     "uniqueId": "3b0f3800-c5e3-11e6-be8a-9f9e6e038b27",
+    "displayable": true,
     "audio": true
   },
   {
@@ -177,6 +191,7 @@
     "date": "19.12.2016 on 14:01",
     "sortDate": 1482149051573,
     "uniqueId": "40bc9e50-c5e3-11e6-be8a-9f9e6e038b27",
+    "displayable": true,
     "audio": true
   },
   {
@@ -189,6 +204,7 @@
     "date": "19.12.2016 on 14:01",
     "sortDate": 1482149063688,
     "uniqueId": "47f53880-c5e3-11e6-be8a-9f9e6e038b27",
+    "displayable": true,
     "audio": true
   },
   {
@@ -201,6 +217,7 @@
     "date": "19.12.2016 on 14:01",
     "sortDate": 1482149073191,
     "uniqueId": "4d9f4370-c5e3-11e6-be8a-9f9e6e038b27",
+    "displayable": true,
     "audio": true
   },
   {
@@ -213,6 +230,7 @@
     "date": "19.12.2016 on 14:01",
     "sortDate": 1482149083521,
     "uniqueId": "53c77f10-c5e3-11e6-be8a-9f9e6e038b27",
+    "displayable": true,
     "audio": true
   },
   {
@@ -225,6 +243,7 @@
     "date": "19.12.2016 on 14:01",
     "sortDate": 1482149093598,
     "uniqueId": "59c91fe0-c5e3-11e6-be8a-9f9e6e038b27",
+    "displayable": true,
     "audio": true
   },
   {
@@ -237,6 +256,7 @@
     "date": "19.12.2016 on 14:01",
     "sortDate": 1482149103413,
     "uniqueId": "5fa2c650-c5e3-11e6-be8a-9f9e6e038b27",
+    "displayable": true,
     "audio": true
   },
   {
@@ -249,6 +269,7 @@
     "date": "19.12.2016 on 14:01",
     "sortDate": 1482149123249,
     "uniqueId": "6b758210-c5e3-11e6-be8a-9f9e6e038b27",
+    "displayable": true,
     "text": true
   },
   {
@@ -261,6 +282,7 @@
     "date": "23.12.2016 on 19:22",
     "sortDate": 1482513709180,
     "uniqueId": "499bd2d0-c934-11e6-abf7-45dfb583375e",
+    "displayable": true,
     "video": true
   },
   {
@@ -280,6 +302,7 @@
       "albumYear": "2006",
       "artistName": "Boom Boom Satellites"
     },
+    "displayable": true,
     "audio": true
   },
   {
@@ -301,6 +324,7 @@
       "genre": "Alternative Rock",
       "cover_path": "upload/audio/covers/Amarante Udana Prana.jpeg"
     },
+    "displayable": true,
     "audio": true
   },
   {
@@ -314,6 +338,7 @@
     "sortDate": 1483627125676,
     "uniqueId": "a98e55d0-d354-11e6-b0d7-b535baf0fc66",
     "size": "1.2 MB",
+    "displayable": false,
     "text": true
   },
   {
@@ -327,6 +352,7 @@
     "sortDate": 1483627144136,
     "uniqueId": "b48ef480-d354-11e6-b0d7-b535baf0fc66",
     "size": "1.9 MB",
+    "displayable": false,
     "text": true
   },
   {
@@ -340,6 +366,85 @@
     "sortDate": 1483627171838,
     "uniqueId": "c511f1e0-d354-11e6-b0d7-b535baf0fc66",
     "size": "15.2 kB",
+    "displayable": false,
     "text": true
+  },
+  {
+    "name": "Test.txt",
+    "title": "567567",
+    "type": "plain",
+    "description": "tyutyu",
+    "location": "upload/text/Test.txt",
+    "rating": 0,
+    "date": "06.01.2017 on 20:39",
+    "sortDate": 1483727896208,
+    "uniqueId": "49791900-d43f-11e6-b6fb-0953f1f3b838",
+    "size": "0.1 kB",
+    "displayable": false,
+    "text": true
+  },
+  {
+    "name": "The.Good.Place.S01E10.720p.HDTV.x264-SVA.mkv",
+    "title": "sdfsdf",
+    "type": "x-matroska",
+    "description": "sdfsdfsdf",
+    "location": "upload/video/The.Good.Place.S01E10.720p.HDTV.x264-SVA.mkv",
+    "rating": 0,
+    "date": "06.01.2017 on 20:39",
+    "sortDate": 1483728216174,
+    "uniqueId": "083008e0-d440-11e6-b6fb-0953f1f3b838",
+    "size": "394.4 MB",
+    "displayable": false,
+    "video": true
+  },
+  {
+    "name": "t haloreach birthoaspartan ext hd.wmv",
+    "title": "456456",
+    "type": "x-ms-wmv",
+    "description": "rtyrtyry",
+    "location": "upload/video/t_haloreach_birthoaspartan_ext_hd.wmv",
+    "rating": 0,
+    "date": "06.01.2017 on 20:39",
+    "sortDate": 1483728454485,
+    "uniqueId": "963b6850-d440-11e6-b6fb-0953f1f3b838",
+    "size": "60.8 MB",
+    "displayable": false,
+    "video": true
+  },
+  {
+    "name": "05. Left Hand Free (Extended Version).mp3",
+    "title": "567567567",
+    "type": "mp3",
+    "description": "tyutyutyutyutyu",
+    "location": "upload/audio/05. Left Hand Free (Extended Version).mp3",
+    "rating": 0,
+    "date": "06.01.2017 on 21:41",
+    "sortDate": 1483731661632,
+    "uniqueId": "0dd73400-d448-11e6-895c-1335fd8b6d5e",
+    "size": "6.7 MB",
+    "songInfo": {
+      "name": "Left Hand Free (Extended Version)",
+      "artist": "Alt-J",
+      "album": "This Is All Yours",
+      "year": "2014",
+      "genre": "Alternative Rock / Indie Pop / Electronic",
+      "cover_path": "upload/audio/covers/Alt-J This Is All Yours.jpeg"
+    },
+    "displayable": true,
+    "audio": true
+  },
+  {
+    "name": "1001.Mmd-N15.creaspace.ru.avi",
+    "title": "hjkhjk",
+    "type": "avi",
+    "description": "hgjkhjk",
+    "location": "upload/video/1001.Mmd-N15.creaspace.ru.avi",
+    "rating": 0,
+    "date": "06.01.2017 on 21:41",
+    "sortDate": 1483731714504,
+    "uniqueId": "2d5ad480-d448-11e6-895c-1335fd8b6d5e",
+    "size": "46.4 MB",
+    "displayable": false,
+    "video": true
   }
 ]

@@ -1,5 +1,4 @@
 .libraryPage {
-  color: $white;
 }
 
 .item {
@@ -22,10 +21,9 @@
   width: 100px;
 }
 
-.library__search {
+.search__input {
   display: inline-block;
   float: right;
-  height:30px;
 }
 
 input[type='radio'] {
@@ -75,7 +73,7 @@ input[type='radio']:checked + label {
 .item__more-btn {
   margin-top: 10px;
   display: block;
-  width:100px;
+  width: 120px;
 }
 
 .pagination {
@@ -101,7 +99,7 @@ input[type='radio']:checked + label {
     text-align: center;
   }
 
-  .library__search {
+  .search__input {
     display: block;
     float: none;
     margin: 10px auto;
@@ -110,9 +108,16 @@ input[type='radio']:checked + label {
   .item {
     text-align: center;
   }
+
+  .item__more-btn {
+    margin:10px auto;
+  }
+
   .library__sort {
     text-align: center;
   }
+
+
 }
 
 @media screen and (max-width: $break-xsm) {

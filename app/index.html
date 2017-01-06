@@ -15,12 +15,14 @@
     <!-- endbuild -->
 
     <!-- build:css styles/main.css -->
-    <link rel="stylesheet" href="styles/main.css">
     <link rel="stylesheet" href="styles/jquery.bxslider.css">
     <link rel="stylesheet" href="styles/featherlight.min.css">
+    <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
 
-    <!--[if IE 8]><link rel="stylesheet" href="styles/ie8.css"><![endif]-->
+    <!--[if IE 8]>
+    <link rel="stylesheet" href="styles/ie8.css">
+    <![endif]-->
 
     <!-- build:js scripts/vendor/modernizr.js -->
     <script src="/bower_components/modernizr/modernizr.js"></script>
@@ -105,7 +107,7 @@
               <li><a href="#library/video" class="btn blue-btn sort-btn">Video</a></li>
               <li><a href="#library/text" class="btn blue-btn sort-btn">Text</a></li>
             </ul>
-            <input type="text" class="library__search" value="Search">
+            <input type="text" class="search__input" value="Search">
               <div class="library__sort">
                 <input type="radio" name="sort" id="sortNewFirst" class="sort time-sort" checked>
                 <label for="sortNewFirst">Show new first</label>
@@ -132,13 +134,19 @@
                   <button type="button" class="item__rating-down rating-btn btn red-btn">I hated it...</button>
                   <span>Rating: <span class="item__rating">{{rating}}</span></span>
                   <button type="button" class="item__rating-up rating-btn btn green-btn">I liked it!</button>
-                  {{#if video}}
-                  <a href = "#library/video/{{uniqueId}}" class="item__more-btn btn blue-btn">More. &#9654;</a>
-                  {{else audio}}
-                  <a href = "#library/audio/{{uniqueId}}" class="item__more-btn btn blue-btn">More. &#9654;</a>
-                  {{else text}}
-                  <a href = "#library/text/{{uniqueId}}" class="item__more-btn btn blue-btn">More. &#9654;</a>
+
+                  {{#if displayable}}
+                    {{#if video}}
+                      <a href = "#library/video/{{uniqueId}}" class="item__more-btn btn blue-btn">More. &#9654;</a>
+                    {{else audio}}
+                      <a href = "#library/audio/{{uniqueId}}" class="item__more-btn btn blue-btn">More. &#9654;</a>
+                    {{else text}}
+                      <a href = "#library/text/{{uniqueId}}" class="item__more-btn btn blue-btn">More. &#9654;</a>
+                    {{/if}}
+                  {{else}}
+                    <a href="{{location}}" class=" item__more-btn btn blue-btn" download>Download. &#9660;</a>
                   {{/if}}
+
                 </li>
                 {{/each}}
               </script>
@@ -164,13 +172,17 @@
                   <source src="{{location}}" type="video/webm">
                   <source src="{{location}}" type="video/quicktime">
                   <source src="{{location}}" type="video/x-flv">
-                  <source src="{{location}}" type="video/x-matroska">
+                  <source src="{{location}}" type="video/ogg;" codecs="theora,vorbis">
+
+                  <p>Hm... it seems your browser dont support video playback, but you can download video.</p>
+
 
                   <object id="flowplayer" data="flowplayer/flowplayer-3.2.18.swf" type="application/x-shockwave-flash" width="80%" height="480" >
                     <param name="movie" value="flowplayer/flowplayer-3.2.18.swf">
                     <param name="allowfullscreen" value="true">
                     <param name="flashvars" value="config={'clip':{'url':'{{location}}','autoPlay':false}}">
                   </object>
+
 
                 </video>
               </div>

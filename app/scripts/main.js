@@ -17,8 +17,12 @@ $(document).ready(function(){
         loadFiles('');
       },
       'library/:type' : function(type) {
-        render('.libraryPage');
-        loadFiles(type);
+        if(type == 'video' || type == 'audio' || type == 'text') {
+          render('.libraryPage');
+          loadFiles(type);
+        } else {
+          render('.noSuchPage');
+        }
       },
       'library/:type/:id' : function(type, id) {
         render('.singItemPage');
@@ -170,8 +174,8 @@ $(document).ready(function(){
 
     //End rate content
 
-    // Text search
-    $('.library__search').on('keyup', function(){
+    //Content search
+    $('.search__input ').on('keyup', function(){
       var searchText = $(this).val().toLowerCase();
 
       $('.list__item').each(function(){
@@ -180,6 +184,7 @@ $(document).ready(function(){
         $(this).toggle(showCurrent);
       });
     });
+
 
     //Pagination logic
     function createPagination() {
@@ -240,8 +245,8 @@ $(document).ready(function(){
 
       function goToPage(pageNumb) {
         var showPerPage = parseInt($('.show-per-page').val()),     // number of items shown per page
-          startFrom = pageNumb * showPerPage,                      //element number where to start the slice from
-          endOn = startFrom + showPerPage;                         //element number where to end the slice
+          startFrom = pageNumb * showPerPage,
+          endOn = startFrom + showPerPage;
         $('.library__list').children().css('display', 'none').slice(startFrom, endOn).css('display', 'block');
         /*get the page link that has data-desc attribute of the current page and add active_page class to it
          and remove that class from previously active page link*/
@@ -436,7 +441,7 @@ $(document).ready(function(){
 
         if(file !== undefined && title.length > 0 && description.length > 0) {
           var formData = new FormData();
-
+          
           formData.append('newFile', file, file.name);
           formData.append('title', title);
           formData.append('description', description);

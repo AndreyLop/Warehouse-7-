@@ -19,7 +19,7 @@ var fileDescription = "";
 var fileDate = new Date();
 var fileSize;
 
-var textRegExp = /\.(?:pdf)$/i;
+var standardExtRegExp = (/\.(mp4|mov|flv|webm|ogg|pdf|mp3)$/i);
 
 app.use(express.static(path.join(__dirname, 'dist')));
 
@@ -43,6 +43,7 @@ app.post('/upload', function(req, res){
       this.uniqueId = uuidV1();
       this.size = fileSize;
       this.songInfo = songInfo;
+      this.displayable = standardExtRegExp.test(this.name);
     };
 
     function NewVideoFile(fileName, fileTitle, fileType, fileDescription, fileLocation, fileDate, fileSize) {
@@ -171,7 +172,7 @@ app.post('/upload', function(req, res){
       }
     });
   }
-  
+
 
   // parse the incoming request containing the form data
   form.parse(req);

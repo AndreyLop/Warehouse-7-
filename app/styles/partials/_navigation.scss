@@ -87,14 +87,9 @@
   transform: rotate(45deg) translate(-8px, -8px) ;
 }
 .nav__mobile-drop {
-  border:1px solid $white;
-  display: table;
-  vertical-align: middle;
+  border: 1px solid $white;
 }
-.hamburger__text {
-  display: table-cell;
-  vertical-align: middle;
-}
+
 .nav__mobile-drop {
   display: none;
 }
@@ -105,8 +100,23 @@
     padding:0px;
   }
   .nav__mobile-drop {
-    display: table;
+    display: inline-block;
+    position: relative;
+    width: 90px;
+    margin: 10px;
   }
+  .hamburger {
+    padding-left: 5px;
+  }
+
+  .hamburger__text {
+    display: inline-block;
+    position: absolute;
+    margin-bottom: 10px;
+    top: 12px;
+    right: 2px;
+  }
+
   .nav__list-item + .nav__list-item {
     border: none;
   }
