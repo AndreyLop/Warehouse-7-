@@ -49,7 +49,7 @@ $(document).ready(function(){
       $('.singe-item').remove();
       $('.content .page').removeClass('visible');
       $('.nav__element').removeClass('active-page-link');
-      var address = '.' + window.location.hash.split('/')[0].slice(1) + '__link';
+      var address = '.' + window.location.hash.split('/')[0].slice(1) + '__nav-link';
       $(address).addClass('active-page-link');
       $(pageClass).addClass('visible');
     }
@@ -104,12 +104,6 @@ $(document).ready(function(){
       loadFiles(window.location.hash.slice(9));
     });
 
-    // "Remember" hash value when click more then supplying it to back as href value, see below
-    var previousHash;
-    $('.libraryPage').on('click','.item__more-btn', function() {
-      previousHash = window.location.hash;
-    });
-
     //Single item load
     function getSingleItem(type, id) {
       $('.singe-item').remove();
@@ -125,7 +119,12 @@ $(document).ready(function(){
         var templateScript = $('#single-item-template').html();
         var theTemaplte = Handlebars.compile(templateScript);
         $('.singe-item__container').append(theTemaplte(singleItem));
-        $('.single-item__back-btn').attr('href', previousHash);
+
+        $('.single-item__back-btn').on('click', function(e){
+          e.preventDefault();
+          window.history.back();
+        });
+
         $('#audio').prop('volume', 0.3);
       })
     }
@@ -267,6 +266,10 @@ $(document).ready(function(){
         $(this).toggleClass('shown');
         $(this).removeAttr('style');
       });//SHow menu to button toggle
+      $('.content, footer').one('click', function() {//on click on content hide drop down navigation
+        $('.hamburger').toggleClass('change');
+        $('.nav__menu').toggleClass('shown');
+      });
     });
 
   })();
@@ -441,7 +444,7 @@ $(document).ready(function(){
 
         if(file !== undefined && title.length > 0 && description.length > 0) {
           var formData = new FormData();
-          
+
           formData.append('newFile', file, file.name);
           formData.append('title', title);
           formData.append('description', description);
@@ -486,48 +489,29 @@ $(document).ready(function(){
         }
       });
     } else { // IE8 solution for file upload, sending whole frame which is created here
-      var iframeUpload = {
-        init: function() {
-          $('.uploadPage').append('<iframe name="uploadiframe" style="display:none;"></iframe>');
-          iframeUpload.started();
-        },
-        started: function() {
-          $('#response').html('Loading, please wait.').show();
-          $('.uploadPage').hide();
-        },
-        complete: function() {
-          $('.uploadPage').show();
-          $('#response').html(' ').show();
-          var response = $('iframe').contents().text();
-          if(response){
-            response = $.parseJSON(response);
-            console.log(response);
-          }
-        }
-      };
-      $('.upload-form__upload-button').on('click', function(e) {
+      var iframe = $('<iframe name="uploadiframe" class="iframe-upload" style="display: none"></iframe>');
+      $('.upload-form').append(iframe);
+      $('.upload-form').on('submit', function(e){
+
         var name = $('.upload-form__file-name').val();
         var file = $('.upload-form__upload-input').val();
         var description = $('.upload-form__description-textarea').val();
 
-
         if(name.length <= 0) {
           e.preventDefault();
           inputFieldError('.upload-form__file-name', 'Please give title to file upload')
-        }
-        if(description.length <= 0) {
+        } else if(description.length <= 0) {
           e.preventDefault();
           inputFieldError('.upload-form__description-textarea', 'Please give some kind of description');
-        }
-        if(file == '') {
+        } else if(file == '') {
           e.preventDefault();
-          inputFieldError('.upload-form__upload-input', 'Choose file to upload please');
-        }
-        if(name.length > 0 && file != '' && description.length > 0) {
-          iframeUpload.init();
-          iframeUpload.complete();
-          name = '';
-          description = '';
+          inputFieldError('.upload-form__upload-input-container', 'Choose file to upload please');
+        } else {
+          $('#response').html('Loading, please wait.');
+          iframe[0].onload = function() {
+            $('#response').html('Done');
+            $('.upload-form')[0].reset();
+          }
         }
       });
     } // end IE8 upload support
@@ -564,6 +548,29 @@ $(document).ready(function(){
     });
   })();
   //End slider
+
+  //Google map initialisation
+  ;(function(){
+    function initMap() {
+      var uluru = {lat: 50.5189406, lng: 30.4985128};
+      var map = new google.maps.Map($('.google-map')[0], {
+        zoom: 14,
+        center: uluru
+      });
+      var marker = new google.maps.Marker({
+        position: uluru,
+        map: map
+      });
+
+      google.maps.event.addDomListener(window, 'resize', function() {
+        var center = map.getCenter();
+        google.maps.event.trigger(map, 'resize');
+        map.setCenter(center);
+      });
+
+    }
+    initMap();
+  })();//End map init
 
   //Dynamic sticky footer
   ;(function(){

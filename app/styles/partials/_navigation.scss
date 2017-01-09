@@ -10,9 +10,16 @@
   display: block;
 }
 
+.nav__menu {
+  font-size: 0px;
+  display: inline-block;
+
+}
+
 .nav__menu li {
   display: inline-block;
   position: relative;
+  font-size: 16px;
 }
 
 .nav__element,
@@ -92,6 +99,19 @@
 
 .nav__mobile-drop {
   display: none;
+}
+
+.nav__login {
+  float: right;
+
+
+  a {
+    color: $white;
+    border-bottom: 1px solid $white;
+    display: inline-block;
+    font-size: 12px;
+  }
+
 }
 
 @media screen and (max-width: $break-sm) {

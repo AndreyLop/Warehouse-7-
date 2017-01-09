@@ -5,7 +5,7 @@ var formidable = require('formidable');
 var fs = require('fs');
 var jsonfile = require('jsonfile');
 var bodyParser = require('body-parser');
-var filesDataBase = require('./dist/dataBase.json');
+var filesDataBase = require('./app/dataBase.json');
 var usersDataBase = require('./registration/usersDataBase.json');
 var uuidV1 = require('uuid/v1');
 var jsmediatags = require("jsmediatags");
@@ -16,15 +16,17 @@ var fileType = "";
 var fileLocation = "";
 var fileTitle = "";
 var fileDescription = "";
-var fileDate;
+var fileDate = new Date();
 var fileSize;
 
 var standardExtRegExp = (/\.(mp4|mov|flv|webm|ogg|pdf|mp3)$/i);
 
-app.use(express.static(path.join(__dirname, 'dist')));
+app.use(express.static(path.join(__dirname, 'app')));
+app.use(express.static(path.join(__dirname, '.tmp')));
+app.use('/bower_components',  express.static(__dirname + '/bower_components'));
 
 app.get('/', function(req, res){
-  res.sendFile(path.join(__dirname, 'dist/index.html'));
+  res.sendFile(path.join(__dirname, 'app/index.html'));
 });
 
 app.post('/upload', function(req, res){
@@ -38,7 +40,7 @@ app.post('/upload', function(req, res){
       this.description = fileDescription;
       this.location = fileLocation;
       this.rating = 0;
-      this.date = (fileDate.getDate() < 10 ? "0" + fileDate.getDate() : fileDate.getDate()) + "." + (fileDate.getMonth() + 1 < 10 ? "0" + (fileDate.getMonth() + 1) : (fileDate.getMonth() + 1)) + "." + fileDate.getFullYear() + " on " + fileDate.getHours() + ":" + (fileDate.getMinutes() + 1 < 10 ? "0" + (fileDate.getMinutes() + 1) : (fileDate.getMinutes() + 1));
+      this.date = (fileDate.getDate() + 1 < 10 ? "0" + fileDate.getDate() : fileDate.getDate()) + "." + (fileDate.getMonth() + 1 < 10 ? "0" + (fileDate.getMonth() + 1) : (fileDate.getMonth() + 1)) + "." + fileDate.getFullYear() + " on " + fileDate.getHours() + ":" + (fileDate.getMinutes() + 1 < 10 ? "0" + (fileDate.getMinutes() + 1) : (fileDate.getMinutes() + 1));
       this.sortDate = new Date().getTime();
       this.uniqueId = uuidV1();
       this.size = fileSize;
@@ -68,7 +70,7 @@ app.post('/upload', function(req, res){
     } else if(/\bapplication\b/.test(fileType)) {
       filesDataBase.push(new NewTextFile());
     }
-    jsonfile.writeFileSync('./dist/dataBase.json', filesDataBase, {spaces: 2});
+    jsonfile.writeFileSync('./app/dataBase.json', filesDataBase, {spaces: 2});
   };
 
   //Converting size for human eyes
@@ -86,7 +88,7 @@ app.post('/upload', function(req, res){
   var form = new formidable.IncomingForm();
 
   // store all uploads in the /uploads directory
-  form.uploadDir = path.join(__dirname, '/dist/upload');
+  form.uploadDir = path.join(__dirname, '/app/upload');
 
   // every time a file has been uploaded successfully,
   // rename it to it's orignal name
@@ -94,7 +96,6 @@ app.post('/upload', function(req, res){
   form.on('file', function(title, file) { //fires when file has been send
     fileName = file.name;
     fileType = file.type;
-    fileDate = new Date();
     fileSize = getReadableFileSizeString(file.size);
 
     if(/\bapplication\b/.test(file.type)){
@@ -142,9 +143,8 @@ app.post('/upload', function(req, res){
 
 
   function getSongInfo() {
-    jsmediatags.read("./dist/upload/audio/" + fileName, {
+    jsmediatags.read("./app/upload/audio/" + fileName, {
       onSuccess: function(tag) {
-        console.log(tag.tags);
         var songInfo = {
           name: tag.tags.title,
           artist: tag.tags.artist,
@@ -161,7 +161,7 @@ app.post('/upload', function(req, res){
             imageBuffer[i] = data[i];
           }
           var coverPath = 'upload/audio/covers/' + songInfo.artist + " " + songInfo.album + '.jpeg';
-          fs.writeFile('dist/' + coverPath, imageBuffer, function(err) {
+          fs.writeFile('app/' + coverPath, imageBuffer, function(err) {
             console.log(err);
           });
         }
@@ -190,7 +190,7 @@ app.use(bodyParser.json());
 app.post('/rateItem', function(req, res){
 //req.body.uniqueId contains id from main.js which i send
 
-    fs.readFile('./dist/dataBase.json','utf-8', function(err, data){
+    fs.readFile('./app/dataBase.json','utf-8', function(err, data){
       var parsedData = JSON.parse(data); //data from existing file
       for(var i = 0; i < parsedData.length; i++) {
         if(req.body.uniqueId == parsedData[i].uniqueId){
@@ -204,7 +204,7 @@ app.post('/rateItem', function(req, res){
         item.rating--;
       }
       parsedData.splice(pos, 1, item);
-      jsonfile.writeFileSync('./dist/dataBase.json', parsedData, {spaces: 2});//overwrite whole file with new data
+      jsonfile.writeFileSync('./app/dataBase.json', parsedData, {spaces: 2});//overwrite whole file with new data
     });
 });
 

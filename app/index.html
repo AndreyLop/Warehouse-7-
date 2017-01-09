@@ -41,9 +41,9 @@
             <span class="hamburger__text">Menu</span>
           </div>
       		<ul class="nav__menu">
-						<li class="nav__list-item"><a href="#home" class="nav__element home__link active-page-link">Home</a></li>
-            <li class="nav__list-item"><a href="#gallery" class="nav__element gallery__link">Gallery</a></li>
-            <li class="nav__list-item"><span class="nav__element library__link">Library &#9660;</span>
+						<li class="nav__list-item"><a href="#home" class="nav__element home__nav-link active-page-link">Home</a></li>
+            <li class="nav__list-item"><a href="#gallery" class="nav__element gallery__nav-link">Gallery</a></li>
+            <li class="nav__list-item"><span class="nav__element library__nav-link">Library &#9660;</span>
               <ul class="nav__sub-menu">
                 <li><a href="#library" class="nav__sub-element">Show All Files</a></li>
                 <li><a href="#library/video" class="nav__sub-element">Video</a></li>
@@ -51,12 +51,16 @@
                 <li><a href="#library/text" class="nav__sub-element">Text</a></li>
               </ul>
             </li>
-            <li class="nav__list-item"><a href="#upload" class="nav__element upload__link">Upload File</a></li>
-      			<li class="nav__list-item"><a href="#about" class="nav__element about__link">About</a></li>
-						<li class="nav__list-item"><a href="#contacts" class="nav__element contacts__link">Contacts</a></li>
-						<li class="nav__list-item"><a href="#registration" class="nav__element registration__link">Register</a></li>
+            <li class="nav__list-item"><a href="#upload" class="nav__element upload__nav-link">Upload File</a></li>
+      			<li class="nav__list-item"><a href="#about" class="nav__element about__nav-link">About</a></li>
+						<li class="nav__list-item"><a href="#contacts" class="nav__element contacts__nav-link">Contacts</a></li>
+						<li class="nav__list-item"><a href="#registration" class="nav__element registration__nav-link">Register</a></li>
       		</ul>
+          <div class="nav__login">
+            <a href="#login">Login</a>
+          </div>
       	</nav>
+
       </header>
 
 			<main>
@@ -174,9 +178,6 @@
                   <source src="{{location}}" type="video/x-flv">
                   <source src="{{location}}" type="video/ogg;" codecs="theora,vorbis">
 
-                  <p>Hm... it seems your browser dont support video playback, but you can download video.</p>
-
-
                   <object id="flowplayer" data="flowplayer/flowplayer-3.2.18.swf" type="application/x-shockwave-flash" width="80%" height="480" >
                     <param name="movie" value="flowplayer/flowplayer-3.2.18.swf">
                     <param name="allowfullscreen" value="true">
@@ -225,7 +226,7 @@
               {{else text}}
               <div class="single-item__text">
                 <object>
-                  <embed src="{{location}}#view=FitH" frameborder="0" width="80%" height="600" type="application/pdf"></embed>
+                  <embed src="{{location}}#view=FitW" frameborder="0" width="80%" height="600" type="application/pdf"></embed>
                 </object>
               </div>
               {{/if}}
@@ -241,16 +242,17 @@
 
           <div class="uploadPage page upload">
             <div class="upload__container">
-              <div id="response" style="display:none;"></div>
               <form action="/upload" class="upload-form" enctype="multipart/form-data" method="post" name="uploadForm" target="uploadiframe">
                 <label for="upload-form__file-name">Enter title:</label>
                 <input type="text" class="upload-form__file-name" id="upload-form__file-name" name="title">
                 <label for="upload-form__description">Description:</label>
                 <textarea name="description" cols="30" rows="10" class="upload-form__description-textarea" id="upload-form__description"></textarea>
+
                 <div class="upload-form__upload-input-container">
                   <span>Choose file</span>
-                  <input id="upload-input" type="file" class="upload-form__upload-input upload-input-btn">
+                  <input id="upload-input" type="file" class="upload-form__upload-input upload-input-btn" name="">
                 </div>
+                <div id="response" style=""></div>
                 <div class="upload-form__progress">
                   <div class="progress-bar" role="progressbar"></div>
                 </div>
@@ -319,7 +321,9 @@
               </form>
             </div>
             <div class="google-map">
-              <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d10146.014214480805!2d30.5057052439163!3d50.524803361190656!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sru!2sua!4v1482355343134" height="300"  style="border:0" allowfullscreen></iframe>
+              <!--[if IE 8]>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d10146.014214480805!2d30.5057052439163!3d50.524803361190656!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sru!2sua!4v1482355343134" height="300"  style="border:0" allowfullscreen></iframe>
+              <![endif]-->
             </div>
           </div>
 
@@ -356,7 +360,7 @@
           <div class="footer-items address">
             <h4>Address:</h4>
             <span>Kiev</span>
-            <span>Obolonskyi Awe 2</span>
+            <span>Obolonskyi Awe 21Б</span>
             <span>2nd Floor</span>
             <span><a href="https://www.google.com.ua/maps/@50.5176654,30.499954,16z?hl=ru" target="_blank">Google Map</a></span>
           </div>
@@ -405,6 +409,8 @@
     <script type="text/javascript" src="scripts/featherlight.min.js"></script>
     <script type="text/javascript" src="scripts/main.js"></script>
     <!-- endbuild -->
+
+    <script  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBwm5CWkXoft2fK3BIdienn0Gx5Rt5rAL4"></script>
 
   </body>
 </html>

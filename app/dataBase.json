@@ -446,5 +446,49 @@
     "size": "46.4 MB",
     "displayable": false,
     "video": true
+  },
+  {
+    "name": "11.People.mp3",
+    "title": "asdasd",
+    "type": "mp3",
+    "description": "asdasd",
+    "location": "upload/audio/11.People.mp3",
+    "rating": 0,
+    "date": "08.01.2017 on 21:36",
+    "sortDate": 1483904122661,
+    "uniqueId": "989ffc60-d5d9-11e6-acea-91417b0b7da0",
+    "size": "8.2 MB",
+    "songInfo": {
+      "name": "People",
+      "artist": "Gorillaz",
+      "album": "Greatest Hits ",
+      "year": "2010",
+      "genre": "Alternative/Electronic",
+      "cover_path": "upload/audio/covers/Gorillaz Greatest Hits .jpeg"
+    },
+    "displayable": true,
+    "audio": true
+  },
+  {
+    "name": "06.Stylo.mp3",
+    "title": "45646",
+    "type": "mp3",
+    "description": "456456456",
+    "location": "upload/audio/06.Stylo.mp3",
+    "rating": 0,
+    "date": "08.01.2017 on 21:37",
+    "sortDate": 1483904217663,
+    "uniqueId": "d1402400-d5d9-11e6-991f-695d7f062773",
+    "size": "10.5 MB",
+    "songInfo": {
+      "name": "Stylo",
+      "artist": "Gorillaz",
+      "album": "Greatest Hits ",
+      "year": "2010",
+      "genre": "Alternative/Electronic",
+      "cover_path": "upload/audio/covers/Gorillaz Greatest Hits .jpeg"
+    },
+    "displayable": true,
+    "audio": true
   }
 ]

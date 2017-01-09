@@ -122,14 +122,12 @@ gulp.task('serve', () => {
 });
 
 
-//Mine
-//
-// gulp.task('test', ()=> {
-//   runSequence(['clean', 'wiredep','nodemon'], ['styles', 'scripts', 'fonts'], () => {
+// //Mine
+// gulp.task('myserve', ()=> {
+//   runSequence(['clean', 'wiredep'], ['styles', 'scripts', 'fonts'], ['nodemon'], () => {
 //   browserSync.init(null, {
 //     proxy: "http://localhost:3000",
 //     files: ['.tmp', 'app'],
-//     browser: "google chrome",
 //     port: 7000
 //   });
 //
