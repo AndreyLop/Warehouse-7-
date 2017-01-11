@@ -1,5 +1,5 @@
 <!doctype html>
-<html class="no-js" lang="">
+<html class="no-js" lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="description" content="">
@@ -233,7 +233,7 @@
               <p class="single-item__description">Description:<br/>{{description}}</p>
               <div class="single-item__extension">Extension: {{type}}</div>
               <div class="single-item__size">Size: {{size}}</div>
-              <a href="{{location}}" class="single-item__download-btn btn" download>Download file &#9660;</a>
+              <a href="{{location}}" class="single-item__download-btn btn grey-btn" download>Download file &#9660;</a>
               <a href="" class="single-item__back-btn blue-btn btn">Back &#9664;</a>
             </div>
             </script>
@@ -250,7 +250,7 @@
 
                 <div class="upload-form__upload-input-container">
                   <span>Choose file</span>
-                  <input id="upload-input" type="file" class="upload-form__upload-input upload-input-btn" name="">
+                  <input id="upload-input" type="file" class="upload-form__upload-input upload-input-btn" name="file">
                 </div>
                 <div id="response" style=""></div>
                 <div class="upload-form__progress">
@@ -302,8 +302,10 @@
                 <li><a href="http://bxslider.com/" target="_blank">bxSlider</a> - a jQuery slider which works great on all browsers and supports touch slide change on mobile devices.</li>
                 <li><a href="http://noelboss.github.io/featherlight/" target="_blank">Featherlight</a> - a lightweight light box for gallery of images.</li>
                 <li><a href="https://jquery.com/" target="_blank">jQuery</a> - a JS library which provides easier, cross-browser support development.</li>
+                <li><a href="http://sass-lang.com/">SASS</a> - a CSS preprocessor.</li>
                 <li><a href="https://nodejs.org/en/" target="_blank">Node.js</a> - server side JavaScript, its used to generate all info about uploaded file and handles file movement.</li>
                 <li><a href="http://expressjs.com/ru/" target="_blank">Express</a> - Node.js framework.</li>
+
                 <li>......AAAAAAnd node.js modules which made development a LOT easier....</li>
               </ul>
             </div>
@@ -395,18 +397,16 @@
       ga('create','UA-XXXXX-X');ga('send','pageview');
     </script>
 
-    <!-- build:js scripts/vendor.js -->
-    <!-- bower:js -->
+
     <script src="/bower_components/jquery/dist/jquery.js"></script>
     <script src="/bower_components/modernizr/modernizr.js"></script>
     <script src="/bower_components/handlebars/handlebars.js"></script>
-    <!-- endbower -->
-    <!-- endbuild -->
 
-    <!-- build:js scripts/main.js -->
     <script type="text/javascript" src="scripts/routie.min.js"></script>
     <script type="text/javascript" src="scripts/jquery.bxslider.min.js"></script>
     <script type="text/javascript" src="scripts/featherlight.min.js"></script>
+
+    <!-- build:js scripts/main.js -->
     <script type="text/javascript" src="scripts/main.js"></script>
     <!-- endbuild -->
 

@@ -6,7 +6,7 @@ const del = require('del');
 const wiredep = require('wiredep').stream;
 const runSequence = require('run-sequence');
 
-var nodemon = require('gulp-nodemon');
+const nodemon = require('gulp-nodemon');
 
 
 const $ = gulpLoadPlugins();
@@ -88,7 +88,7 @@ gulp.task('extras', () => {
 
 gulp.task('move',() => {
   return gulp.src([
-    './app/upload/*'
+    './app/scripts/**/*'
   ],  {base: './app/'})
     .pipe(gulp.dest('./dist/'));
 });
@@ -147,7 +147,7 @@ gulp.task('serve', () => {
 // gulp.task('nodemon', function (cb) {
 //   var started = false;
 //   return nodemon({
-//     script: 'app.js'
+//     script: 'app2.js'
 //   }).on('start', function () {
 //     if (!started) {
 //       cb();
@@ -202,7 +202,7 @@ gulp.task('wiredep', () => {
     .pipe(gulp.dest('app'));
 });
 
-gulp.task('build', ['lint', 'html', 'images', 'fonts', 'extras'], () => {
+gulp.task('build', ['lint', 'html', 'images', 'fonts', 'extras', 'move'], () => {
   return gulp.src('dist/**/*').pipe($.size({title: 'build', gzip: true}));
 });
 

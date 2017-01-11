@@ -16,7 +16,7 @@ var fileType = "";
 var fileLocation = "";
 var fileTitle = "";
 var fileDescription = "";
-var fileDate = new Date();
+var fileDate;
 var fileSize;
 
 var standardExtRegExp = (/\.(mp4|mov|flv|webm|ogg|pdf|mp3)$/i);
@@ -96,6 +96,7 @@ app.post('/upload', function(req, res){
   form.on('file', function(title, file) { //fires when file has been send
     fileName = file.name;
     fileType = file.type;
+    fileDate = new Date();
     fileSize = getReadableFileSizeString(file.size);
 
     if(/\bapplication\b/.test(file.type)){

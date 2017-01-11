@@ -98,6 +98,24 @@ textarea:focus{
   box-shadow: 0px 0px 0px 0px;
 }
 
+.grey-btn {
+  background-color: $grey;
+  webkit-box-shadow: 0px 5px 0px 0px darken($grey, 20%);
+  -moz-box-shadow: 0px 5px 0px 0px darken($grey, 20%);
+  box-shadow: 0px 5px 0px 0px darken($grey, 20%);
+}
+
+.grey-btn:hover {
+  background-color: lighten($grey, 20%);
+}
+
+.grey-btn:active {
+  background-color: $grey;
+  transform: translate(0px, 5px);
+  -webkit-transform: translate(0px, 5px);
+  box-shadow: 0px 0px 0px 0px;
+}
+
 .green-btn {
   background-color: $green;
 }
@@ -110,7 +128,7 @@ textarea:focus{
   background-color: $badRed;
   text-align: center;
   padding: 5px;
-  margin: 5px 0px;
+  margin-top: 15px;
   width: 100%;
   display: inline-block;
   -webkit-border-radius: 10px;

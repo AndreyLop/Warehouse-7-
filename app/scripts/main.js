@@ -1,4 +1,4 @@
-$(document).ready(function(){
+;$(document).ready(function(){
 
   ;(function(){
     //Router settings
@@ -125,7 +125,7 @@ $(document).ready(function(){
           window.history.back();
         });
 
-        $('#audio').prop('volume', 0.3);
+        $('#audio').prop('volume', 0.3);//set default audio volume level
       })
     }
     //End Single item load
@@ -552,7 +552,7 @@ $(document).ready(function(){
   //Google map initialisation
   ;(function(){
     function initMap() {
-      var uluru = {lat: 50.5189406, lng: 30.4985128};
+      var uluru = {lat: 50.518, lng: 30.499};
       var map = new google.maps.Map($('.google-map')[0], {
         zoom: 14,
         center: uluru
@@ -563,7 +563,7 @@ $(document).ready(function(){
       });
 
       google.maps.event.addDomListener(window, 'resize', function() {
-        var center = map.getCenter();
+        var center = uluru;
         google.maps.event.trigger(map, 'resize');
         map.setCenter(center);
       });
