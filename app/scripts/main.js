@@ -39,6 +39,7 @@
       },
       'contacts' : function() {
         render('.contactsPage');
+        initMap();
       },
       '*' : function() {
         render('.noSuchPage');
@@ -550,7 +551,6 @@
   //End slider
 
   //Google map initialisation
-  ;(function(){
     function initMap() {
       var uluru = {lat: 50.518, lng: 30.499};
       var map = new google.maps.Map($('.google-map')[0], {
@@ -569,8 +569,6 @@
       });
 
     }
-    initMap();
-  })();//End map init
 
   //Dynamic sticky footer
   ;(function(){

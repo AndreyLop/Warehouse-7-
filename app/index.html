@@ -130,27 +130,45 @@
               <script id="item-template" type="text/x-handlebars-template">
                 {{#each this}}
                 <li class="list__item item" data-index="{{uniqueId}}">
-                  <h4>{{title}}</h4>
-                  <div class="item__original-name">File name: {{name}}</div>
-                  <div class="item__date"> Uploaded:{{date}}</div>
-                  <h5>Description:</h5>
-                  <p class="item__description">{{description}}</p>
-                  <button type="button" class="item__rating-down rating-btn btn red-btn">I hated it...</button>
-                  <span>Rating: <span class="item__rating">{{rating}}</span></span>
-                  <button type="button" class="item__rating-up rating-btn btn green-btn">I liked it!</button>
+                  <div class="item__float-left">
+                    <h4>{{title}}</h4>
+                    <div class="item__original-name">File name: {{name}}</div>
+                    <div class="item__date"> Uploaded:{{date}}</div>
+                    <h5>Description:</h5>
+                    <p class="item__description">{{description}}</p>
+                    <button type="button" class="item__rating-down rating-btn btn red-btn">I hated it...</button>
+                    <span>Rating: <span class="item__rating">{{rating}}</span></span>
+                    <button type="button" class="item__rating-up rating-btn btn green-btn">I liked it!</button>
 
-                  {{#if displayable}}
-                    {{#if video}}
-                      <a href = "#library/video/{{uniqueId}}" class="item__more-btn btn blue-btn">More. &#9654;</a>
-                    {{else audio}}
-                      <a href = "#library/audio/{{uniqueId}}" class="item__more-btn btn blue-btn">More. &#9654;</a>
-                    {{else text}}
-                      <a href = "#library/text/{{uniqueId}}" class="item__more-btn btn blue-btn">More. &#9654;</a>
+                    {{#if displayable}}
+                        {{#if video}}
+                          <a href = "#library/video/{{uniqueId}}" class="item__more-btn btn blue-btn">More. &#9654;</a>
+                        {{else audio}}
+                          <a href = "#library/audio/{{uniqueId}}" class="item__more-btn btn blue-btn">More. &#9654;</a>
+                        {{else text}}
+                          <a href = "#library/text/{{uniqueId}}" class="item__more-btn btn blue-btn">More. &#9654;</a>
+                        {{/if}}
+                      {{else}}
+                        <a href="{{location}}" class=" item__more-btn btn blue-btn" download>Download. &#9660;</a>
                     {{/if}}
-                  {{else}}
-                    <a href="{{location}}" class=" item__more-btn btn blue-btn" download>Download. &#9660;</a>
-                  {{/if}}
 
+                  </div>
+                  <div class="item__float-right">
+                    {{#if video}}
+                    <div class="format-icon video-icon">
+                      <img src="images/video-player.png" alt="Video player icon">
+                    </div>
+                    {{else audio}}
+                    <div class="format-icon audio-icon">
+                      <img src="images/default__cover.png" alt="Audio icon">
+                    </div>
+                    {{else text}}
+                    <div class="format-icon">
+                      <img src="images/book.png" alt="Book icon">
+                    </div>
+
+                  </div>
+                  {{/if}}
                 </li>
                 {{/each}}
               </script>
