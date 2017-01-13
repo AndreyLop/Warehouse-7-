@@ -6,7 +6,6 @@ var fs = require('fs');
 var jsonfile = require('jsonfile');
 var bodyParser = require('body-parser');
 var filesDataBase = require('./dist/dataBase.json');
-var usersDataBase = require('./registration/usersDataBase.json');
 var uuidV1 = require('uuid/v1');
 var jsmediatags = require("jsmediatags");
 

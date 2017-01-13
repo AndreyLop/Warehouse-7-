@@ -129,8 +129,13 @@
 
               <script id="item-template" type="text/x-handlebars-template">
                 {{#each this}}
-                <li class="list__item item" data-index="{{uniqueId}}">
-                  <div class="item__float-left">
+                  {{#if video}}
+                <li class="list__item item video-item" data-index="{{uniqueId}}">
+                  {{else audio}}
+                <li class="list__item item audio-item" data-index="{{uniqueId}}">
+                  {{else text}}
+                <li class="list__item item text-item" data-index="{{uniqueId}}">
+                {{/if}}
                     <h4>{{title}}</h4>
                     <div class="item__original-name">File name: {{name}}</div>
                     <div class="item__date"> Uploaded:{{date}}</div>
@@ -152,23 +157,6 @@
                         <a href="{{location}}" class=" item__more-btn btn blue-btn" download>Download. &#9660;</a>
                     {{/if}}
 
-                  </div>
-                  <div class="item__float-right">
-                    {{#if video}}
-                    <div class="format-icon video-icon">
-                      <img src="images/video-player.png" alt="Video player icon">
-                    </div>
-                    {{else audio}}
-                    <div class="format-icon audio-icon">
-                      <img src="images/default__cover.png" alt="Audio icon">
-                    </div>
-                    {{else text}}
-                    <div class="format-icon">
-                      <img src="images/book.png" alt="Book icon">
-                    </div>
-
-                  </div>
-                  {{/if}}
                 </li>
                 {{/each}}
               </script>

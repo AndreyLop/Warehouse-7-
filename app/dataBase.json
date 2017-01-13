@@ -490,5 +490,19 @@
     },
     "displayable": true,
     "audio": true
+  },
+  {
+    "name": "React Up and Running.pdf",
+    "title": "456456456",
+    "type": "pdf",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ac leo ultricies, ullamcorper nisi nec, ultricies libero. Morbi vehicula, nisl eu porta luctus, nibh eros posuere lectus, vel elementum nunc turpis in metus. In pulvinar odio ut mattis cursus. Etiam eu mi justo. Nulla vulputate leo vel vehicula sollicitudin. Etiam eget venenatis leo. Aliquam in tellus eu turpis accumsan semper vel ut sapien. Proin sollicitudin arcu aliquam luctus bibendum. Pellentesque vehicula elit vitae facilisis vestibulum.",
+    "location": "upload/text/React Up and Running.pdf",
+    "rating": 0,
+    "date": "13.01.2017 on 11:58",
+    "sortDate": 1484301440600,
+    "uniqueId": "ac920d80-d976-11e6-9583-59fe82667631",
+    "size": "5.0 MB",
+    "displayable": true,
+    "text": true
   }
 ]

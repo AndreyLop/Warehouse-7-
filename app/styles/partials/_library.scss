@@ -1,4 +1,7 @@
-.libraryPage {
+
+.library__list {
+  max-height:700px;
+  overflow-y: scroll;
 }
 
 .item {
@@ -6,11 +9,22 @@
   margin:10px 0 10px 0;
   padding:10px;
   background-color: $grey;
+  background-size: 200px;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
-.item__float-left {
-  display: inline-block;
+.video-item {
+  background-image: url(../../images/video-player.png);
 }
+
+.audio-item {
+  background-image: url(../../images/default__cover.png);
+}
+.text-item {
+  background-image: url(../../images/book.png);
+}
+
 
 .library__main-btns {
   display: inline-block;
@@ -97,30 +111,12 @@ input[type='radio']:checked + label {
   background-color: lighten($grey, 30%);
 }
 
-.item__float-right {
-  float: right;
-  img {
-    max-width:60%;
-    height:auto;
-  }
-
-  .video-icon {
-    margin-top:30px;
-  }
-
-  .audio-icon {
-    margin-top:10px;
-  }
-
-}
-
-@media screen and (max-width: 860px) {
-  .item__float-right {
-    display: none;
-  }
-}
-
 @media screen and (max-width: $break-sm) {
+
+  .library__list {
+    margin: 0 20px;
+  }
+
   .library__main-btns {
     display: block;
     text-align: center;

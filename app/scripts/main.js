@@ -443,7 +443,7 @@
         var title = $('.upload-form__file-name').val();
         var description = $('.upload-form__description-textarea').val();
 
-        if(file !== undefined && title.length > 0 && description.length > 0) {
+        if(file !== undefined && title.length > 0 && description.length > 0 && description.length < 500) {
           var formData = new FormData();
 
           formData.append('newFile', file, file.name);
@@ -487,6 +487,8 @@
           inputFieldError('.upload-form__file-name', 'Please give title to file upload');
         } else if(description.length == 0) {
           inputFieldError('.upload-form__description-textarea', 'Please give some kind of description');
+        } else if(description.length > 500) {
+          inputFieldError('.upload-form__description-textarea', 'Description should be no more than 500 symbols');
         }
       });
     } else { // IE8 solution for file upload, sending whole frame which is created here
