@@ -548,6 +548,7 @@
   //Slider
   ;(function(){
     $('.bxslider').bxSlider({
+      auto: true
     });
   })();
   //End slider
